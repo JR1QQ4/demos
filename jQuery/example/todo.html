@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>todolist</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/todo.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/todo.js"></script>
+</head>
+
+<body class="bg-info">
+    <div class="container">
+        <h1 class="text-center text-muted text-uppercase">todos</h1>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="form-group add">
+                    <input type="text" class="form-control" id="todo" placeholder="有什么事情需要去做？">
+                    <span class="glyphicon glyphicon-plus" id="icon"></span>
+                </div>
+                <ul class="list-group list">
+                </ul>
+                <div class="footer clearfix">
+                    <div class="row">
+                        <span class="count col-md-2 col-xs-3"><b>0</b> 个代办项</span>
+                        <div class="filters col-md-8 col-xs-6">
+                            <a class="choose all" href="#all">全部</a>
+                            <a class="choose doing" href="#doing">代办项</a>
+                            <a class="choose completed" href="#completed">已完成</a>
+                        </div>
+                        <a class="clear col-md-2 col-xs-3" href="#clear">删除已完成</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

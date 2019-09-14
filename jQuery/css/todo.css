@@ -1,0 +1,73 @@
+.add {
+    position: relative;
+}
+
+#todo {
+    height: 64px;
+    padding-left: 18px;
+    padding-right: 50px;
+    font-size: 28px;
+}
+
+#icon {
+    position: absolute;
+    right: 15px;
+    ;
+    top: 15px;
+    ;
+    font-size: 32px;
+    cursor: pointer;
+    color: #ccc;
+}
+
+.list-group {
+    margin-bottom: 0;
+}
+
+.list-group-item {
+    padding-left: 56px;
+    height: 64px;
+    font-size: 28px;
+}
+input[type=checkbox].toggle {
+    position: absolute;
+    left: 10px;
+    top: 13px;
+    margin: 0;
+    display: block;
+    width: 35px;
+    height: 35px;
+    border: 0;
+}
+.active {
+    color: #ccc;
+    text-decoration: line-through;
+}
+.close {
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    opacity: 0;
+    font-size: 45px;
+    outline: 0;
+}
+.close:focus, .close:hover {
+    color: #ccc;
+    opacity: 0;
+}
+.list-group-item:hover > .close {
+    opacity: 1;
+    color: #ccc;
+}
+.footer {
+    color: #777;
+    padding: 10px 15px;
+    text-align: center;
+    border-radius: 4px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.choose {
+    padding-right: 15px;
+}

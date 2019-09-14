@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>购物车</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/trolley.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/trolley.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">购物车</a></li>
+                    <li><a href="#">我的订单</a></li>
+                    <li><a href="#">客户服务</a></li>
+                    <li><a href="#">手机购物</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="cart-filter-bar clearfix">
+            <div class="total">全部商品 <span class="totalcount">0</span></div>
+            <div class="address">
+                <span class=" areaicon glyphicon glyphicon-globe"></span>
+                配送地址:
+                <div class="area">
+                    <span class="area-text">四川成都市 <span class="glyphicon glyphicon-chevron-down"></span></span>
+                    <div class="content">
+                        <ul class="tablist">
+                            <li>四川 <span class="glyphicon glyphicon-chevron-down"></span></li>
+                            <li>成都市 <span class="glyphicon glyphicon-chevron-down"></span></li>
+                            <li>请选择 <span class="glyphicon glyphicon-chevron-down"></span></li>
+                        </ul>
+                        <ul class="tab-content">
+                            <li><a href="javascript:void(0)">彭州市</a></li>
+                            <li><a href="javascript:void(0)">都江堰市</a></li>
+                            <li><a href="javascript:void(0)">青羊区</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cart-body">
+            <div class="cart-thead">
+                <div class="row">
+                    <div class="all column col-md-1 col-xs-2">
+                        <input type="checkbox" name="checkbox" class="checkall">全选
+                    </div>
+                    <div class="column goods col-md-6 col-xs-5">商品</div>
+                    <div class="column price col-md-1 col-xs-2 hidden-sm hidden-xs">单价</div>
+                    <div class="column quantity col-md-2 col-xs-2">数量</div>
+                    <div class="column sum col-md-1 col-xs-2">小计</div>
+                    <div class="column action col-md-1 hidden-sm hidden-xs">操作</div>
+                </div>
+            </div>
+            <div class="cart-item-list">
+                <div class="cart-content">
+                    <div class="shop">
+                        <input type="checkbox" name="checkbox" class="shopall">
+                        <span>自营商店</span>
+                    </div>
+                    <!-- <div class="item-list">
+                        <div class="item-form row clearfix">
+                            <div class="p-checkbox"><input type="checkbox"></div>
+                            <div class="p-goods col-md-7 col-sm-7 col-xs-7">
+                                <div class="p-img"><a href="javascript:void(0);"><img src="../images/trolley/es6.jpg"
+                                            alt="es6"></a></div>
+                                <div class="p-msg">
+                                    <p><a href="javascript:void(0);">ES6标准入门（第3版）</a></p>
+                                </div>
+                            </div>
+                            <div class="p-price col-md-1 hidden-sm hidden-xs">¥49.50</div>
+                            <div class="p-quantity col-md-2 col-sm-2 col-xs-3">
+                                <a href="javascript:void(0);">-</a>
+                                <input type="text" value="1">
+                                <a href="javascript:void(0);">+</a>
+                            </div>
+                            <div class="p-sum col-md-1 col-sm-1 col-xs-2">¥49.50</div>
+                            <div class="p-action col-md-1 col-sm-1 hidden-sm hidden-xs">
+                                <a href="javascript:void(0);">删除</a>
+                                <a href="javascript:void(0);">移入收藏</a>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="shoppingcart_loading" id="J_cartLoading" style="display: none;">
+                        <img src="../images/trolley/loading.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+            <div class="isfixed"></div>
+            <div class="cart-floatbar">
+                <div class="row">
+                    <div class="all column col-md-1 col-xs-2">
+                        <input type="checkbox" name="checkbox" class="checkall">全选
+                    </div>
+                    <div class="del col-md-2 col-xs-3">
+                        <a class="delall" href="javascript:void(0);">批量删除</a>
+                    </div>
+                    <div class="selects col-md-offset-4 col-md-2 col-xs-3 hidden-sm hidden-xs">
+                        已选择<span class="counts">0</span>件商品
+                    </div>
+                    <div class="total-price col-md-2 col-xs-4">
+                        总价：<span class="price-count">¥0.00</span>
+                    </div>
+                    <div class="buy col-md-1 col-xs-2">
+                        <button id="submit-btn" type="button" class="btn btn-danger">结算</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="container">
+            <ul class="footer-links">
+                <li class="column"><a href="https://gitee.com/dongqunren/notebook">码云仓库</a></li>
+                <li class="column"><a href="../">实例</a></li>
+                <li class="column"><a href="../">返回主页</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>
