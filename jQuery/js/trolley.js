@@ -206,7 +206,7 @@ $(function () {
     var t = $(".isfixed").offset().top;
 
     function getfix() {
-        var h = $(window).scrollTop() + $(window).innerHeight();
+        var h = $("html,body").scrollTop() + $(window).innerHeight();
         if (h > t) {
             $(".cart-floatbar").removeClass("fixed");
             flag = false;

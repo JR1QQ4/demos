@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+.trigger,
+.mouse,
+.animate {
+    border: 1px solid #ccc;
+}
+.trigger > div,
+.mouse > div {
+    margin: 50px;
+    padding: 50px;
+    width: 200px;
+    height: 100px;
+    background-color: pink;
+}
+.trigger > div > div,
+.mouse > div > div {
+    width: 200px;
+    height: 100px;
+    background-color: orange;
+}
+li:nth-child(-n+3) {
+    background-color: orange;
+}
+.animate > div {
+    margin-bottom: 20px;
+    width: 80px;
+    height: 80px;
+    background-color: pink;
+}

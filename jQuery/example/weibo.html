@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的首页 微博-随时随地发现新鲜事</title>
+    <link rel="shortcut icon" href="../images/weibo/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <link rel="stylesheet" href="../css/weibo.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/weibo.js"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="main-bd clearfix">
+            <div class="top">
+                <div class="top-center">
+                    <div class="top-nav">
+                        <div class="logo">
+                            <h1>
+                                <a href="https://weibo.com/">微博</a>
+                            </h1>
+                        </div>
+                        <div class="search">
+                            <span>大家正在搜：被速度耽误的那些事儿</span>
+                            <input type="text">
+                            <a href="javascript:void(0);" title="搜索" class="iconfont icon-sousuo"></a>
+                        </div>
+                        <div class="navbar">
+                            <div class="nav">
+                                <ul>
+                                    <li><a href="javascript:void(0);"><span class="iconfont icon-shouye"></span>首页</a>
+                                    </li>
+                                    <li><a href="javascript:void(0);"><span class="iconfont icon-shipin1"></span>视频</a>
+                                    </li>
+                                    <li><a href="javascript:void(0);"><span
+                                                class="iconfont icon-faxianweixuanzhong"></span>发现</a></li>
+                                    <li><a href="javascript:void(0);"><span class="iconfont icon-youxi"></span>游戏</a>
+                                    </li>
+                                    <li><a href="javascript:void(0);"><span class="iconfont icon-ren"></span>东夋壬</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="line">
+                                <div class="item"><a href="javascript:void(0);"><span
+                                            class="iconfont icon-youxiang"></span></a></div>
+                                <div class="item"><a href="javascript:void(0);"><span
+                                            class="iconfont icon-shezhi"></span></a></div>
+                                <div class="item"><a href="javascript:void(0);"><span
+                                            class="iconfont icon-bianji"></span></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="center">
+                <div class="center-bd clearfix">
+                    <div class="bd-left">
+                        <div class="left-wrap">
+                            <div class="grop-item">
+                                <h3><a href="javascript:void(0);">首页<span class="new-msg"></span></a></h3>
+                            </div>
+                            <div class="grop-item">
+                                <h3><a href="javascript:void(0);">我的收藏</a></h3>
+                            </div>
+                            <div class="grop-item">
+                                <h3><a href="javascript:void(0);">我的赞</a></h3>
+                            </div>
+                            <div class="newsline">
+                                <fieldset></fieldset>
+                            </div>
+                            <div class="grop-item"><a href="javascript:void(0);"><span
+                                        class="iconfont icon-zuire"></span>热门微博<span class="new-msg"></span></a></div>
+                            <div class="grop-item"><a href="javascript:void(0);"><span
+                                        class="iconfont icon-shipin_"></span>热门视频</a></div>
+                            <div class="newsline setting">
+                                <fieldset>
+                                    <legend><a href="javascript:void(0);"><span class="iconfont icon-shezhi"></span></a>
+                                    </legend>
+                                </fieldset>
+                            </div>
+                            <div class="grop-item"><a href="javascript:void(0);"><span class="iconfont icon-shoucang
+                                        "></span>最新微博</a></div>
+                            <div class="grop-item"><a href="javascript:void(0);"><span
+                                        class="iconfont icon-aixin"></span>好友圈</a></div>
+                            <div class="grop-item"><a href="javascript:void(0);"><span
+                                        class="iconfont icon-yuandian"></span>特别关注</a></div>
+                            <div class="grop-item"><a href="javascript:void(0);"><span
+                                        class="iconfont icon-zuanshi"></span>V+微博</a></div>
+                            <div class="grop-item"><a href="javascript:void(0);"><span class="group"></span>音乐</a></div>
+                            <div class="grop-item"><a href="javascript:void(0);"><span class="group"></span>电影</a></div>
+                            <div class="grop-item"><a href="javascript:void(0);"><span class="group"></span>明星</a></div>
+                        </div>
+                    </div>
+                    <div class="bd-main">
+                        <div class="send">
+                            <div class="title clearfix">
+                                <h3>有什么新鲜事想告诉大家？</h3>
+                                <div class="hotlinks">
+                                    <a href="javascript:void(0);">#开箱挑战#火遍各行各业，快来开箱晒出你的装备>></a>
+                                    <a href="javascript:void(0);">热门微博</a>
+                                </div>
+                            </div>
+                            <textarea name="send" id="sendmsg"></textarea>
+                            <div class="options clearfix">
+                                <div class="op-left">
+                                    <a href="javascript:void(0);"><span
+                                            class="iconfont1 iconfont icon-weixiao"></span>表情</a>
+                                    <a href="javascript:void(0);"><span
+                                            class="iconfont2 iconfont icon-tupian"></span>图片</a>
+                                    <a href="javascript:void(0);"><span
+                                            class="iconfont3 iconfont icon-shipin_"></span>视频</a>
+                                    <a href="javascript:void(0);"><span
+                                            class="iconfont4 iconfont icon-huati"></span>话题</a>
+                                    <a href="javascript:void(0);"><span
+                                            class="iconfont5 iconfont icon-lightningbshandian"></span>头条文章</a>
+                                    <a href="javascript:void(0);">...</a>
+                                </div>
+                                <div class="op-right">
+                                    <a href="javascript:void(0);">公开<span class="iconfont icon-jiantou"></span></a>
+                                    <button type="submit" class="sendnow" disabled>发布</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter clearfix">
+                            <div class="filter-lf">
+                                <a href="javascript:void(0);">全部<div class="icon"></div></a>
+                                <a href="javascript:void(0);">原创</a>
+                                <a href="javascript:void(0);">图片</a>
+                                <a href="javascript:void(0);">视频</a>
+                                <a href="javascript:void(0);">音乐</a>
+                                <a href="javascript:void(0);">文章</a>
+                            </div>
+                            <div class="filter-rt">
+                                <input type="text" placeholder="搜索我关注人的微博">
+                                <span class="iconfont icon-sousuo"><a href="javascript:void(0);"></a></span>
+                                <span class="angle"><a href="javascript:void(0);">▲</a></span>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <div class="info-item">
+                                <div class="content clearfix">
+                                    <div class="face">
+                                        <img src="../images/weibo/face.jpg" alt="头像">
+                                    </div>
+                                    <div class="detail">
+                                        <div class="detail-info">
+                                            <a href="javascript:void(0);" class="nickname">东夋壬</a>
+                                            <a href="javascript:void(0);"><span class="menber"></span></a>
+                                            <a href="javascript:void(0);" class="menu"><span
+                                                    class="iconfont icon-jiantou"></span></a>
+                                        </div>
+                                        <div class="form">
+                                            <a href="javascript:void(0);" class="time">9月17日 19:14</a>
+                                            来自 <a href="javascript:void(0);" class="form-text">微博 weibo.com</a>
+                                        </div>
+                                        <div class="wb-text">
+                                            这是我的第一条微博。<a href=""><span class="iconfont icon-yinle"></span>逝去的歌 (Live版)
+                                                ​​​​</a>
+                                        </div>
+                                        <div class="wb-media-wrap">
+                                            <div class="wb-media clearfix">
+                                                <div class="pic">
+                                                    <img src="../images/weibo/muisc.jpg" alt="muisc">
+                                                    <a class="play" href="javascript:void(0);"><span></span></a>
+                                                </div>
+                                                <div class="info">
+                                                    <div class="sing">
+                                                        <h4><a href="javascript:void(0);" class="sing-text">逝去的歌
+                                                                (Live版)</a></h4>
+                                                    </div>
+                                                    <div class="singer"><span class="singer-text">旅行团/张亚东</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="handle">
+                                    <ul class="clearfix">
+                                        <li><a href="javascript:void(0);"><span
+                                                    class="iconfont icon-dianping"></span><span
+                                                    class="count">收藏</span></a></li>
+                                        <li><a href="javascript:void(0);"><span
+                                                    class="iconfont icon-fenxiang"></span><span
+                                                    class="count">转发</span></a></li>
+                                        <li><a href="javascript:void(0);"><span
+                                                    class="iconfont icon-pinglun"></span><span
+                                                    class="count">评论</span></a></li>
+                                        <li><a href="javascript:void(0);"><span
+                                                    class="iconfont icon-dianzan"></span><span
+                                                    class="count">赞</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <div class="content clearfix">
+                                    <div class="face">
+                                        <img src="../images/weibo/face2.jpg" alt="头像">
+                                    </div>
+                                    <div class="detail">
+                                        <div class="detail-info">
+                                            <a href="javascript:void(0);" class="nickname">ruanyf</a>
+                                            <a href="javascript:void(0);"><span class="menber"></span></a>
+                                            <a href="javascript:void(0);" class="menu"><span
+                                                    class="iconfont icon-jiantou"></span></a>
+                                        </div>
+                                        <div class="form">
+                                            <a href="javascript:void(0);" class="time">9月17日 11:59</a>
+                                            来自 <a href="javascript:void(0);" class="form-text">微博手机版</a>
+                                        </div>
+                                        <div class="wb-text">
+                                            这个中文仓库收集反向面试的问题，一共50多个，你可以用来问面试官。 <a
+                                                href="https://github.com/yifeikong/reverse-interview-zh"><span
+                                                    class="iconfont icon-huati"></span>网页链接</a>​​​​
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="handle">
+                                    <ul class="clearfix">
+                                        <li><a href="javascript:void(0);"><span
+                                                    class="iconfont icon-dianping"></span><span
+                                                    class="count">收藏</span></a></li>
+                                        <li><a href="javascript:void(0);"><span
+                                                    class="iconfont icon-fenxiang"></span><span
+                                                    class="count">转发</span></a></li>
+                                        <li><a href="javascript:void(0);"><span
+                                                    class="iconfont icon-pinglun"></span><span
+                                                    class="count">评论</span></a></li>
+                                        <li><a href="javascript:void(0);"><span
+                                                    class="iconfont icon-dianzan"></span><span
+                                                    class="count">赞</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <div class="content clearfix">
+                                    <div class="face">
+                                        <img src="../images/weibo/face1.jpg" alt="头像">
+                                    </div>
+                                    <div class="detail">
+                                        <div class="detail-info">
+                                            <a href="javascript:void(0);" class="nickname">亭林镇无业青年</a>
+                                            <a href="javascript:void(0);"><span class="menber menber1"></span></a>
+                                            <a href="javascript:void(0);"><span class="menber menber2"></span></a>
+                                            <a href="javascript:void(0);" class="menu"><span
+                                                    class="iconfont icon-jiantou"></span></a>
+                                        </div>
+                                        <div class="form">
+                                            <a href="javascript:void(0);" class="time">9月15日 20:10</a>
+                                            来自 <a href="javascript:void(0);" class="form-text">微博 weibo.com</a>
+                                        </div>
+                                        <div class="wb-text">
+                                            现实太过现实，以至于无法再逃避。
+                                        </div>
+                                        <div class="wb-media-wrap">
+                                            <div class="wb-media clearfix">
+                                                <div class="pic-ul">
+                                                    <div class="big active">
+                                                        <img src="../images/weibo/tl1-bg.jpg" alt="截图">
+                                                        <img src="../images/weibo/tl2-bg.jpg" alt="截图">
+                                                    </div>
+                                                    <ul class="clearfix">
+                                                        <li>
+                                                            <img src="../images/weibo/tl1.jpg" alt="截图">
+                                                            <i>长图</i>
+                                                        </li>
+                                                        <li>
+                                                            <img src="../images/weibo/tl2.jpg" alt="截图">
+                                                            <i>长图</i>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="handle">
+                                    <ul class="clearfix">
+                                        <li><a href="javascript:void(0);"><span
+                                                    class="iconfont icon-dianping"></span><span
+                                                    class="count">收藏</span></a></li>
+                                        <li><a href="javascript:void(0);"><span
+                                                    class="iconfont icon-fenxiang"></span><span
+                                                    class="count">转发</span></a></li>
+                                        <li><a href="javascript:void(0);"><span
+                                                    class="iconfont icon-pinglun"></span><span
+                                                    class="count">评论</span></a></li>
+                                        <li><a href="javascript:void(0);"><span
+                                                    class="iconfont icon-dianzan"></span><span
+                                                    class="count">赞</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bd-rigth">
+                        <div class="person-info">
+                            <div class="person-hd">
+                                <img src="../images/weibo/face.jpg" alt="face">
+                            </div>
+                            <div class="person-bd">
+                                <div class="nickname">
+                                    <h3><a href="javascript:noid(0);">东夋壬</a><span class="member"></span></h3>
+                                </div>
+                                <ul class="user clearfix">
+                                    <li><a href="javascript:void(0);"><b>196</b><span class="text">关注</span></a></li>
+                                    <li><a href="javascript:void(0);"><b>170</b><span class="text">粉丝</span></a></li>
+                                    <li><a href="javascript:void(0);"><b>180</b><span class="text">微博</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="movie-top">
+                            <div class="cardtitle">
+                                <a href="javascritp:void(0);">微博电影榜</a>
+                                <a class="refresh" href="javascritp:void(0);"><span
+                                        class="iconfont icon-shuaxin"></span> 换一换</a>
+                            </div>
+                            <div class="innerwrap">
+                                <ul>
+                                    <li class="current clearfix">
+                                        <div class="pic"><a href="javascritp:void(0);"><img
+                                                    src="../images/weibo/country.jpg" alt="我和我的祖国"></a></div>
+                                        <div class="moviemsg">
+                                            <a href="javascritp:void(0);"><span class="number">1</span>我和我的祖国</a>
+                                            <div class="subtitle">导演：陈凯歌 / 张一白 / 管虎 / 薛晓路 / 徐峥 / 宁浩 / 文牧野</div>
+                                            <span class="hot">100.0</span>
+                                        </div>
+                                    </li>
+                                    <li class="clearfix">
+                                        <div class="pic"><a href="javascritp:void(0);"><img
+                                                    src="../images/weibo/zhuxian.jpg" alt="诛仙 Ⅰ"></a></div>
+                                        <div class="moviemsg">
+                                            <a href="javascritp:void(0);"><span class="number">2</span>诛仙 Ⅰ</a>
+                                            <div class="subtitle">导演：程小东</div>
+                                            <div class="subtitle">主演：肖战 / 李沁 / 孟美岐 / 唐艺昕</div>
+                                            <span class="hot">96.5</span>
+                                        </div>
+                                    </li>
+                                    <li class="clearfix">
+                                        <div class="pic"><a href="javascritp:void(0);"><img
+                                                    src="../images/weibo/lxh.jpg" alt="罗小黑战绩"></a></div>
+                                        <div class="moviemsg">
+                                            <a href="javascritp:void(0);"><span class="number">3</span>罗小黑战绩</a>
+                                            <div class="subtitle">导演：MTJJ</div>
+                                            <span class="hot">92.1</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="readmore">
+                                <a href="">查看更多 <span class="iconfont icon-jiantou"></span></a>
+                            </div>
+                        </div>
+                        <div class="topic">
+                            <div class="cardtitle">
+                                <a href="javascritp:void(0);">热门话题</a>
+                                <a class="refresh" href="javascritp:void(0);"><span
+                                        class="iconfont icon-shuaxin"></span> 换一换</a>
+                            </div>
+                            <ul class="topic-words">
+                                <li><a href="javascript:void(0);">#美国通用汽车每天损失...#</a><span>3700万</span></li>
+                                <li><a href="javascript:void(0);">#可口可乐最初是绿色的#</a><span>2亿</span></li>
+                                <li><a href="javascript:void(0);">#三峡水怪近照#</a><span>2亿</span></li>
+                                <li><a href="javascript:void(0);">#网红院长单霁翔谈故宫...#</a><span>1667万</span></li>
+                                <li><a href="javascript:void(0);">#不挑身材的露胃装#</a><span>6408万</span></li>
+                                <li><a href="javascript:void(0);">#背英语动词的方法#</a><span>2139万</span></li>
+                                <li><a href="javascript:void(0);">#田柾国纹身#</a><span>912万</span></li>
+                                <li><a href="javascript:void(0);">#当代女性脸型大赛#</a><span>2003万</span></li>
+                                <li><a href="javascript:void(0);">#过去3天香港警方共拘...#</a><span>674万</span></li>
+                                <li><a href="javascript:void(0);">#大姨妈期间三种特征#</a><span>2亿</span></li>
+                            </ul>
+                            <div class="readmore">
+                                <a href="">查看更多 <span class="iconfont icon-jiantou"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="totop">
+                        <a href="javascript:void(0);"><span class="iconfont icon-jiantou"></span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="footer-center clearfix">
+                    <dl class="links">
+                        <dt>微博精彩</dt>
+                        <dd>
+                            <a href="javascript:void(0);">热门微博</a><a href="javascript:void(0);">热门话题</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);">名人堂</a><a href="javascript:void(0);">微博会员</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);">微相册</a><a href="javascript:void(0);">微游戏</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);">微指数</a>
+                        </dd>
+                    </dl>
+                    <dl class="app">
+                        <dt>手机玩微博</dt>
+                        <dd>
+                            <img src="../images/weibo/footer_code_v2.png" alt="二维码">
+                            <a href="javascript:void(0);">扫码下载，更多版本<br>戳这里</a>
+                        </dd>
+                    </dl>
+                    <dl class="company">
+                        <dt>认证&合作</dt>
+                        <dd>
+                            <a href="javascript:void(0);">申请认证</a><a href="javascript:void(0);">链接网站</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);">企业微博</a><a href="javascript:void(0);">广告服务</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);">微博标识</a><a href="javascript:void(0);">广告代理商</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);">开放平台</a>
+                        </dd>
+                    </dl>
+                    <dl class="help">
+                        <dt>微博帮助</dt>
+                        <dd>
+                            <a href="javascript:void(0);">常见问题</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);">自助服务</a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -46,6 +46,13 @@ jQuery 编写多个入口函数不会覆盖，原生js编写多个入口函数�
 
 表单；`$("input[type=checkbox]:checked")`
 
+伪类选择器：
+
+- `:empty`：找到既没有文本内容也没有子元素的指定元素
+- `:parent`：找到有文本内容或有子元素的
+- `:contains("内容")`：找到包含指定文本内容的
+- `:has(selector)`：找到包含指定子元素的
+
 筛选方法：
 
 - `$("li").parent()`、`$(this).parents(".wrapper")`
@@ -84,6 +91,15 @@ jQuery 编写多个入口函数不会覆盖，原生js编写多个入口函数�
 淡入淡出：`fadeIn()`、`fadeOut()`、`fadeToggle()`、`fadeTo([[speed], opacity, [eading], [fn]])`
 
 动画：`animate(params, [speed], [easing], [fn])`
+
+- 效果累加：`animate({ width: "+=100"}, 1000, fn)`
+- 延时：`delay(1000)`
+- 停止：
+  - `stop()`立即停止当前的，执行后面的；
+  - `stop(true)`/`stop(true,false)`立即停止当前的和后续的；
+  - `stop(false,true)`立即完成当前的，执行后续的
+  - `stop(true, true)`立即完成当前的，停止后续所有的
+  - 第一个参数是否执行后续动画，第二个参数是否立即完成当前动画
 
 事件切换：`hover([over,]out)`，over 对应 mouseenter，out 对应 mouseleave。动画或效果队列：动画或者效果一旦触发就会执行，如果多次触发就造成多个动画或者效果排队执行。
 
@@ -126,13 +142,23 @@ nav.dataset.time = Date.now();
 console.log(nav.dataset.time); // 1568196434576
 ```
 
+操作属性节点：
+
+- `attr()`，如果是获取，无论多少个元素，都只返回第一个元素指定的属性节点的值
+- `removeAttr()`，同是删除多个属性节点，用空格隔开`removeAttr(attr1 attr2...)`
+
+操作属性，元素的属性：
+
+- `prop()`，不仅可以操作属性，还能操作属性节点；具有 true 和 false 两个属性的属性节点使用 prop
+- `removeProp()`
+
 ## 内容文本值
 
 普通元素内容：
 
-- 标签 html: `$("div").html`、`$("div").html("<h2>设置文本值</h2>")`
+- 标签 html: `$("div").html()`、`$("div").html("<h2>设置文本值</h2>")`
 - 文本 text: `$("div").text()`、`$("div").html("text")`
-- 表单 val: `$("input").val()`、`$("input").val("text")`
+- 表单 val: `$("input").val()`、`$("input").val("text")`，返回值0
 
 ## 元素操作
 
@@ -145,20 +171,36 @@ console.log(nav.dataset.time); // 1568196434576
 
 ```javascript
 // $.each 方便遍历数据，比如对象、数组
-var arr = ["red", "green", "blue"]
+var arr = ["red", "green", "blue"];
 $.each(arr, function(i, ele){
-    console.log(i + "---" + ele);
-});
-// 0---red
-// 1---green
-// 2---blue
+    console.log(i + "---" + ele); // 0---red 1---green 2---blue
+});// ["red", "green", "blue"]
+
+// 原生 foreach
+arr.forEach(function(v, i, arr){
+    console.log(v + "---" + i);
+    console.log(arr)
+}); // undefined
+
+var obj = [1,2,3,4]
+// $.map() 方法
+var result = $.map(obj, function(v, i){
+    console.log(v, i); // 1 0, 2 1, 3 2, 4 3
+    return v > 2;
+}); // 默认返回[], [false, false, true, true]
+
+// 原生map
+var result2 = obj.map(function(v, i, arr){
+    console.log(v, i); // 1 0, 2 1, 3 2, 4 3
+    return v > 2;
+}); // [false, false, true, true]
 ```
 
 创建元素：`var li = $("<li>创建的li</li>");`
 
 添加元素：
 
-- 内部添加，父子关系：`$("ul").append(li);`、`$("ul").prepend(li);`
+- 内部添加，父子关系：`$("ul").append(li);`、`$("ul").prepend(li);`、`$("li").appendTo("ul")`
 - 外部添加，兄弟关系：`$("div").after(div)`、`$("div").before(div)`
 
 删除元素：
@@ -166,6 +208,16 @@ $.each(arr, function(i, ele){
 - `$(this).remove()`，删除匹配的元素
 - `$("ul").empty()`，删除 ul 里的 li，即删除子节点
 - `$("ul").html("")`，清除内部元素
+- `$("p").detach(".hello")`，与remove()不同的是，所有绑定的事件、附加的数据等都会保留下来
+
+替换元素：
+
+- `$('.third').replaceWith($('.first'))`，用 .first 替换 .third
+- `$("<b>Paragraph. </b>").replaceAll("p")`，用匹配的元素替换掉所有 selector匹配到的元素
+
+复制元素：
+
+- `$("b").clone().prependTo("p")`，浅复制不会复制事件，深复制会复制元素的事件
 
 ## 尺寸、位置操作
 
@@ -185,7 +237,7 @@ $.each(arr, function(i, ele){
 ```javascript
 var flag = true;
 // 返回顶部
-$(".back").click(function(){
+$(".top").click(function(){
     flag = false;
     // 使用 scrollTop 但是没有过渡动画
     // $(document).scrollTop(0);
@@ -239,13 +291,35 @@ $("ul").on("click", "li", function(){
 自定触发事件`trigger`：
 
 - `$("div").click()`，不是事件注册，是调用已经注册的事件
-- `$("div").trigger("click")`
-- `$("div").triggerHandler("click")`，不会触发元素的默认行为
+- `$("div").trigger("click")`，不会触发默认行为
+- `$("div").triggerHandler("click")`，不会触发元素的默认行为，事件冒泡
+
+```html
+<div class="father">father
+    <div class="son">son <a href="https://www.baidu.com"><span>跳转</span></a></div>
+</div>
+<!-- 如果想要触发 a 标签的默认行为，可以在 a 标签里添加 span，然后触发 span 的点击事件  -->
+```
+
+自定义事件：可以使用 `trigger` 创建，注册时必须用 `on`
+
+- `$(this).on("myClick", fn)`，`$(this).trigger("myClick")`
+
+事件命名空间：`$(this).on("click.zs", fn)`，`$(this).on("click.ls", fn)`；只触发想触发的，`$(this).trigger("click.zs")`
+
+- 存在嵌套的时候，使用`trigger`触发子元素事件，父元素也会触发带相同命名空间的事件，不同命名空间的不触发
 
 事件对象：`$("div").on(events, [selector], function(event){})`，即 event
 
 - 阻止默认行为： event.preventDefault() 或者 return false
 - 阻止冒泡：event.stopPropagation()
+
+其它事件：
+
+- `mouseover`/`mouseout`：子元素被移入移除也会触发父元素的事件，存在嵌套关系
+- `mouseenter`/`mouseleave`：移入子元素不会触发父元素的事件
+- `hover([over,]out)`：移入移出事件切换
+- 实时监听获取输入框值：`$("body").on("propertychange input", "textarea", fn)`，`$("#input").bind("input propertychange", fn)`
 
 ## 对象拷贝
 
