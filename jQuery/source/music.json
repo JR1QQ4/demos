@@ -5,7 +5,8 @@
     "album": "乌云典当记",
     "pic_url": "../source/乌云典当记.jpg",
     "lrc_url": "../source/乌云典当记.lrc",
-    "url": "../source/乌云典当记.mp3"
+    "url": "../source/乌云典当记.mp3",
+    "time": "08:01"
 }, {
     "id": 2,
     "name": "丑",
@@ -13,7 +14,8 @@
     "album": "草东没有派对",
     "pic_url": "../source/丑.jpg",
     "lrc_url": "../source/丑.lrc",
-    "url": "../source/丑.mp3"
+    "url": "../source/丑.mp3",
+    "time": "01:57"
 }, {
     "id": 3,
     "name": "生命因你而火热",
@@ -21,7 +23,8 @@
     "album": "生命因你而火热",
     "pic_url": "../source/生命因你而火热.jpg",
     "lrc_url": "../source/生命因你而火热.lrc",
-    "url": "../source/生命因你而火热.mp3"
+    "url": "../source/生命因你而火热.mp3",
+    "time": "04:51"
 }, {
     "id": 4,
     "name": "火车驶向云外，梦安魂于九霄",
@@ -29,7 +32,8 @@
     "album": "火车驶向云外，梦安魂于九霄",
     "pic_url": "../source/火车驶向云外，梦安魂于九霄.jpg",
     "lrc_url": "../source/火车驶向云外，梦安魂于九霄.lrc",
-    "url": "../source/火车驶向云外，梦安魂于九霄.mp3"
+    "url": "../source/火车驶向云外，梦安魂于九霄.mp3",
+    "time": "05:26"
 }, {
     "id": 5,
     "name": "新世界 (Album Version)",
@@ -37,7 +41,8 @@
     "album": "新世界 (Album Version)",
     "pic_url": "../source/新世界 (Album Version).jpg",
     "lrc_url": "../source/新世界 (Album Version).lrc",
-    "url": "../source/新世界 (Album Version).mp3"
+    "url": "../source/新世界 (Album Version).mp3",
+    "time": "05:09"
 }, {
     "id": 6,
     "name": "一接触",
@@ -45,7 +50,8 @@
     "album": "一接触",
     "pic_url": "../source/一接触.jpg",
     "lrc_url": "../source/一接触.lrc",
-    "url": "../source/一接触.mp3"
+    "url": "../source/一接触.mp3",
+    "time": "03:41"
 }, {
     "id": 7,
     "name": "莫欺少年穷（demo）",
@@ -53,7 +59,8 @@
     "album": "莫欺少年穷（demo）",
     "pic_url": "../source/莫欺少年穷（demo）.jpg",
     "lrc_url": "../source/莫欺少年穷（demo）.lrc",
-    "url": "../source/莫欺少年穷（demo）.mp3"
+    "url": "../source/莫欺少年穷（demo）.mp3",
+    "time": "04:41"
 }, {
     "id": 8,
     "name": "无所求必满载而归",
@@ -61,7 +68,8 @@
     "album": "无所求必满载而归",
     "pic_url": "../source/无所求必满载而归.jpg",
     "lrc_url": "../source/无所求必满载而归.lrc",
-    "url": "../source/无所求必满载而归.mp3"
+    "url": "../source/无所求必满载而归.mp3",
+    "time": "04:10"
 }, {
     "id": 9,
     "name": "Sick Love",
@@ -69,7 +77,8 @@
     "album": "Sick Love",
     "pic_url": "../source/SickLove.jpg",
     "lrc_url": "../source/SickLove.lrc",
-    "url": "../source/SickLove.mp3"
+    "url": "../source/SickLove.mp3",
+    "time": "05:04"
 }, {
     "id": 10,
     "name": "Bailemen Swing Feat. Zhang Le",
@@ -77,7 +86,8 @@
     "album": "Mungbean Mash",
     "pic_url": "../source/BailemenSwingFeat.ZhangLe.jpg",
     "lrc_url": "../source/BailemenSwingFeat.ZhangLe.lrc",
-    "url": "../source/BailemenSwingFeat.ZhangLe.mp3"
+    "url": "../source/BailemenSwingFeat.ZhangLe.mp3",
+    "time": "04:25"
 }, {
     "id": 11,
     "name": "野狼disco",
@@ -85,7 +95,8 @@
     "album": "你的老舅",
     "pic_url": "../source/野狼disco.jpg",
     "lrc_url": "../source/野狼disco.lrc",
-    "url": "../source/野狼disco.mp3"
+    "url": "../source/野狼disco.mp3",
+    "time": "03:59"
 }, {
     "id": 12,
     "name": "我的名字",
@@ -93,5 +104,6 @@
     "album": "我的名字",
     "pic_url": "../source/我的名字.jpg",
     "lrc_url": "../source/我的名字.lrc",
-    "url": "../source/我的名字.mp3"
+    "url": "../source/我的名字.mp3",
+    "time": "04:11"
 }]

@@ -1,0 +1,833 @@
+body,
+html {
+    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.5;
+    color: #333;
+    background-color: #292a2b;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    min-width: 1000px;
+    user-select: none;
+}
+
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+div,
+p,
+a,
+input,
+textarea,
+audio,
+img,
+button,
+select,
+ul,
+ol,
+li,
+dl,
+dt,
+dd {
+    margin: 0;
+    padding: 0;
+}
+
+ul,
+ol {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+i {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    font-style: normal;
+    background: url(../images/qqmusic/icon_list_menu.png);
+}
+
+i.icon-palyer {
+    background: url(../images/qqmusic/player.png);
+}
+
+i.icon-download {
+    background: url(../images/qqmusic/icon_sprite.png);
+}
+
+i.icon-sprite {
+    background: url(../images/qqmusic/icon_sprite.png);
+}
+
+i.icon-comment {
+    background: url(../images/qqmusic/comment.png);
+}
+
+.clearfix::after,
+.clearfix::before {
+    content: "";
+    display: block;
+    height: 0;
+    visibility: hidden;
+    overflow: hidden;
+    clear: both;
+}
+
+.mask-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(49, 49, 49);
+    /* background: url(../source/BailemenSwingFeat.ZhangLe.jpg); */
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: top center;
+    -webkit-filter: blur(70px);
+    filter: blur(70px);
+    z-index: -2;
+}
+
+.mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .2);
+    z-index: -1;
+}
+
+.header {
+    padding: 25px 60px 10px 25px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-width: 1000px;
+    box-sizing: border-box;
+    z-index: 9999;
+}
+
+.logo {
+    float: left;
+}
+
+.logo h1 {
+    width: 80px;
+    height: 20px;
+    background-image: url(../images/qqmusic/player_logo.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    text-indent: -9999px;
+    opacity: .5;
+}
+
+.logo:hover h1 {
+    opacity: 1;
+}
+
+.login-download {
+    float: right;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    color: #fff;
+}
+
+.login-download .download {
+    padding: 4px 20px;
+    margin: 0 30px;
+    background-color: #31c27c;
+    border-radius: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+.download .icon-download {
+    width: 14px;
+    height: 14px;
+    background-position: -160px -320px;
+}
+
+.download:hover {
+    background-color: #2caf6f;
+}
+
+.login-download .sign,
+.login-download .setting {
+    margin-right: 15px;
+    color: #fff;
+    opacity: .5;
+}
+
+.login-download .sign:hover,
+.login-download .setting:hover {
+    opacity: 1;
+}
+
+.main {
+    position: relative;
+    height: 100%;
+    margin: 0 7.5%;
+    padding-top: 90px;
+    box-sizing: border-box;
+}
+
+.main-center {
+    position: relative;
+    min-width: 1080px;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.center-left {
+    float: left;
+    width: 68%;
+    margin-right: 32%;
+    box-sizing: border-box;
+}
+
+.toolbar {
+    min-width: 750px;
+}
+
+.toolbar a {
+    display: inline-block;
+    width: 90px;
+    height: 26px;
+    line-height: 26px;
+    padding: 2px 10px;
+    margin-right: 8px;
+    border: 1px solid #fff;
+    text-align: center;
+    color: #fff;
+    opacity: .5;
+}
+
+.toolbar a:hover {
+    opacity: 1;
+}
+
+.toolbar i {
+    margin-right: 2px;
+}
+
+.toolbar .like {
+    background-position: -60px -20px;
+    vertical-align: -3px;
+}
+.toolbar .like.active {
+    background-position: 0 -80px;
+}
+
+.toolbar .add {
+    background-position: -20px -20px;
+    vertical-align: -3px;
+}
+
+.toolbar .down {
+    background-position: -40px -240px;
+    vertical-align: -1px;
+}
+
+.toolbar .delete {
+    background-position: -100px -20px;
+    vertical-align: -1px;
+}
+
+.toolbar .clear {
+    background-position: -40px -300px;
+    vertical-align: -2px;
+}
+
+.info {
+    margin-top: 30px;
+    height: 457px;
+    overflow: hidden;
+}
+
+.info-title,
+.info-item {
+    position: relative;
+    min-width: 620px;
+    border-top: 1px solid rgba(255, 255, 255, .06);
+}
+
+.info-title li,
+.info-item li {
+    position: relative;
+    float: left;
+    height: 49px;
+    line-height: 49px;
+    color: #e1e1e1cc;
+}
+
+.info-title .check,
+.info-item .check {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    top: 16px;
+    left: 0;
+    border: 1px solid #fff;
+    opacity: .5;
+    z-index: 1;
+}
+
+.info-title .check:hover,
+.info-item .check:hover {
+    opacity: 1;
+}
+
+.info-title .check.active,
+.info-item .check.active {
+    background: url(../images/qqmusic/icon_sprite.png);
+    background-position: -60px -80px;
+    opacity: 1;
+}
+
+.info-title .check .check-item,
+.info-item .check .check-item {
+    display: block;
+    width: 14px;
+    height: 14px;
+    opacity: 0;
+}
+.center-right .sing,
+.center-right .singer,
+.center-right .album {
+    opacity: 0;
+}
+.center-right.play .sing,
+.center-right.play .singer,
+.center-right.play .album{
+    opacity: 1;
+}
+
+.info-title .sing {
+    padding-left: 80px;
+    width: 60%;
+}
+
+.info-title .singer {
+    width: 20%;
+}
+
+.info-item .number {
+    width: 70px;
+    padding-right: 10px;
+    text-align: right;
+}
+.info-item .number.active .number-text {
+    display: none;
+}
+.info-item .number.active .play-icon {
+    display: inline-block;
+}
+.info-item .number .play-icon {
+    display: none;
+}
+
+.info-item .sing {
+    width: 60%;
+}
+.info-item.playon .sing-text,
+.info-item.playon .singer {
+    color: #fff;
+}
+
+.info-item .sing-menu {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    height: 36px;
+    display: none;
+}
+
+.info-item .sing-menu a,
+.info-item .sing-menu i {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    margin-right: 6px;
+}
+
+.info-item .sing-menu .play {
+    background-position: -80px 0;
+}
+
+.info-item .sing-menu .play:hover {
+    background-position: -120px 0;
+}
+
+.info-item .sing-menu .pause {
+    background-position: -80px -200px;
+}
+
+.info-item .sing-menu .pause:hover {
+    background-position: -120px -200px;
+}
+
+.info-item .sing-menu .add {
+    background-position: -80px -80px;
+}
+
+.info-item .sing-menu .add:hover {
+    background-position: -120px -80px;
+}
+
+.info-item .sing-menu .down {
+    background-position: -80px -280px;
+}
+
+.info-item .sing-menu .down:hover {
+    background-position: -120px -280px;
+}
+
+.info-item .sing-menu .share {
+    background-position: -80px -40px;
+}
+
+.info-item .sing-menu .share:hover {
+    background-position: -120px -40px;
+}
+
+.info-item .singer {
+    width: 20%;
+}
+
+.info-item .time .delete {
+    position: absolute;
+    top: 8px;
+    height: 36px;
+    display: none;
+}
+
+.info-item .time .delete i {
+    width: 36px;
+    height: 36px;
+    background-position: -80px -160px;
+}
+
+.info-item .time .delete i:hover {
+    background-position: -120px -160px;
+}
+
+.info-item:hover .sing-menu {
+    display: block;
+}
+
+.info-item:hover .time .delete {
+    display: block;
+}
+
+.info-item:hover .time .time-text {
+    display: none;
+}
+
+.center-right {
+    position: absolute;
+    right: 70px;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    z-index: 33;
+}
+
+.sing-pic a {
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    width: 186px;
+    height: 186px;
+}
+
+.sing-pic a .picbar {
+    position: absolute;
+    right: -25px;
+}
+
+.sing-pic a .pic {
+    width: 186px;
+    height: 186px;
+}
+
+.center-right {
+    color: #e1e1e1cc;
+}
+
+.center-right .sing,
+.center-right .singer,
+.center-right .album {
+    margin-top: 5px;
+    text-align: center;
+}
+.center-right .sing {
+    margin-top: 20px;
+}
+
+.center-right .sing a,
+.center-right .singer a,
+.center-right .album a {
+    color: #e1e1e1cc;
+}
+
+.center-right .sing a:hover,
+.center-right .singer a:hover,
+.center-right .album a:hover {
+    color: #fff;
+}
+
+.on {
+    color: #31c27c;
+}
+
+.singlrc {
+    margin-top: 30px;
+    height: 150px;
+    overflow: hidden;
+    text-align: center;
+    cursor: pointer;
+}
+
+.singlrc li {
+    line-height: 30px;
+}
+
+.f-play {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100px;
+    min-width: 1250px;
+    z-index: 999;
+}
+
+.f-playicon {
+    display: inline-block;
+    position: relative;
+    top: 10px;
+}
+
+.f-playicon i {
+    opacity: .8;
+}
+
+.f-playicon a {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
+.f-playicon i:hover {
+    opacity: 1;
+}
+
+.f-playicon .prev i {
+    width: 20px;
+    height: 20px;
+    background-position: 0 -30px;
+}
+
+.f-playicon .play i {
+    position: relative;
+    top: 5px;
+    left: 5px;
+    width: 29px;
+    height: 29px;
+    background-position: 0 0;
+}
+
+.f-playicon .next i {
+    width: 20px;
+    height: 20px;
+    background-position: 0 -52px;
+}
+
+.f-playicon .play {
+    width: 30px;
+    height: 30px;
+    margin: 0 38px;
+}
+
+.f-playicon .pause i {
+    background-position: -30px 0;
+}
+
+.paly-info {
+    position: relative;
+    display: inline-block;
+    width: 620px;
+    margin: 0 35px;
+}
+
+.paly-info .music-info {
+    height: 20px;
+    line-height: 20px;
+    position: relative;
+}
+
+.paly-info .music-info,
+.paly-info .music-info a {
+    color: #e1e1e1cc;
+}
+
+.paly-info .music-info a:hover {
+    color: #fff;
+}
+
+.paly-info .music-info .music-info-text {
+    display: inline-block;
+    width: 530px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.paly-info .music-info .music-time-text {
+    position: absolute;
+    right: 5px;
+    top: 0;
+}
+
+.player-progress {
+    position: absolute;
+    bottom: -10px;
+    width: 100%;
+    height: 2px;
+    background-color: #ffffff1a;
+    cursor: pointer;
+}
+
+.player-progress-bar {
+    position: relative;
+    width: 0;
+    height: 2px;
+    background-color: #fff;
+}
+
+.player-progress-dotted {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    width: 10px;
+    height: 10px;
+}
+
+.player-progress-dotted i {
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-position: 0 -170px;
+}
+
+.player-menu {
+    display: inline-block;
+    position: relative;
+    top: 10px;
+}
+
+.player-menu a {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    position: relative;
+    opacity: .8;
+    margin-right: 15px;
+}
+
+.player-menu a:hover {
+    opacity: 1;
+}
+
+#play-mode {
+    top: -2px;
+}
+
+#play-mode i {
+    width: 26px;
+    height: 22px;
+}
+
+#play-mode.list i {
+    background-position: 0 -205px;
+}
+
+#play-mode.order i {
+    background-position: 0 -260px;
+}
+
+#play-mode.random i {
+    background-position: 0 -74px;
+}
+
+#play-mode.single i {
+    background-position: 0 -232px;
+}
+
+#favorite i {
+    width: 25px;
+    height: 24px;
+    background-position: 0 -96px;
+}
+#favorite.like i {
+    background-position: -30px -96px;
+}
+
+#down i {
+    width: 25px;
+    height: 24px;
+    background-position: 0 -120px;
+}
+
+#comments>i {
+    width: 25px;
+    height: 24px;
+    background-position: 0 -402px;
+}
+
+.comments-nums {
+    position: absolute;
+    right: -5px;
+    top: -2px;
+    width: 22px;
+    height: 8px;
+}
+
+.comments-nums i {
+    float: left;
+    width: 6px;
+    height: 8px;
+}
+
+.comments-nums .number1 {
+    background-position: -40px -210px;
+}
+
+.comments-nums .number2 {
+    background-position: -40px -210px;
+}
+
+.comments-nums .number3 {
+    background-position: -40px -210px;
+}
+
+#comments:hover>i {
+    background-position: 0 -452px;
+}
+
+#comments:hover .comments-nums i {
+    background-position: -40px -230px;
+}
+
+#switch {
+    width: 75px;
+    height: 26px;
+}
+
+#switch i {
+    width: 75px;
+    height: 26px;
+    background-position: 0 -282px;
+}
+
+#switch.active i {
+    background-position: 0 -311px;
+}
+
+.voice-control {
+    display: inline-block;
+    position: relative;
+    top: 8px;
+    cursor: pointer;
+}
+
+#voice-mode {
+    display: inline-block;
+    width: 26px;
+    height: 21px;
+    opacity: .8;
+}
+
+#voice-mode:hover {
+    opacity: 1;
+}
+
+#voice-mode i {
+    width: 26px;
+    height: 21px;
+    background-position: 0 -144px;
+}
+#voice-mode.toggle i {
+    background-position: 0 -182px;
+}
+
+.voice-progress {
+    display: inline-block;
+    width: 80px;
+    height: 2px;
+    background-color: #ffffff1a;
+    position: relative;
+    top: -10px;
+}
+
+.voice-bar {
+    position: relative;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+}
+
+.voice-bar .voice-dotted {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    right: -5px;
+    top: -5px;
+}
+.voice-bar i {
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-position: 0 -170px;
+}
+.audio {
+    display: none;
+}
+.mCS-dark.mCSB_scrollTools .mCSB_draggerRail {
+    background-color: #ffffff0f;
+}
+
+.mCS-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,
+.mCS-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {
+    background-color: #e1e1e1cc;
+}
+
+.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    width: 6px;
+}
+.center-right.hide .sing-pic,
+.center-right.hide .sing,
+.center-right.hide .album,
+.center-right.hide .singer {
+    display: none;
+}
+.center-right.hide .singlrc {
+    height: 260px;
+    margin-top: 120px;
+    font-size: 20px;
+}
+.center-right.hide .singlrc li {
+    line-height: 45px;
+}

@@ -1,17 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>QQ音乐-千万正版音乐海量无损曲库新歌热歌天天畅听的高品质音乐平台！</title>
     <link rel="shortcut icon" href="../images/qqmusic/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/jquery.mCustomScrollbar.css">
     <link rel="stylesheet" href="../css/qqmusic.css">
     <script src="../js/jquery.min.js"></script>
+    <script src="../js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="../js/qqmusic/play.js"></script>
+    <script src="../js/qqmusic/progress.js"></script>
+    <script src="../js/qqmusic/lrc.js"></script>
     <script src="../js/qqmusic/index.js"></script>
 </head>
+
 <body>
-    <img src="" alt="">
-    <audio src="" controls></audio>
+    <div class="header clearfix">
+        <div class="logo"><a href="https://y.qq.com/">
+                <h1>QQ 音乐</h1>
+            </a></div>
+        <div class="login-download">
+            QQ音乐，千万高品质曲库尽享
+            <a class="download" href="javascript:void(0);">
+                <i class="icon-download"></i>
+                客户端下载
+            </a>
+            <a class="sign" href="javascript:void(0);">登录</a>
+            <a class="setting" href="javascript:void(0);">设置</a>
+        </div>
+    </div>
+    <div class="main">
+        <div class="main-center clearfix">
+            <div class="center-left">
+                <div class="toolbar">
+                    <a href="javascript:void(0);"><i class="icon-sprite like"></i> 收藏</a>
+                    <a href="javascript:void(0);"><i class="icon-sprite add"></i> 添加到</a>
+                    <a href="javascript:void(0);"><i class="icon-sprite down"></i> 下载</a>
+                    <a href="javascript:void(0);"><i class="icon-sprite delete"></i> 删除</a>
+                    <a href="javascript:void(0);" id="clearlist"><i class="icon-sprite clear"></i> 清空列表</a>
+                </div>
+                <div class="info mCustomScrollbar" data-mcs-theme="dark">
+                    <div class="scroll">
+                        <ul class="info-title clearfix">
+                            <li class="check"><input type="checkbox" name="checkall" id="checkall" class="check-item">
+                            </li>
+                            <li class="sing">歌曲</li>
+                            <li class="singer">歌手</li>
+                            <li class="time">时长</li>
+                        </ul>            
+                    </div>
+                </div>
+            </div>
+            <div class="center-right">
+                <div class="sing-pic">
+                    <a href="javascript:void(0);">
+                        <img class="pic" src="../images/qqmusic/player_cover.png" alt="封面">
+                        <img class="picbar" src="../images/qqmusic/album_cover_player.png" alt="封面边">
+                    </a>
+                </div>
+                <div class="sing">
+                    歌曲名: <a href="javascript:void(0);"><span class="sing-text"></span></a>
+                </div>
+                <div class="singer">
+                    歌手名: <a href="javascript:void(0);"><span class="singers"></span></a>
+                </div>
+                <div class="album">
+                    专辑名: <a href="javascript:void(0);"><span class="album-text"></span></a>
+                </div>
+                <div class="singlrc">
+                    <ul class="lrc">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="f-play">
+            <div class="f-playicon">
+                <a href="javascript:void(0);" class="prev" id="js-prev"><i class="icon-palyer"></i></a>
+                <a href="javascript:void(0);" class="play" id="js-play"><i class="icon-palyer"></i></a>
+                <a href="javascript:void(0);" class="next" id="js-next"><i class="icon-palyer"></i></a>
+            </div>
+            <div class="paly-info">
+                <div class="music-info">
+                    <span class="music-info-text">
+                        <a href="javascript:void(0);"></a>
+                        -
+                        <a href="javascript:void(0);"></a>
+                    </span>
+                    <span class="music-time-text">
+                        00:00 / 00:00
+                    </span>
+                </div>
+                <div class="player-progress">
+                    <div class="player-progress-bar">
+                        <div class="player-progress-dotted">
+                            <i class="icon-palyer"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="player-menu">
+                <a href="javascript:void(0);" id="play-mode" class="list"><i class="icon-palyer"></i></a>
+                <a href="javascript:void(0);" id="favorite"><i class="icon-palyer"></i></a>
+                <a href="javascript:void(0);" id="down"><i class="icon-palyer"></i></a>
+                <a href="javascript:void(0);" id="comments">
+                    <i class="icon-comment"></i>
+                    <div class="comments-nums">
+                        <i class="icon-comment number1"></i>
+                        <i class="icon-comment number2"></i>
+                        <i class="icon-comment number3"></i>
+                    </div>
+                </a>
+                <a href="javascript:void(0);" id="switch" class=""><i class="icon-palyer"></i></a>
+            </div>
+            <div class="voice-control">
+                <a href="javascript:void(0);" id="voice-mode"><i class="icon-palyer"></i></a>
+                <div class="voice-progress">
+                    <div class="voice-bar">
+                        <div class="voice-dotted">
+                            <i class="icon-palyer"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mask-bg"></div>
+    <div class="mask"></div>
+    <audio src=""></audio>
 </body>
+
 </html>
