@@ -122,7 +122,7 @@ $(function () {
             initMusicLrc(playobj.Musiclist[playobj.currentIndex]["lrc_url"]);
             // console.log(playobj.currentIndex);
             // console.log(playobj.Musiclist[playobj.currentIndex]["lrc_url"]);
-            scrollTitle();
+            scrollTitle(index);
         })
         // 监听播放按钮
         $("#js-play").on("click", function () {
@@ -277,9 +277,9 @@ $(function () {
         })
     }
     // title 滚动
-    function scrollTitle() {
-        var sing = playobj.Musiclist[playobj.currentIndex].name;
-        var singer = playobj.Musiclist[playobj.currentIndex].artist.join("/");
+    function scrollTitle(index) {
+        var sing = playobj.Musiclist[index].name;
+        var singer = playobj.Musiclist[index].artist.join("/");
         var str = "正在播放 " + sing + "-" + singer;
         if (str.length > 9) {
             str = str.substr(0, 9);
@@ -287,7 +287,8 @@ $(function () {
         str = str + "...";
         var title = $("head title");
         var index = 0;
-        setInterval(() => {
+        clearInterval(scrollTitle.timer);
+        scrollTitle.timer = setInterval(() => {
             title.text(str.substr(index) + str.substr(0, index));
             index++;
             if (index == str.length) {
