@@ -46,6 +46,12 @@
             <div>匀速</div>
         </div>
     </div>
+
+    <input id="fileItem" type="file">
+    <script>
+    var file = document.getElementById('fileItem').files[0];
+    console.log(file instanceof File);
+    </script>
 </body>
 
 </html>

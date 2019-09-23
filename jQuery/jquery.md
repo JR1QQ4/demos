@@ -357,3 +357,246 @@ var obj = {
 $.extend(true, targetobj, obj);
 console.log(targetobj); // {id: 1, msg: {age:18, name: "zs"}}
 ```
+
+## 原理
+
+- 自调用函数。
+- undefined 作用，方便代码压缩，IE9下 undefined 可以别修改。
+
+```javascript
+(function(window, undefined){
+    var jQuery = function(){
+        return new jQuery.fn.init();
+    };
+    jQuery.fn = jQuery.prototype = {
+        constructor: jQuery,
+        init: function(){}
+    };
+    // 封装工具方法
+    jQuery.extend = jQuery.prototype.extend = function (obj) {
+        for (var key in obj) {
+            this[key] = obj[key];
+        }
+    };
+    jQuery.prototype.init.prototype = jQuery.prototype;
+    window.jQuery = window.$ = jQuery;
+})(window)
+```
+
+## ajax
+
+自定义 ajax 方法：
+
+- 处理 xml 文件，使用 xhr.responseXML
+- 处理 json 文件，使用 xhr.responseText
+
+```javascript
+    myjQuery.extend({
+        // 对象转字符串，作用一，IE中获得实时数据
+        objToString: function (obj) {
+            var res = [];
+            obj = obj || {};
+            obj.t = Date.now();
+            for (var k in obj) {
+                // url 地址编码
+                res.push(encodeURIComponent(k) + "=" + encodeURIComponent(obj[k]));
+            }
+            return res.join("&");
+        },
+        ajax: function (obj) {
+            var type = String(obj.type).toLocaleUpperCase() || "GET";
+            var url = obj.url || "";
+            var data = myjQuery.objToString(obj.data);
+            var success = obj.success;
+            var error = obj.error;
+            var timeout = obj.timeout || 5000;
+            // 1.创建 xhr
+            var xhr;
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            } else {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            // 2.判断请求类型 -> 3.发送请求,第单个参数表示异步
+            if (type === "GET") {
+                xhr.open(type, url + "?" + data, true);
+                xhr.send();
+            } else if (type === "POST") {
+                xhr.open(tyep, url, true);
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send(data);
+            }
+            // 4.监听状态的变化
+            try {
+                xhr.onreadstatechange = function () {
+                    clearTimeout(xhr.timer);
+                    if (xhr.readyState === 4) {
+                        if (xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
+                            success(xhr);
+                        } else {
+                            error(xhr);
+                        }
+                    }
+                }
+                // 定时方法，防止请求超时
+                xhr.timer = setTimeout(function () {
+                    console.log("请求超时，请稍后重试");
+                    xhr.abort();
+                    clearTimeout(xhr.timer);
+                })
+            } catch (error) {
+                throw error;
+            }
+        }
+    })
+
+    // 原生解决跨域
+    <script src="https://www.tianqiapi.com/api/?version=v1&appid=45448449&appsecret=C9aBxvei&city=成都&callback=mycallback"></script>
+    <script>
+        function mycallback(json) {
+            console.log(json);
+        }
+    </script>
+```
+
+jQuery 自带的 ajax 方法，跨域：
+
+```javascript
+    $.ajax({
+        type: "GET",
+        url: "https://www.tianqiapi.com/api/",
+        data: "?version=v1&appid=45448449&appsecret=C9aBxvei&city=成都",
+        dataType: "jsonp",
+        success: function (response) {
+            console.log(response);
+        }
+    });
+
+    // 带有回调函数的
+    function mycallback(res) {
+        console.log(res);
+    }
+    // （1）直接写在 data 上
+    $.ajax({
+        type: "GET",
+        url: "https://www.tianqiapi.com/api/",
+        data: "?version=v1&appid=45448449&appsecret=C9aBxvei&city=成都&callback=mycallback",
+        dataType: "jsonp",
+        success: function (response) {}
+    });
+    // （2）单独写在属性上
+    $.ajax({
+        type: "GET",
+        url: "https://www.tianqiapi.com/api/",
+        data: "?version=v1&appid=45448449&appsecret=C9aBxvei&city=成都",
+        dataType: "jsonp",
+        jsonpCallback: "mycallback",
+        success: function (response) {
+            console.log("object");
+        }
+    });
+```
+
+## 插件写法
+
+```javascript
+// 用于设置获取 cookie
+;(function ($$, window) {
+    $$.extend({
+        // document.cookie="username=John Doe; expires=Thu, 18 Dec 2043 12:00:00 GMT; path=/";
+        addCookie: function (key, value, deadline, path, domain) {
+            key = key || "";
+            value = value || "";
+
+            var index = window.location.pathname.lastIndexOf("/");
+            var currentPath = window.location.pathname.slice(0, index);
+            path = path || currentPath;
+            domain = domain || document.domain;
+            if (!deadline) {
+                document.cookie = key + "=" + value + "; path=" + path + "; domain=" + domain;
+            } else {
+                var date = new Date();
+                date.setDate(date.getDate() + deadline);
+                document.cookie = key + "=" + value + "; expires=" + date.toGMTString() + "; path=" + path + "; domain=" + domain;
+            }
+        },
+
+        getCookie: function (key) {
+            var cookies = document.cookie.split(";");
+            for (var i = 0, len = cookies.length; i < len; i++) {
+                var temp = cookies[i].split("=");
+                if (temp[0].trim() === key) {
+                    return temp[1];
+                }
+            }
+            return "";
+        },
+
+        removeCookie: function (key, path) {
+            var index = window.location.pathname.lastIndexOf("/");
+            var currentPath = window.location.pathname.slice(0, index);
+            path = path || currentPath;
+            this.addCookie(key, this.getCookie(key), -1, path);
+        }
+    });
+})(myjQuery, window)
+```
+## php 简明使用
+
+```php
+<?php
+// 1.定义变量
+$name = "zhangsan";
+echo $name."\n\r\n";
+// 2.定义数组
+$arr = [1,3,5];
+print_r($arr);
+echo $arr[1];
+// 3.定义对象
+$dict=array("name"=>"zhangsan","age"=>123);
+print_r($dict);
+echo $dict["name"];
+// 4.条件判断
+$age=18;
+if ($age>18) {
+    echo "成年";
+} else {
+    echo "未成年";
+}
+// 5.循环分支
+$arr = array(1,3,5);
+for($i=0;$i<count($arr);$i++){
+    echo $arr[$i];
+    echo "<br>";
+}
+// 6.获取 get 请求
+print_r($_GET);
+echo($_GET["username"]);
+echo($_GET["password"]);
+// 7.获取 post 请求
+print_r($_POST);
+echo($_POST["username"]);
+echo($_POST["password"]);
+// 8.获取文件，此时文件会存放到一个临时文件夹里，需要把它移除
+print_r($_FILES);
+echo "<br>";
+print_r($_FILES["file"]);
+$filename=$_FILES["file"]["name"];
+$filepath=$_FILES["file"]["tmp_name"];
+move_uploaded_file($filepath, "./source/".$filename);
+// 9.延时
+sleep(5000);
+
+// 10.ajax
+echo "hello ajax";
+echo $_GET["name"];
+
+// 11.获取返回 xml
+header('content-type:text/xml;charset=utf-8');
+echo file_get_contents("./xmldata.xml");
+
+// 12.获取返回 json
+header('content-type:text/html;charset=utf-8');
+echo file_get_contents("./jsondata.json");
+?>
+```

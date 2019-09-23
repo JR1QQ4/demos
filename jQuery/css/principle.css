@@ -1,0 +1,105 @@
+body {
+    padding: 60px 30px;
+    font-family: Muli, Futura, Helvetica, Arial, sans-serif;
+    font-size: 1em;
+    line-height: 1.4;
+    background-color: #f6f6f6;
+    color: #6a6969;
+}
+
+.box {
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 16px;
+    background-color: #fff;
+    box-shadow: 0 6px 15px rgba(36, 37, 38, 0.08);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.box:hover {
+    box-shadow: 5px 12px 20px rgba(36, 37, 38, 0.13);
+}
+
+.button {
+    display: inline-block;
+    min-width: 130px;
+    padding: 0 33px;
+    margin: 8px 15px;
+    height: 42px;
+    line-height: 42px;
+    border-radius: 42px;
+    font-size: 10px;
+    letter-spacing: 0.065em;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: Montserrat, Helvetica, sans-serif;
+    background-color: #0000;
+    border: 2px solid #f7b157;
+    cursor: pointer;
+    color: #333435;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color .25s ease-out, box-shadow .25s ease;
+}
+
+.button:hover,
+.button:focus,
+.button:active {
+    background-color: #f7b157;
+    color: #fff;
+    box-shadow: none;
+}
+.button--psd:hover, .button--psd:focus, .button--psd:active {
+    background-color: #3583fb;
+    color: #fff;
+    box-shadow: none;
+}
+.button--psd {
+    background-color: #0000;
+    border: 2px solid #3583fb;
+}
+
+.box>h2 {
+    color: #fbc2eb;
+    background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+ul li {
+    list-style-type: decimal;
+}
+
+.inner {
+    border-bottom: 1px solid #8fd3f4;
+}
+
+.box> :nth-child(3) {
+    border-top: 1px solid #8fd3f4;
+}
+
+pre {
+    padding: 8px 0;
+    border-radius: 16px;
+    background-color: #DCD9D4;
+    color: #1c1c1c;
+    background-image: linear-gradient(-20deg, #ddd6f3 0%, #faaca8 100%, #faaca8 100%);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* .box>h2 {  
+    font-family: '微软雅黑';
+    position: relative; 
+    margin: 0;
+}  
+   
+.box>h2[data-text]::after {  
+    content: attr(data-text);  
+    color: green;  
+    position: absolute;  
+    top: 0;
+    left: 0;  
+    z-index: 2;
+    -webkit-mask-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#ff0000), to(rgba(0, 0, 255, 0)));
+} */

@@ -1,0 +1,774 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>原理实现</title>
+    <link rel="stylesheet" href="../css/principle.css">
+    <script src="../js/principle.js"></script>
+    <!-- <script src="../js/jquery.min.js"></script> -->
+</head>
+
+<body>
+    <div class="box">
+        <h2 data-text="功能一">功能一</h2>
+        <ul>
+            <li>传入 '' null undefined NaN 0 false 返回 jQuery对象</li>
+            <li>传入 字符串 返回 jQuery对象，是选择器就返回筛选到的元素，是 html 标签就生成元素返回</li>
+            <li>传入 数组（包含伪数组） 返回 jQuery对象</li>
+            <li>传入 其它 返回 jQuery对象</li>
+        </ul>
+        <div class="inner">
+            <p>$$() 🍕 init {}</p>
+            <p>$$("") 🍕 init {}</p>
+            <p>$$(null) 🍕 init {}</p>
+            <p>$$(undefined) 🍕 init {}</p>
+            <p>$$(NaN) 🍕 init {}</p>
+            <p>$$(0) 🍕 init {}</p>
+            <p>$$(false) 🍕 init {}</p>
+        </div>
+        <div class="inner strinner">
+            <p>$$("&lt;p&gt;1&lt;/p&gt;&lt;p&gt;2&lt;/p&gt;&lt;p&gt;3&lt;/p&gt;") 🍔 init(3) [p, p, p]</p>
+            <p>$$("&lt;div&gt;&lt;p&gt;1&lt;/p&gt;&lt;p&gt;2&lt;/p&gt;&lt;/div&gt;&lt;p&gt;3&lt;/p&gt;") 🍔
+                init(2) [div, p]</p>
+            <p>$$(".strinner p") 🍔 init(4) [p, p, p, p]</p>
+            <p>$$(".strinner") 🍔 init [div.inner.strinner]</p>
+            <p>$$("today is Friday") 🍔 init(0)</p>
+        </div>
+        <div class="inner">
+            <p>$$([1, 2, 3]) 🍟 init(3) [1, 2, 3]</p>
+            <p>$$({0: "123",1: "234",length: 2}) 🍟 init(2) ["123", "234"]</p>
+        </div>
+        <div class="inner">
+            <p>$$(123) 🌭 init [123]</p>
+            <p>$$({"a": "asd","b": "das"}) 🌭 init [{…}]</p>
+            <p>$$(function(){console.log(123);}) 🌭 init {} 123</p>
+        </div>
+    </div>
+    <div class="box">
+        <h2>功能二</h2>
+        <ul>
+            <li>封装静态方法</li>
+            <li>封装工具方法</li>
+        </ul>
+        <div class="inner">
+            <pre><code>            (function (window, undefined) {
+                var myjQuery = function (selector) {
+                    return new myjQuery.fn.init(selector);
+                };
+                myjQuery.fn = myjQuery.prototype = {
+                    constructor: myjQuery,
+                    init: function(){}
+                };
+                myjQuery.extend = myjQuery.prototype.extend = function (obj) {
+                    for (var key in obj) {
+                        this[key] = obj[key];
+                    }
+                };
+                myjQuery.extend({
+                    type: function (o) {
+                        var s = Object.prototype.toString.call(o);
+                        return s.match(/\[object (.*?)\]/)[1].toLowerCase();
+                    }
+                });
+                myjQuery.prototype.init.prototype = myjQuery.prototype;
+                window.myjQuery = window.$$ = myjQuery;
+            })(window);</code></pre>
+        </div>
+    </div>
+
+    <div class="box">
+        <h2>功能三</h2>
+        <ul>
+            <li>封装核心方法和属性</li>
+        </ul>
+        <div class="inner methodinner">
+            <p>$$().jquery 🍿 1.1.0</p>
+            <p>$$("div").selector 🍿 div</p>
+            <p>$$().length 🍿 4</p>
+            <p>$$([5,1,2,3]).push(1) 🍿 5</p>
+            <p>$$([5,1,2,3]).sort() 🍿 init(4) [1, 2, 3, 5]</p>
+            <p>$$([5,1,2,3]).splice(1,1) 🍿 1</p>
+            <p>$$(".strinner p").toArray() 🍿 (7) [p, p, p, p, p, p, p]</p>
+        </div>
+        <div class="inner eqinner">
+            <p>$$(".eqinner p").eq(-1) 🥓 init [p]</p>
+        </div>
+        <div class="inner getinner">
+            <p>$$(".getinner p").get(-1) 🥚 &lt;p&gt;$$(".getinner p").get(-1) 🥓 init&nbsp;[p]&lt;/p&gt;</p>
+        </div>
+        <div class="inner">
+            <pre><code>            var obj1 = {
+                0: "qaz",
+                1: "wsx",
+                2: "edc",
+                length: 3
+            };
+            $$.each(obj1, function (i, v) {
+                console.log(i,v); // 0 "qaz"    1 "wsx"    2 "edc"
+            });
+            var arr = [1, 2, 5, 6, 7];
+            $$.map(arr,function (v) {
+                console.log(v);  // 1  2  5  6  7
+                console.log(this);  // Window
+            })</code></pre>
+        </div>
+    </div>
+
+    <div class="box">
+        <h2>功能四</h2>
+        <ul>
+            <li>DOM 操作相关方法</li>
+        </ul>
+        <div class="inner">
+            <a href="javascript:void(0);" class="button" id="remove">remove</a>
+            <a href="javascript:void(0);" class="button" id="html">html</a>
+            <a href="javascript:void(0);" class="button" id="text">text</a>
+            <a href="javascript:void(0);" class="button" id="appendTo">appendTo</a>
+            <a href="javascript:void(0);" class="button" id="append">append</a>
+            <a href="javascript:void(0);" class="button" id="prependTo">prependTo</a>
+            <a href="javascript:void(0);" class="button" id="prepend">prepend</a>
+            <a href="javascript:void(0);" class="button" id="insertBefore">insertBefore</a>
+            <a href="javascript:void(0);" class="button" id="before">before</a>
+            <a href="javascript:void(0);" class="button" id="insertAfter">insertAfter</a>
+            <a href="javascript:void(0);" class="button" id="after">after</a>
+            <a href="javascript:void(0);" class="button" id="next">next</a>
+            <a href="javascript:void(0);" class="button" id="prev">prev</a>
+            <a href="javascript:void(0);" class="button" id="replaceAll">replaceAll</a>
+            <a href="javascript:void(0);" class="button" id="replaceWith">replaceWith</a>
+            <a href="javascript:void(0);" class="button" id="clone">clone</a>
+        </div>
+        <div class="dominner"></div>
+    </div>
+
+    <div class="box">
+        <h2>功能五</h2>
+        <ul>
+            <li>属性 操作相关方法</li>
+        </ul>
+        <div class="inner">
+            <a href="javascript:void(0);" class="button" id="attr">attr</a>
+            <a href="javascript:void(0);" class="button" id="prop">prop</a>
+            <a href="javascript:void(0);" class="button" id="css">css</a>
+            <a href="javascript:void(0);" class="button" id="val">val</a>
+            <a href="javascript:void(0);" class="button" id="hasClass">hasClass</a>
+            <a href="javascript:void(0);" class="button" id="addClass">addClass</a>
+            <a href="javascript:void(0);" class="button" id="removeClass">removeClass</a>
+            <a href="javascript:void(0);" class="button" id="toggleClass">toggleClass</a>
+        </div>
+        <div class="attrinner">
+            <a href="javascript:void(0);" id="attrtest">Only a person who has faith in himself is able to be faithful to
+                others.</a>
+        </div>
+    </div>
+
+    <div class="box">
+        <h2>功能六</h2>
+        <ul>
+            <li>事件 操作相关方法</li>
+        </ul>
+        <div class="inner">
+            <a href="javascript:void(0);" class="button" id="eventon">on</a>
+            <a href="javascript:void(0);" class="button" id="eventoff">off</a>
+        </div>
+        <div>
+            <a href="javascript:void(0);" class="button button--psd" id="eventbox">event</a>
+        </div>
+    </div>
+
+    <div class="box">
+        <h2>功能七</h2>
+        <ul>
+            <li>ajax</li>
+        </ul>
+        <div class="inner">
+            <a href="javascript:void(0);" class="button" id="ajaxbtn">ajax</a>
+        </div>
+        <iframe id="ajaxframe" src="" frameborder="0"></iframe>
+    </div>
+
+    <script>
+        $$("#ajaxbtn").on("click", function () {
+            $$("#ajaxframe").css({
+                "display": "block",
+                "width": "100%",
+                "height": "800px",
+                "borderRadius": "16px"
+            })
+            $$("#ajaxframe").attr("src", "./qqmusic.html");
+        })
+    </script>
+
+    <script>
+        $$("#eventbox").css("position", "relative");
+
+        function random(num) {
+            return Math.ceil(Math.random() * num);
+        }
+        var timer;
+
+        function moverandom() {
+            $$("#eventbox").css({
+                "left": random(50) + "px",
+                "top": random(30) + "px"
+            });
+        }
+
+        function move() {
+            if (timer) {
+                clearInterval(timer);
+            }
+            timer = setInterval(moverandom, 50);
+        }
+        $$("#eventon").on("click", move);
+        $$("#eventoff").on("click", function () {
+            clearInterval(timer);
+            $$("#eventon").off("click", move);
+        });
+    </script>
+
+    <script>
+        var attr = document.getElementById("attr");
+        var prop = document.getElementById("prop");
+        var css = document.getElementById("css");
+        var val = document.getElementById("val");
+        var hasClass = document.getElementById("hasClass");
+        var addClass = document.getElementById("addClass");
+        var removeClass = document.getElementById("removeClass");
+        var toggleClass = document.getElementById("toggleClass");
+        attr.onclick = function () {
+            $$("#attrtest").attr("title", "this is title!");
+        }
+        prop.onclick = function () {
+            $$("#attrtest").prop("title", "this is new title!");
+        }
+        css.onclick = function () {
+            $$("#attrtest").css("textDecoration", "none");
+        }
+        val.onclick = function () {
+            $$("#attrtest").val("🍖😋");
+            $$("#attrtest").text("🍖😋");
+        }
+        hasClass.onclick = function () {
+            var text = $$("#attrtest").hasClass("button") ? "has button class" : "no button class";
+            $$("#attrtest").text(text);
+        }
+        addClass.onclick = function () {
+            $$("#attrtest").addClass("button");
+        }
+        removeClass.onclick = function () {
+            $$("#attrtest").removeClass("button");
+        }
+        toggleClass.onclick = function () {
+            $$("#attrtest").toggleClass("button--psd");
+        }
+    </script>
+
+    <script>
+        var btns = document.querySelectorAll(".button");
+        for (var i = 0, len = btns.length; i < len; i++) {
+            btns[i].addEventListener("click", function () {
+                var clones = this.cloneNode();
+                clones.className = "button button--psd";
+                switch (this.id) {
+                    case "remove":
+                        $$(".dominner").remove();
+                        break;
+                    case "html":
+                        $$(this).html("我是html方法");
+                        break;
+                    case "text":
+                        $$(this).text("我是text方法");
+                        break;
+                    case "appendTo":
+                        clones.innerHTML = "new-appendTo";
+                        $$(clones).appendTo(".dominner");
+                        break;
+                    case "append":
+                        clones.innerHTML = "new-append";
+                        $$(".dominner").append(clones);
+                        break;
+                    case "prependTo":
+                        clones.innerHTML = "new-prependTo";
+                        $$(clones).prependTo(".dominner");
+                        break;
+                    case "prepend":
+                        clones.innerHTML = "new-prepend";
+                        $$(".dominner").prepend(clones);
+                        break;
+                    case "insertBefore":
+                        clones.innerHTML = "new-insertBefore";
+                        $$(clones).insertBefore(this);
+                        break;
+                    case "before":
+                        clones.innerHTML = "new-before";
+                        $$(this).before(clones);
+                        break;
+                    case "insertAfter":
+                        clones.innerHTML = "new-insertAfter";
+                        $$(clones).insertAfter(this);
+                        break;
+                    case "after":
+                        clones.innerHTML = "new-after";
+                        $$(this).after(clones);
+                        break;
+                    case "next":
+                        var next = $$(this).next();
+                        next.get(0).className = "button button--psd";
+                        break;
+                    case "prev":
+                        var prev = $$(this).prev();
+                        prev.get(0).className = "button button--psd";
+                        break;
+                    case "replaceAll":
+                        $$(this).replaceAll(".dominner");
+                        break;
+                    case "replaceWith":
+                        $$(".dominner").replaceWith(this);
+                        break;
+                    case "clone":
+                        var clone = $$(this).clone().get(0);
+                        clone.innerHTML = "new-clone";
+                        $$(".dominner").append(clone);
+                        break;
+                    default:
+                        break;
+                }
+            });
+        }
+    </script>
+
+    <!-- <div class="box">
+        <div class="div1">1</div>
+        <div class="div1">2</div>
+        <div class="div1">3</div>
+        <button class="button">变换DOM</button>
+        <div>
+            我是 div 😋
+            <p> 我是段落</p>
+        </div>
+        <div class="box">
+            我是 div 🍕1111
+            <p> 我是段落</p>
+        </div>
+        <div class="box">
+            我是 div 🎃222
+            <p> 我是段落</p>
+        </div>
+    </div> -->
+    <script>
+        // function encode(str) {
+        //     str = str.replace(/</g, "&lt;");
+        //     str = str.replace(/>/g, "&gt;");
+        //     console.log(str);
+        // }
+        // encode();
+    </script>
+
+    <script>
+        // 功能一
+        // 1.  "" null undefined NaN 0 false
+        // console.log($$());
+        // console.log($$(""));
+        // console.log($$(null));
+        // console.log($$(undefined));
+        // console.log($$(NaN));
+        // console.log($$(0));
+        // console.log($$(false));
+        // 2.字符串
+        // console.log($$("<p>1</p><p>2</p><p>3</p>"));
+        // console.log($$("<div><p>1</p><p>2</p></div><p>3</p>"));
+        // console.log($$(".strinner p"));
+        // console.log($$(".strinner"));
+        // console.log($$("today is Friday"));
+        // 3.数组
+        // console.log($$([1, 2, 3]));
+        // console.log($$({
+        //     0: "123",
+        //     1: "234",
+        //     length: 2
+        // }));
+        // 4.除此之外
+        // console.log($$(123));
+        // console.log($$({
+        //     "a": "asd",
+        //     "b": "das"
+        // }));
+        // console.log($$(function(){
+        //     console.log(123);
+        // }));
+    </script>
+
+    <script>
+        // 功能三：方法和属性
+        // console.log($$().jquery);
+        // console.log($$("div").selector);
+        // console.log($$([5,1,2,3]).length);
+        // console.log($$([5,1,2,3]).push(1));
+        // console.log($$([5,1,2,3]).sort());
+        // console.log($$([5,1,2,3]).splice(1,1));
+        // console.log($$(".methodinner p").toArray());
+        // 获取第几个元素，返回 DOM 对象
+        // console.log($$("div").get());
+        // console.log($$("div").get(1));
+        // console.log($$("div").get(-1));
+        // console.log($$(".getinner p").get(-1));
+        // console.log($$("div").get(-5));
+        // 获取第几个元素，返回 jQuery 对象
+        // console.log($$("div").eq());
+        // console.log($$("div").eq(1));
+        // console.log($$("div").eq(-1));
+        // console.log($$(".eqinner p").eq(-1));
+        // console.log($$("div").eq(-5));
+        // var arr = [1, 2, 5, 6, 7];
+        // var obj = {
+        //     0: "123",
+        //     1: "234",
+        //     2: "345"
+        // };
+        // var obj1 = {
+        //     0: "qaz",
+        //     1: "wsx",
+        //     2: "edc",
+        //     length: 3
+        // };
+        // $$.each(arr, function (i, v) {
+        //     // if (i == 2) {
+        //     //     return true;
+        //     // }
+        //     // console.log(i,v);
+        //     // console.log(this);
+        // })
+        // $$.each(obj, function (i, v) {
+        //     console.log(i,v);
+        // })
+        // $$.each(obj1, function (i, v) {
+        //     console.log(i,v);
+        // })
+        // console.log($$(arr));
+        // $$(arr).each(function (i, v) {
+        //     // console.log(i, v);
+        //     console.log(this);
+        // })
+        // $$("div").each(function (i, v) {
+        //     console.log(v);
+        // })
+        // $$.map(arr,function (v) {
+        //     console.log(v);
+        //     console.log(this);
+        // })
+    </script>
+
+    <script>
+        // 功能四：DOM 操作相关方法
+        // var div1 = document.querySelectorAll(".div1")[0];
+        // div1.addEventListener("mouseenter", function () {
+        //     console.log("mouseenter");
+        // })
+        // div1.onmouseenter = function () {
+        //     console.log("mouseenter");
+        // }
+        // $(".div1").eq(0).on("mouseenter", function () {
+        //     console.log("mouseenter");
+        // })
+        // $$(".div1").eq(0).on("mouseenter", function () {
+        //     console.log("mouseenter");
+        // })
+        // var btn = document.querySelectorAll("button")[0];
+        // btn.onclick = function () {
+        // $$("div").empty();
+        // console.log($$("div").remove("div"));;
+
+        // console.log($$(".box").html());
+        // console.log($$("div").html("text"));
+
+        // console.log($$(".box").text());
+        // console.log($$("div").text("123"));
+
+        // console.log($$(".div1").appendTo(".box"));
+        // console.log($(".div1").appendTo(".box"));
+        // console.log($$(".div1").prependTo(".box"));
+
+        // console.log($$(".div1").append($$(".box")));
+        // console.log($$(".div1").prepend($$(".box")));
+        // console.log($$(".div1").prepend("prepend----"));
+
+        // console.log($$(".div1").insertBefore($$(".box")));
+        // console.log($$(".box").insertBefore($$(".div1")));
+        // console.log($(".div1").before($(".box")));
+        // console.log($$(".div1").before($$(".box")));
+
+        // console.log($(".box").insertAfter($(".div1")));
+        // console.log($$(".box").insertAfter($$(".div1")));
+        // console.log($(".box").after($(".div1")));
+        // console.log($$(".box").after($$(".div1")));
+
+        // console.log($(".div1").next());
+        // console.log($$(".div1").next());
+        // console.log($$(".div1").prev());
+        // console.log($(".div1").prev());
+
+        // console.log($$(".box").replaceAll(".div1"));
+        // console.log($(".box").replaceAll(".div1"));
+
+        // console.log($(".box").replaceWith(""));
+        // console.log($$(".box").replaceWith("adc"));
+        // console.log($(".box").replaceWith("adc"));
+
+        // console.log($(".box").replaceWith($(".div1")));
+        // console.log($$(".box").replaceWith($(".div1")));
+
+        // console.log($(".box").append($("button").clone()));
+        // console.log($$(".box").append($$("button").clone()));
+
+        // console.log($("div:first").clone(true).prependTo($(".box")));
+        // console.log($$(".div1").clone(true).prependTo($$(".box")));
+        // }
+        // var a = $$(".box").each(function (k, v) {
+        //     console.log(v);
+        // })
+        // console.log(a);
+    </script>
+
+    <script>
+        // 功能五：属性相关方法
+        // console.log($(".box").attr("class"));
+        // console.log($(".box").attr("class", "box1"));
+        // console.log($(".box").attr({
+        //     "class": "box1",
+        //     "data-index": 1
+        // }));
+        // console.log($$(".box").attr("class"));
+        // console.log($$(".box").attr("class", "box1"));
+        // console.log($$(".box").attr({
+        //     "class": "box1",
+        //     "data-index": 1
+        // }));
+
+        // console.log($(".box").prop("index", 1));
+        // console.log($(".box").prop({
+        //     "a": "ads",
+        //     "aa": "das"
+        // }));
+        // console.log($(".box").prop("index"));
+        // console.dir($(".box")[0]);
+        // console.log($$(".box").prop("index", 1));
+        // console.log($$(".box").prop({
+        //     "a": "ads",
+        //     "aa": "das"
+        // }));
+        // console.log($$(".box").prop("index"));
+        // console.dir($$(".box")[0]);
+        // console.dir($$(".box")[1]);
+
+        // console.log($("body").css("color"));
+        // console.log($("body").css("color", "red"));
+        // console.log($("body").css({
+        //     "color": "green",
+        //     "fontSize": "15px",
+        //     "backgroundColor": "yellowgreen"
+        // }));
+        // console.log($$("body").css("color"));
+        // console.log($$("body").css("color", "red"));
+        // console.log($$("body").css({
+        //     "color": "green",
+        //     "fontSize": "15px",
+        //     "backgroundColor": "yellowgreen"
+        // }));
+
+        // console.log($(".div1").val("123"));
+        // console.log($(".div1").val());
+        // console.log($$(".div1").val("123"));
+        // console.log($$(".div1").val());
+
+        // console.log($(".box").hasClass());
+        // console.log($(".box").hasClass("box"));
+        // console.log($$(".box").hasClass());
+        // console.log($$(".box").hasClass("box"));
+
+        // console.log($(".box").addClass());
+        // console.log($(".box").addClass("box1"));
+        // console.log($(".box").addClass("box2 box1 box3"));
+        // console.log($$(".box").addClass());
+        // console.log($$(".box").addClass("box1"));
+        // console.log($$(".box").addClass(" box2  box1  box3 "));
+
+        // console.log($(".box").removeClass());
+        // console.log($(".box").removeClass("box1"));
+        // console.log($(".box").removeClass("box2 box1"));
+        // console.log($$(".box").removeClass());
+        // console.log($$(".box").removeClass("box2"));
+        // console.log($$(".box").removeClass("box2 box1"));
+        // console.log($$(".box").removeClass("box"));
+
+        // console.log($(".box").toggleClass("box3"));
+        // console.log($(".box").toggleClass("box3"));
+        // console.log($(".box").toggleClass());
+        // console.log($$(".box").toggleClass("box3"));
+        // console.log($$(".box").toggleClass("box3"));
+        // console.log($$(".box").toggleClass());
+    </script>
+
+    <script>
+        // 功能六：事件相关方法
+        // var a = function () {
+        //     console.log("hello1");
+        // }
+        // var b = function () {
+        //     console.log("hello2");
+        // }
+        // $$("button").on("click", b)
+        // $$("button").on("click", a)
+        // $$("button").on("mouseenter", function () {
+        //     console.log("mouseenter");
+        // })
+        // $$("button").on("mouseleave", function () {
+        //     console.log("mouseleave");
+        // })
+
+        // $$("button").off();
+        // $$("button").off("click");
+        // $$("button").off("click", b);
+        // $$("button").off("mouseleave");
+    </script>
+
+    <script>
+        // 功能七：ajax
+        // function callbackname() {
+        //     console.log("object");
+        // }
+        // $.ajax({
+        //     type: "post",
+        //     url: "http://localhost:8080/learnphp.php",
+        //     data: "name=John&location=Boston",
+        //     dataType: "jsonp",
+        //     jsonpCallback: callbackname,
+        //     success: function (response) {
+        //         console.log(response);
+        //         callbackname();
+        //     },
+        //     error: function (response) {
+        //         console.log(response);
+        //     }
+        // });
+
+        // $$.ajax({
+        //     type: "post",
+        //     url: "http://localhost:8080/learnphp.php",
+        //     data: "name=John&location=Boston"
+        // });
+        // console.dir($$);
+
+        // addCookie("name1", "zhangsan");
+        // addCookie("name2", "lisi");
+        // addCookie("name3", "wangwu");
+        // console.log(document.cookie);
+        // console.log($$.getCookie("name1"));
+        // console.log($$.getCookie("name2"));
+        // console.log($$.getCookie("name3"));
+        // $$.removeCookie("name2");
+    </script>
+
+    <script>
+        // 跨域 ajax
+        // $.ajax({
+        //     type: "GET",
+        //     url: "https://www.tianqiapi.com/api/",
+        //     data: "?version=v1&appid=45448449&appsecret=C9aBxvei&city=成都",
+        //     dataType: "jsonp",
+        //     success: function (response) {
+        //         console.log(response);
+        //     }
+        // });
+
+        // function mycallback(res) {
+        //     for (const key in res) {
+        //         if (res.hasOwnProperty(key)) {
+        //             const element = res[key];
+        //             console.log(element);
+        //         }
+        //     }
+        // }
+        // 带回掉函数的
+        // $.ajax({
+        //     type: "GET",
+        //     url: "https://www.tianqiapi.com/api/",
+        //     data: "?version=v1&appid=45448449&appsecret=C9aBxvei&city=成都&callback=mycallback",
+        //     dataType: "jsonp",
+        //     success: function (response) {
+        //         // mycallback(response);
+        //     }
+        // });
+        // $.ajax({
+        //     type: "GET",
+        //     url: "https://www.tianqiapi.com/api/",
+        //     data: "?version=v1&appid=45448449&appsecret=C9aBxvei&city=成都",
+        //     dataType: "jsonp",
+        //     jsonpCallback: "mycallback",
+        //     success: function (response) {
+        //         console.log("object");
+        //         console.dir(this);
+        //     }
+        // });
+
+        // function objToString(obj) {
+        //     var res = [];
+        //     obj = obj || {};
+        //     obj.t = Date.now();
+        //     for (var k in obj) {
+        //         res.push(encodeURIComponent(k) + "=" + encodeURIComponent(obj[k]));
+        //     }
+        //     return res.join("&");
+        // };
+        // function ajax(obj) {
+        //     var type = String(obj.type).toLocaleUpperCase() || "GET";
+        //     var url = obj.url || "";
+        //     var data = myjQuery.objToString(obj.data);
+        //     var success = obj.success;
+        //     var error = obj.error;
+        //     var timeout = obj.timeout;
+        //     // 1.创建 xhr
+        //     var xhr;
+        //     if (window.XMLHttpRequest) {
+        //         xhr = new XMLHttpRequest();
+        //     } else {
+        //         xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        //     }
+        //     // 2.判断请求类型 -> 3.发送请求,第单个参数表示异步
+        //     if (type === "GET") {
+        //         console.log(xhr);
+        //         xhr.open(type, url + "?" + data, true);
+        //         // Access-Control-Allow-Origin
+        //         xhr.send();
+        //     } else if (type === "POST") {
+        //         xhr.open(tyep, url, true);
+        //         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        //         xhr.send(data);
+        //     }
+        //     var script = document.createElement("script");
+        //     script.src = url + "?" + data;
+        //     document.body.appendChild(script);
+        // };
+
+        // ajax({
+        //     type: "GET",
+        //     url: "https://www.tianqiapi.com/api/",
+        //     data: {
+        //         version: "v1",
+        //         appid: 45448449,
+        //         appsecret: "C9aBxvei",
+        //         city: "成都",
+        //         callback: "mycallback"
+        //         // version=v1&appid=45448449&appsecret=C9aBxvei&city=成都&callback=mycallback
+        //     },
+        //     success: function (xhr) {
+        //         console.log(xhr);
+        //     },
+        //     error: function (res) {
+        //         console.log(res);
+        //     }
+        // });
+    </script>
+</body>
+
+</html>
