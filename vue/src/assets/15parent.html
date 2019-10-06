@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <style>
+        body {
+            background: #4fc08d;
+            color: #fff;
+        }
+    </style>
+    <script src='../../lib/vue.js'></script>
+</head>
+
+<body>
+    <h2>$parent</h2>
+    <div id='app'>
+        <cpn></cpn>
+    </div>
+    <template id="cpn">
+        <div>
+            <h3>我是子组件</h3>
+            <button @click="btnclick">按钮</button>
+            <cpn1></cpn1>
+        </div>
+    </template>
+    <template id="cpn1">
+        <div>
+            <h3>我是子组件的子组件</h3>
+            <button @click="btnclick">按钮</button>
+        </div>
+    </template>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            components: {
+                cpn: {
+                    template: '#cpn',
+                    methods: {
+                        btnclick() {
+                            console.log(this.$parent);
+                        }
+                    },
+                    data(){
+                        return {
+                            msg:'我是父组件的msg'
+                        }
+                    },
+                    components: {
+                        cpn1: {
+                            template: '#cpn1',
+                            methods: {
+                                btnclick() {
+                                    console.log(this.$parent);
+                                    console.log(this.$parent.msg);
+                                    console.log(this.$root);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

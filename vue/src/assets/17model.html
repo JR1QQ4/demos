@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <style>
+        body {
+            background: #4fc08d;
+            color: #fff;
+        }
+
+        [v-cloak] {
+            display: none
+        }
+    </style>
+    <script src='../../lib/vue.js'></script>
+    <script src="../../model/ajax.js" type="module"></script>
+    <script src="../../model/main.js" type="module"></script>
+</head>
+
+<body>
+    <h3>model 模块化</h3>
+    <div id='app'>
+        <p v-cloak>a: {{a}}</p>
+        <p v-cloak>flag: {{flag}}</p>
+        <p v-cloak>sum: {{sum}}</p>
+    </div>
+    <script type="module">
+        import * as moduleA from '../../model/ajax.js'
+        // console.log(moduleA);
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                a: moduleA.a,
+                flag: moduleA.flag,
+                sum: moduleA.sum
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

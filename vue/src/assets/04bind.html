@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <style>
+        body {
+            background: #4fc08d;
+            color: #fff;
+        }
+
+        .class1 {
+            height: 50px;
+            background: #2b3448;
+        }
+
+        .class2 {
+            width: 300px;
+            border: 10px dashed #4fc08d;
+        }
+
+        .current {
+            color: #d44747;
+        }
+    </style>
+    <script src='../../lib/vue.js'></script>
+</head>
+
+<body>
+    <h2>v-bind</h2>
+    <div id='app'>
+        <img v-bind:src="imgurl" alt="" height="100px"><a :href="alink">Vue 官网</a>
+        <p :class="{class1: true, class2: false}">v-bind 绑定类属性，值可以是对象和数组</p>
+        <p class="class1">v-bind 绑定类属性，值可以是对象和数组</p>
+        <p :class="['class1', 'class2']">v-bind 绑定类属性，值可以是对象和数组</p>
+        <p :class="{class1: isClass1, class2: isClass2}">v-bind 绑定类属性，值可以是对象和数组，可以使用方法改变属性值</p>
+        <button @click="btnclick">isClass1=!isClass1</button>
+        <h3>点谁谁变颜色</h3>
+        <ul>
+            <li 
+              v-for="(item,index) in movies" 
+              :class="{current: currentIndex===index}" 
+              :key="index"
+              @click="colorChange(index)">
+                {{item}}{{index}}
+            </li>
+        </ul>
+        <p :style="{background:'#fff',fontSize:'15px',color: '#4fc08d'}">绑定 style 属性，属性值固定</p>
+        <p :style="{background:background,fontSize:fontSize,color: '#4fc08d'}">绑定 style 属性，属性值是对象</p>
+        <p :style="[baseStyle, currentStyle]">绑定 style 属性，属性值是数组</p>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                alink: "https://cn.vuejs.org/",
+                imgurl: "https://cn.vuejs.org/images/logo.png",
+                isClass1: true,
+                isClass2: false,
+                movies: ["复仇者联盟", "海贼王", "全裸导演", "鬼灭之刃", "哪吒"],
+                isCurrent: false,
+                background: '#676767',
+                fontSize: '16px',
+                baseStyle: {
+                    background: '#676767',
+                    fontSize: '16px'
+                },
+                currentStyle: {
+                    padding: '20px'
+                },
+                currentIndex: 0
+            },
+            methods: {
+                btnclick: function () {
+                    this.isClass2 = !this.isClass2;
+                },
+                // colorChange: function (e) {
+                //     console.dir(e.target);
+                //     const lis = e.target.parentNode.childNodes;
+                //     for (let index = 0; index < lis.length; index++) {
+                //         const element = lis[index];
+                //         element.className = "";
+                //     }
+                //     e.target.className = "current";
+                // }
+                colorChange: function (index) {
+                    this.currentIndex = index;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <script src='../../lib/vue.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script>
+    <script src="https://unpkg.com/vuex@3.1.1/dist/vuex.js"></script>
+</head>
+
+<body>
+    <h2>Vuex</h2>
+    <div id='app'>
+            <p>vm实例中的$store.state.counter : {{$store.state.counter}}</p>
+        <Counter></Counter>
+    </div>
+    <template id="cpn">
+        <div>
+            <p>组件中的counter : {{counter}}</p>
+            <button @click="addtion">+</button>
+            <button @click="subtraction">-</button>
+        </div>
+    </template>
+    <script>
+        const store = new Vuex.Store({
+            state: {
+                counter: 1000
+            },
+            mutations: {
+                increment(state) {
+                    this.state.counter++
+                },
+                decrement(state) {
+                    this.state.counter--
+                }
+            },
+            actions: {
+
+            },
+            getters: {
+
+            },
+            modules: {
+
+            }
+        })
+        const Counter = {
+            template: '#cpn',
+            computed: {
+                counter(){
+                    return this.$store.state.counter
+                }
+            },
+            methods: {
+                addtion(){
+                    this.$store.commit('increment')
+                },
+                subtraction(){
+                    this.$store.commit('decrement')
+                }
+            },
+        }
+        const vm = new Vue({
+            el: '#app',
+            data: {
+            },
+            methods: {
+            },
+            store,
+            components: {
+                Counter
+            }
+        });
+        console.log(vm);
+    </script>
+</body>
+
+</html>

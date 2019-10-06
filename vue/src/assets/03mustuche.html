@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <style>
+        body {
+            background: #4fc08d;
+            color: #fff;
+        }
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+    <script src='../../lib/vue.js'></script>
+</head>
+
+<body>
+    <h2>Mustache 语法</h2>
+    <div id='app'>
+        <p><span v-pre>{{data}}</span> -> {{message}}</p>
+        <p><span v-pre>{{data.key}}</span> ->
+            {{infos.name}},{{infos.age}},{{infos.sex}}</p>
+        <p><span v-pre>{{expression}}</span> -> {{2 * 3}}, {{new Date()}}, {{Math.random()}}</p>
+        <p><span v-pre>NO {{var a = 123;}}，这样不能生效</span></p>
+    </div>
+    <h2>插值</h2>
+    <div id="app2" v-cloak>
+        <p>当前 count 的值：<span>{{count}}</span></p>
+        <p>不会改变的 count： <span v-once>{{count}}</span></p>
+        <button @click="count++">count++</button>
+        <p v-html="url"></p>
+        <p v-text="url">会被覆盖</p>
+    </div>
+    <script>
+        const vue = new Vue({
+            el: '#app',
+            data: {
+                message: 'mustache',
+                infos: {
+                    "name": 'zhangsan',
+                    "age": '23',
+                    "sex": 'male'
+                }
+            },
+            methods: {}
+        });
+        const a = "<a href='https://cn.vuejs.org/'>Vue 官网</a>"
+        const vue2 = new Vue({
+            el: '#app2',
+            data: {
+                count: 0,
+                url: a
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

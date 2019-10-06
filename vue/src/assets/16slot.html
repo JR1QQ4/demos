@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <style>
+        body {
+            background: #4fc08d;
+            color: #fff;
+        }
+    </style>
+    <script src='../../lib/vue.js'></script>
+</head>
+
+<body>
+    <h2>slot</h2>
+    <hr>
+    <div id='app'>
+        <cpn></cpn>
+        <hr>
+        <cpn>我是插槽内容</cpn>
+        <hr>
+        <cpn>
+            <label>按钮标签</label>
+            <button>按钮</button>
+        </cpn>
+        <hr>
+        <cpn>
+            <div slot="right">替换右边的插槽</div>
+            <div slot="center">替换中间的插槽</div>
+            <div slot="left">替换左边的插槽</div>
+        </cpn>
+        <hr>
+        <cpn1></cpn1>
+        <hr>
+        <cpn1>
+            <template slot-scope="slot">
+                <div>
+                    <!-- <span v-for="item in slot.data">{{item}} -</span> -->
+                    <span>{{slot.data.join(" - ")}}</span>
+                </div>
+            </template>
+        </cpn1>
+    </div>
+    <template id="cpn">
+        <div>
+            <h2>我是组件</h2>
+            <slot><button>默认按钮</button></slot>
+            <slot name="left"></slot>
+            <slot name="center"></slot>
+            <slot name="right"></slot>
+        </div>
+    </template>
+    <template id="cpn1">
+        <div>
+            <slot :data="lists">
+                <ul>
+                    <li v-for="item in lists">{{item}}</li>
+                </ul>
+            </slot>
+        </div>
+    </template>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            components: {
+                cpn: {
+                    template: '#cpn'
+                },
+                cpn1: {
+                    template: '#cpn1',
+                    data() {
+                        return {
+                            lists: ['a', 'b', 'c']
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

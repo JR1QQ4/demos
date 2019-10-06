@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>computed</title>
+    <style>
+        body {
+            background: #4fc08d;
+            color: #fff;
+        }
+    </style>
+    <script src='../../lib/vue.js'></script>
+</head>
+
+<body>
+    <div id='app'>
+        <h2>computed 计算属性</h2>
+        <p><span v-pre>{{firstName}}.{{lastName}}</span> -> {{firstName}}.{{lastName}}</p>
+        <p><span v-pre>{{getFullName()}}</span> -> {{getFullName()}}</p>
+        <p><span v-pre>{{fullName}}</span> -> {{fullName}}</p>
+        <h3>精品图书打折了</h3>
+        <p v-for="item in saleBooks">{{item.id}} - {{item.name}} - {{item.price}}</p>
+        <p>现价三本书总价： {{(this.total).toFixed(1)+'0'}}</p>
+        <p>原价三本书总价： {{totalPrice}}</p>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                firstName: '勒布朗',
+                lastName: '詹姆斯',
+                total: 0,
+                books: [{
+                    id: 001,
+                    name: '用户体验要素：以用户为中心的产品设计（原书第2版）',
+                    price: 79.00
+                }, {
+                    id: 002,
+                    name: 'JavaScript高级程序设计(第3版)',
+                    price: 99.00
+                }, {
+                    id: 003,
+                    name: 'JavaScript DOM编程艺术(第2版)',
+                    price: 49.00
+                }]
+            },
+            computed: {
+                fullName: function () {
+                    return this.firstName + '.' + this.lastName
+                },
+                saleBooks: function () {
+                    let newBooks = [];
+                    for (let index = 0; index < this.books.length; index++) {
+                        const book = this.books[index];
+                        let newBook = {};
+                        newBook.id = book.id;
+                        newBook.name = book.name;
+                        newBook.price = (book.price * 0.79).toFixed(1) + '0';
+                        this.total += book.price * 0.79;
+                        newBooks.push(newBook);
+                    }
+                    return newBooks;
+                },
+                totalPrice: {
+                    set: function (value) {
+                        this.total = value;
+                    },
+                    get: function () {
+                        return this.books.reduce(function (num, v) {
+                            return num + v.price;
+                        }, 0)
+                    }
+                }
+            },
+            methods: {
+                getFullName: function () {
+                    return this.firstName + '.' + this.lastName
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

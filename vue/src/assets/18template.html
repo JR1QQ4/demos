@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <style>
+        body {
+            background: #4fc08d;
+            color: #fff;
+        }
+
+        [v-cloak] {
+            display: none
+        }
+    </style>
+    <script src='../../lib/vue.js'></script>
+</head>
+
+<body>
+    <h2>el 与 template 的区别</h2>
+    <hr>
+    <div id='app'></div>
+    <hr>
+    <h3>此时，没有了 el 绑定的 div</h3>
+    <hr>
+    <div id='app1'></div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            template: `
+                <div>
+                    <h3>{{msg}}</h3>
+                    <button @click="btnclick">按钮</button>
+                    <small>template 替换了 el</small>
+                </div>
+            `,
+            data: {
+                msg: 'hello template'
+            },
+            methods: {
+                btnclick() {
+                    console.log('btnclick')
+                }
+            }
+        });
+
+        // 组件抽离写法
+        const tpl = {
+            template: `
+                <div>
+                    <h3>{{msg}}</h3>
+                    <button @click="btnclick">按钮</button>
+                    <small>template 替换了 el</small>
+                </div>
+            `,
+            data() {
+                return {
+                    msg: 'hello template1，组件抽离写法'
+                }
+            },
+            methods: {
+                btnclick() {
+                    console.log('btnclick1')
+                }
+            }
+        }
+        new Vue({
+            el: '#app1',
+            template: '<tpl></tpl>',
+            components: {
+                tpl
+            }
+        })
+    </script>
+</body>
+
+</html>

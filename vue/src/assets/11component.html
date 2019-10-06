@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <style>
+        body {
+            background: #4fc08d;
+            color: #fff;
+        }
+    </style>
+    <script src='../../lib/vue.js'></script>
+</head>
+
+<body>
+    <h2>组件</h2>
+    <hr>
+    <div id='app'>
+        <mycomponent1></mycomponent1>
+        <hr>
+        <mycomponent2></mycomponent2>
+        <hr>
+        <mycomponent3></mycomponent3>
+        <hr>
+        <mycomponent4></mycomponent4>
+    </div>
+    <div id="app2">
+        <hr>
+        <h3>全局组件</h3>
+        <mycomponent3></mycomponent3>
+        <hr>
+        <h3>局部组件</h3>
+        <mycomponent4></mycomponent4>
+        <mycomponent5></mycomponent5>
+    </div>
+    <template id="cp5">
+        <div>
+            <h3>使用 template 标签注册组件</h3>
+        </div>
+    </template>
+    <script>
+        const tp1 = Vue.extend({
+            template: `
+            <div><h2>组件1</h2><p>模板要被包围在一个元素中</p></div>
+            `
+        })
+        const tp2 = Vue.extend({
+            template: `
+            <div>
+                <h2>组件2</h2>
+                <p>可以使用ES6的语法</p>
+            </div>
+            `
+        })
+        Vue.component('mycomponent1', tp1)
+        Vue.component('mycomponent2', tp2)
+        Vue.component('mycomponent3', {
+            template: `
+            <div>
+                <h2>组件3</h2>
+                <p>可以直接写在 component 里</p>
+            </div>
+            `
+        })
+        Vue.component('mycomponent5', {
+            template: '#cp5'
+        })
+        const vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            components: {
+                mycomponent4: {
+                    template: `
+                    <div>
+                        <h2>组件4</h2>
+                        <p>当然可以写在 Vue 实例中</p>
+                    </div>
+                    `
+                }
+            }
+        });
+        new Vue({
+            el: '#app2',
+        })
+    </script>
+</body>
+
+</html>

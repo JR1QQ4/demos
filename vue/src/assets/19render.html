@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <style>
+        body {
+            background: #4fc08d;
+            color: #fff;
+        }
+
+        [v-cloak] {
+            display: none
+        }
+    </style>
+    <script src='../../lib/vue.js'></script>
+</head>
+
+<body>
+    <h2>render 与 template</h2>
+    <hr>
+    <div id='app'>
+        <!-- <tpl></tpl> -->
+    </div>
+    <template id="cpn">
+        <div>
+            <h2>使用 render 渲染模板</h2>
+            <ul>
+                <li>runtime-compiler: template -> ast -> render -> virtual dom -> UI</li>
+                <li>runtime-only: render -> virtual dom -> UI</li>
+            </ul>
+        </div>
+    </template>
+    <script>
+        const tpl = {
+            template: '#cpn'
+        }
+        const vm = new Vue({
+            el: '#app',
+            // template: '<tpl/>',
+            // render(h) {
+            //     return h(tpl)
+            // },
+            render: (h) => h(tpl),
+            data: {},
+            methods: {},
+            // components: {
+            //     tpl
+            // }
+        });
+    </script>
+</body>
+
+</html>

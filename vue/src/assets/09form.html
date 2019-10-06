@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <style>
+        body {
+            background: #4fc08d;
+            color: #fff;
+        }
+    </style>
+    <script src='../../lib/vue.js'></script>
+</head>
+
+<body>
+    <h2>表单</h2>
+    <div id='app'>
+        <label for="male"><input type="radio" value="男" id="male" v-model="sex">男</label><br>
+        <label for="female"><input type="radio" value="女" id="female" v-model="sex">女</label><br>
+        <h3>选择的性别 sex : {{sex}}</h3>
+        <label for="ld"><input type="checkbox" name="roles" v-model="names" value="李诞" id="ld">李诞</label><br>
+        <label for="cz"><input type="checkbox" name="roles" v-model="names" value="池子" id="cz">池子</label><br>
+        <label for="zjg"><input type="checkbox" name="roles" v-model="names" value="张建国" id="zjg">张建国</label>
+        <h3>选择的名字 names : {{names}}</h3>
+        <select name="area" id="area" v-model="area">
+            请选择地区
+            <option value="北京">北京</option>
+            <option value="上海">上海</option>
+            <option value="广州">广州</option>
+            <option value="深证">深圳</option>
+            <option value="武汉">武汉</option>
+            <option value="成都">成都</option>
+        </select>
+        <h3>选择的地区 area ： {{area}}</h3>
+        <select multiple name="areas" id="areas" v-model="areas">
+            请选择地区
+            <option value="北京">北京</option>
+            <option value="上海">上海</option>
+            <option value="广州">广州</option>
+            <option value="深证">深圳</option>
+            <option value="武汉">武汉</option>
+            <option value="成都">成都</option>
+        </select>
+        <h3>选择的地区 areas ： {{areas}}</h3>
+        <label :for="item" v-for="(item,index) in hobbies">
+            <input :id="item" v-model="hobby" name="hobbies" type="checkbox" :value="item">{{item}}
+        </label>
+        <h3>动态生成 hobbies : {{hobby}}</h3>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                sex: '男',
+                names: ['李诞'],
+                area: '北京',
+                areas: ['北京', '上海'],
+                hobby: ['动漫'],
+                hobbies: ['动漫', '音乐', '电影', '游戏']
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

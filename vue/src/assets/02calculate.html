@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #4fc08d;
+            color: #fff;
+        }
+
+        .input {
+            position: relative;
+            display: inline-block;
+            width: 180px;
+            line-height: 38px;
+        }
+
+        .decrease,
+        .increase {
+            position: absolute;
+            z-index: 1;
+            top: 1px;
+            width: 40px;
+            height: auto;
+            text-align: center;
+            background: #f5f7fa;
+            color: #606266;
+            cursor: pointer;
+            font-size: 18px;
+            user-select: none;
+        }
+
+        .decrease:hover,
+        .increase:hover {
+            color: #409eff;
+        }
+
+        .decrease {
+            left: 1px;
+            border-radius: 4px 0 0 4px;
+            border-right: 1px solid #dcdfe6;
+        }
+
+        .increase {
+            right: 1px;
+            border-radius: 0 4px 4px 0;
+            border-left: 1px solid #dcdfe6;
+        }
+
+        .el-input {
+            position: relative;
+            font-size: 14px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .el-input input {
+            padding-left: 50px;
+            padding-right: 50px;
+            text-align: center;
+            background-color: #fff;
+            background-image: none;
+            border-radius: 4px;
+            border: 1px solid #dcdfe6;
+            box-sizing: border-box;
+            color: #606266;
+            display: inline-block;
+            font-size: inherit;
+            height: 40px;
+            line-height: 40px;
+            outline: none;
+            padding: 0 15px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .el-input input:focus {
+            border-color: #409eff;
+        }
+    </style>
+    <script src='../../lib/vue.js'></script>
+</head>
+
+<body>
+    <h2>计算器</h2>
+    <div id='app'>
+        <h3>直接使用 data，count: {{ count }}</h3>
+        <div>
+            <div class="input">
+                <span class="decrease" v-on:click="count--">-</span>
+                <span class="increase" @click="count++">+</span>
+                <div class="el-input">
+                    <input type="text" v-bind:value="count">
+                </div>
+            </div>
+            <div class="input">
+                <span class="decrease" v-on:click="count--">-</span>
+                <span class="increase" @click="count++">+</span>
+                <div class="el-input">
+                    <input type="text" v-bind:value="count">
+                </div>
+            </div>
+            <div class="input">
+                <span class="decrease" v-on:click="count--">-</span>
+                <span class="increase" @click="count++">+</span>
+                <div class="el-input">
+                    <input type="text" v-bind:value="count">
+                </div>
+            </div>
+        </div>
+        <h3>使用方法改变 data，count: {{ count2 }}</h3>
+        <div>
+            <div class="input">
+                <span class="decrease" v-on:click="sub">-</span>
+                <span class="increase" @click="add">+</span>
+                <div class="el-input">
+                    <input type="text" v-bind:value="count2">
+                </div>
+            </div>
+            <div class="input">
+                <span class="decrease" v-on:click="sub">-</span>
+                <span class="increase" @click="add">+</span>
+                <div class="el-input">
+                    <input type="text" v-bind:value="count2">
+                </div>
+            </div>
+            <div class="input">
+                <span class="decrease" v-on:click="sub">-</span>
+                <span class="increase" @click="add">+</span>
+                <div class="el-input">
+                    <input type="text" v-bind:value="count2">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const vue = new Vue({
+            el: '#app',
+            data: {
+                count: 0,
+                count2: 0
+            },
+            methods: {
+                add: function () {
+                    this.count2++;
+                },
+                sub: function () {
+                    this.count2--;
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

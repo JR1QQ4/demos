@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <style>
+        body {
+            background: #4fc08d;
+            color: #fff;
+        }
+    </style>
+    <script src='../../lib/vue.js'></script>
+</head>
+
+<body>
+    <h2>修饰符</h2>
+    <div id='app'>
+        <input type="text" v-model.lazy="msg">
+        <p>lazy: {{msg}}</p>
+        <hr>
+        <input type="number" v-model="num">
+        <p>number: {{num}}; 类型： {{typeof num}}</p>
+        <input type="number" v-model.number="num1">
+        <p>number: {{num1}}; 类型： {{typeof num1}}</p>
+        <hr>
+        <input type="text" v-model.trim="str">
+        <p>trim: {{str}}</p>
+        <input type="text" v-model="str1">
+        <p>trim: {{str1}}</p>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'hello modifier',
+                num: '23',
+                num1: '23',
+                str: '  str',
+                str1: '  str'
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <style>
+        body {
+            background: #4fc08d;
+            color: #fff;
+        }
+    </style>
+    <script src='../../lib/vue.js'></script>
+</head>
+
+<body>
+    <h2>父子组件</h2>
+    <hr>
+    <div id='app'>
+        <cpn2 :my-movies="movies"></cpn2>
+        <hr>
+        <cpn2 my-movies="movies"></cpn2>
+        <hr>
+        <cpn2 @item-click="itemclick1"></cpn2>
+        <hr>
+        <p>count: {{count}}</p>
+        <child-cpn @child-count="changeCount"></child-cpn>
+    </div>
+    <template id="cpn">
+        <div>
+            <h3 :title="title">父组件</h3>
+            <cpn1></cpn1>
+            <p>{{myMovies}}</p>
+            <button @click="sendMsg">发送给父组件</button>
+        </div>
+    </template>
+    <template id="count">
+        <div>
+            <p>counter: {{counter}}</p>
+            <button @click="decrease">-1</button> <button @click="increase">+1</button>
+        </div>
+    </template>
+    <script>
+        const tp1 = Vue.extend({
+            template: `<h4 :title="title">子组件</h4>`,
+            data: function () {
+                return {
+                    title: 'this is title'
+                }
+            }
+        })
+        const tp2 = Vue.extend({
+            template: '#cpn',
+            components: {
+                cpn1: tp1
+            },
+            // props: ['mymovies'],
+            props: {
+                // mymovies: Array,
+
+                // mymovies: {
+                //     type: Array,
+                //     default: ['海贼王','火影忍者']
+                // }
+
+                myMovies: {
+                    type: Array,
+                    default: ['海贼王', '火影忍者'],
+                    required: true
+                }
+            },
+            methods: {
+                sendMsg() {
+                    this.$emit('item-click', this.title)
+                }
+            },
+            data() {
+                return {
+                    title: '这是父组件的 data'
+                }
+            }
+        })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                movies: ['无限战争', '死侍', '蜘蛛侠', '哥斯拉'],
+                count: 0
+            },
+            methods: {
+                itemclick1(title) {
+                    console.log(title);
+                },
+                // increaseCount(value) {
+                //     this.count = value
+                // },
+                // decreaseCount(value){
+                //     this.count = value
+                // },
+                changeCount(value) {
+                    this.count = value
+                }
+            },
+            components: {
+                cpn2: tp2,
+                'child-cpn': {
+                    template: '#count',
+                    methods: {
+                        increase() {
+                            this.counter++
+                            this.$emit('child-count', this.counter)
+                        },
+                        decrease() {
+                            this.counter--
+                            this.$emit('child-count', this.counter)
+                        }
+                    },
+                    data() {
+                        return {
+                            counter: 0
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

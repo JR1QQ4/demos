@@ -80,3 +80,20 @@ header {
     background: #fff;
 }
 ```
+
+4.IE6/7/8不支持使用 rgba 模式实现透明度，可使用 IE 滤镜处理
+
+```css
+background: rgba(0,0,0,.5);
+/* 对应 */
+filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#7f000000,endColorstr=#7f000000);
+/* 一一对应的值如下 */
+0.1 - 19
+0.2 - 33
+0.3 - 4c
+0.5 - 7f
+0.6 - 99
+0.7 - b2
+0.8 - c8
+0.9 - e5
+```

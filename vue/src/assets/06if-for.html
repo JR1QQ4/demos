@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <style>
+        body {
+            background: #4fc08d;
+            color: #fff;
+        }
+    </style>
+    <script src='../../lib/vue.js'></script>
+</head>
+
+<body>
+    <h2>v-if, v-else-if, v-else</h2>
+    <div id='app'>
+        <h4>普通切换</h4>
+        <div v-if="!islogin">
+            <label for="username">用户名：<input type="text" name="username" id="username"></label><br>
+            <label for="password">密 码： <input type="text" name="password" id="password"></label>
+        </div>
+        <div v-else>
+            <label>登录成功...</label>
+        </div>
+        <br>
+        <button type="button" @click="islogin=!islogin">登录</button>
+        <hr>
+        <h4>保存内容切换</h4>
+        <div v-if="!isChange">
+            <label for="email">邮箱：<input type="text" name="email" id="email" placeholder="email" key="key"></label>
+        </div>
+        <div v-else>
+            <label for="address">地址： <input type="text" name="address" id="address" placeholder="address"
+                    key="key"></label>
+        </div>
+        <br>
+        <button type="button" @click="isChange=!isChange">切换输入</button>
+        <hr>
+        <h3>v-show切换</h3>
+        <div v-show="isShow">v-show</div>
+        <div v-if="isShow">v-show</div>
+        <br>
+        <button @click="isShow=!isShow">isShow</button>
+        <hr>
+        <h3>v-for</h3>
+        <ul>
+            <li v-for="(item,index) in names">{{index}} - {{item}}</li>
+        </ul>
+        <ul>
+            <li v-for="(value,key) in info">{{key}} - {{value}}</li>
+        </ul>
+        <ul>
+            <li v-for="(value,key,index) in info">{{index}} - {{key}} - {{value}}</li>
+        </ul>
+    </div>
+    <script>
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                islogin: false,
+                isChange: false,
+                isShow: false,
+                names: ['犬夜叉', '日暮篱', '杀生丸', '弥勒'],
+                info: {
+                    name: '我的英雄学院',
+                    protagonist: '绿谷出久',
+                    age: '15岁'
+                }
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

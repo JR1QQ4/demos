@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #4fc08d;
+            /* color: #42b983; */
+            color: #fff;
+        }
+
+        ul {
+            list-style-type: decimal;
+        }
+    </style>
+    <script src='../../lib/vue.js'></script>
+</head>
+
+<body>
+
+    <div id='app'>
+        <p>{{ message }}</p>
+        <ul>
+            <li v-for="item in foods">{{ item }}</li>
+        </ul>
+        <abbr v-bind:title="msg">vue</abbr>
+    </div>
+    <div>{{ message }}，没有挂载声明 el</div>
+    <div>
+        <h3>原生 js 给元素添加文字，一般需要三步</h3>
+        <ul>
+            <li>创建元素，获取元素</li>
+            <li>定义一个 message 变量</li>
+            <li>把 message 放到元素中；如果需要修改，则重新赋值，vue 响应式显示</li>
+        </ul>
+        <small>tips: 这种编程范式（编程方式）叫命令式编程 -> 大象放进冰箱需要几步</small>
+        <h3>Vue 编程范式：声明式编程</h3>
+    </div>
+    <script>
+        const vue = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello World!',
+                foods: ['番茄炒蛋', '青椒炒肉', '贵阳米线', '肉夹馍', '干炒牛河'],
+                msg: "Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。"
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

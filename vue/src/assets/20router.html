@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <style>
+        body {
+            background: #4fc08d;
+            color: #fff;
+        }
+
+        [v-cloak] {
+            display: none
+        }
+    </style>
+    <script src="../../lib/vue.js"></script>
+    <script src="../../lib/vue-router.js"></script>
+</head>
+
+<body>
+    <h2>router 路由</h2>
+    <div id='app'></div>
+    <template id="login">
+        <div>
+            <h2>登录组件</h2>
+            <p>loginloginloginloginloginloginloginloginloginlogin</p>
+            <p>{{$route.params}}</p>
+            <button @click="btnclick">按钮</button>
+        </div>
+    </template>
+    <template id="register">
+        <div>
+            <h2>注册组件</h2>
+            <p>registerregisterregisterregisterregisterregister</p>
+        </div>
+    </template>
+    <template id="news">
+        <div>
+            <h2>news组件</h2>
+            <p>news组件news组件news组件news组件news组件news组件news组件</p>
+        </div>
+    </template>
+    <template id="myapp">
+        <div id='app'>
+            <button @click="btnclick">btnclick</button>
+            <nav>
+                <router-link :to="'/login/'+userId" tag="button">Login</router-link>
+                <router-link to="/register" tag="button">Register</router-link>
+                <router-link to="/register/news" >news</router-link>
+            </nav>
+            <router-view></router-view>
+        </div>
+    </template>
+    <script>
+        const login = {
+            template: '#login',
+            methods: {
+                btnclick() {
+                    console.log(this.$route);
+                }
+            }
+        }
+        const register = {
+            template: '#register'
+        }
+        const news = {
+            template: '#news'
+        }
+        const myapp = {
+            data() {
+                return {
+                    userId: 123456
+                }
+            },
+            methods: {
+                btnclick() {
+                    console.log(this.$route);
+                }
+            },
+            template: '#myapp'
+        }
+        const router = new VueRouter({
+            routes: [{
+                    path: "",
+                    redirect: "/login"
+                },
+                {
+                    path: "/login/:id",
+                    component: login
+                },
+                {
+                    path: "/register",
+                    component: register,
+                    children: [{
+                        path: '/',
+                        redirect: 'news'
+                    }, {
+                        path: 'news',
+                        component: news
+                    }]
+                }
+            ],
+            linkActiveClass: "myactive"
+        })
+        new Vue({
+            // el: '#app',
+            router: router,
+            render(h) {
+                return h(myapp)
+            }
+        }).$mount('#app')
+    </script>
+</body>
+
+</html>
