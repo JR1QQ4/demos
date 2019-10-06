@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./src/css/base.css">
+    <link rel="stylesheet" href="./src/css/index.css">
+</head>
+
+<body>
+    <h1>JavaScript</h1>
+    <div class="title">
+        <span class="arrow"></span>
+        <span class="typetext"></span>
+    </div>
+    <div class="wrapper">
+        <a href="./es5/" class="es5">
+            <canvas id="myCanvas1" width="300" height="160"></canvas>
+        </a>
+        <a href="./es6/" class="es6">
+            <canvas id="myCanvas2" width="300" height="160"></canvas>
+        </a>
+    </div>
+</body>
+<script>
+    const txt =
+        "JavaScript (JS) is a lightweight, interpreted, or just-in-time compiled programming language with first-class functions. ";
+    let len = 0;
+    const span = document.querySelector(".typetext");
+
+    function type() {
+        if (txt[len] == " ") {
+            clearInterval(timer1);
+            setTimeout(() => {
+                timer1 = setInterval(function () {
+                    type()
+                }, 100);
+            }, 200);
+        }
+        if (len === txt.length) {
+            clearInterval(timer1);
+        }
+        len++;
+        span.innerHTML = txt.substr(0, len);
+    }
+    let timer1 = setInterval(function () {
+        type()
+    }, 100);
+
+    const c1 = document.querySelector("#myCanvas1");
+    const c2 = document.querySelector("#myCanvas2");
+    const ctx1 = c1.getContext("2d");
+    const ctx2 = c2.getContext("2d");
+    ctx1.fillStyle = "#ffe24d";
+    ctx1.fillRect(0, 0, 300, 160);
+    ctx1.fillStyle = "#000";
+    ctx1.font = "65px Arial";
+    ctx1.fillText('ES5', 80, 95);
+    ctx1.stroke();
+
+    ctx2.fillStyle = "#ffe24d";
+    ctx2.fillRect(0, 0, 300, 160);
+    ctx2.fillStyle = "#000";
+    ctx2.font = "65px Arial";
+    ctx2.fillText('ES6', 80, 95);
+    ctx2.stroke();
+
+    console.log("%c图片来自互联网，如有侵权立即删除",
+    "color:#e80a89;font-weight:900;font-size:30px;");
+</script>
+
+</html>
