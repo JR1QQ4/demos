@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <style>
+        body {
+            background: #4fc08d;
+            color: #fff;
+        }
+
+        #hook-arguments-example {
+            border: 1px solid #fff;
+        }
+    </style>
+    <script src='../../lib/vue.js'></script>
+</head>
+
+<body>
+    <div id='app'>
+        <input type="text" v-focus>
+        <button @click="el">el</button>
+        <div id="hook-arguments-example" v-demo:foo.a.b="message"></div>
+    </div>
+    <script>
+        // Vue.directive('focus', {
+        //     inserted(el) {
+        //         el.focus()
+        //     }
+        // })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                message: 'hello!'
+            },
+            methods: {
+                el(el) {
+                    console.log(el);
+                }
+            },
+            directives: {
+                focus: {
+                    inserted(el) {
+                        el.focus()
+                        console.log(el);
+                    }
+                },
+                demo: {
+                    bind(el, binding, vnode, oldVnode) {
+                        var s = JSON.stringify
+                        console.log(el);
+                        el.innerHTML =
+                            'name: ' + s(binding.name) + '<br>' +
+                            'value: ' + s(binding.value) + '<br>' +
+                            'expression: ' + s(binding.expression) + '<br>' +
+                            'argument: ' + s(binding.arg) + '<br>' +
+                            'modifiers: ' + s(binding.modifiers) + '<br><hr>' +
+                            'vnode keys: ' + Object.keys(vnode).join(', ') + '<br><hr>'+
+                            'oldVnode:' + Object.keys(oldVnode).join(', ')
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

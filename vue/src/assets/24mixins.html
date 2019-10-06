@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <style>
+        body {
+            background: #4fc08d;
+            color: #fff;
+        }
+    </style>
+    <script src='../../lib/vue.js'></script>
+</head>
+
+<body>
+    <h2>mixin</h2>
+    <hr>
+    <div id='app'>
+        <p>message: {{message}}</p>
+        <p>foo: {{foo}}</p>
+        <p>bar: {{bar}}</p>
+        <button @click="hello">混入</button>
+        <p v-text="text"></p>
+    </div>
+    <script>
+        const myMinx = {
+            created() {
+                console.log('created');
+            },
+            methods: {
+                // hello() {
+                //     this.text += 'hello world!'
+                // }
+            },
+            data: function () {
+                return {
+                    message: 'hello',
+                    foo: 'abc'
+                }
+            }
+        }
+        Vue.mixin({
+            methods: {
+                hello() {
+                    this.text += '全局混入'
+                }
+            }
+        })
+        const vm = new Vue({
+            el: '#app',
+            mixins: [myMinx],
+            data: {
+                text: '',
+                message: 'goodbye',
+                bar: 'def'
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

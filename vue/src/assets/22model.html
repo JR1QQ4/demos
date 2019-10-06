@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+    <title>Document</title>
+    <style>
+        body {
+            background: #4fc08d;
+            color: #fff;
+        }
+
+        [v-cloak] {
+            display: none
+        }
+    </style>
+    <script src='../../lib/vue.js'></script>
+</head>
+
+<body>
+    <div id='app'>
+
+        <div v-if="!isShow">
+            <label for="">username</label>
+            <input type="text" placeholder="username" key="username">
+        </div>
+        <div v-else>
+            <label for="">password</label>
+            <input type="text" placeholder="password" key="password">
+        </div>
+        <keep-alive>
+        </keep-alive>
+        <button @click="isShow=!isShow">toggle</button>
+        <base-checkbox v-model="lovingVue"></base-checkbox>
+    </div>
+    <script>
+        Vue.component('base-checkbox', {
+            model: {
+                prop: 'checked',
+                event: 'change'
+            },
+            props: {
+                checked: Boolean
+            },
+            template: `
+                <input
+                type="checkbox"
+                v-bind:checked="checked"
+                v-on:change="$emit('change', $event.target.checked)"
+                >
+            `
+        })
+        const vm = new Vue({
+            el: '#app',
+            data: {
+                isShow: false,
+                lovingVue: false
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>
