@@ -32,25 +32,821 @@
     <script src="./24indexedDB.js"></script>
     <script src="./25webworker.js"></script>
     <script src="./instance.js"></script>
+    <link rel="stylesheet" href="../src/css/es5.css">
+    <script src="../src/js/typed.min.js"></script>
+    <script src="../src/js/es5.js"></script>
 </head>
 
 <body>
-    <!-- <ul>
-        <li>item 1</li>
-        <li>item 2</li>
-        <li>item 3</li>
-    </ul>
-    <div id="output" style="min-height: 200px;border: 1px solid black;">
-        文件拖拉到这里
-    </div> -->
-
-    <!-- <a href="javascript: new Date().toLocaleTimeString();">点击</a>
-    <a href="javascript: console.log(new Date().toLocaleTimeString())">点击</a>
-
-    <a href="javascript: void new Date().toLocaleTimeString();">点击</a>
-    <a href="javascript: new Date().toLocaleTimeString();void 0;">点击</a> -->
-
-    
+    <h1>JavaScript</h1>
+    <div class="section" id="title">
+        <h2>什么是 JavaScript 语言？</h2>
+        <p>JavaScript 是一种具有函数优先的轻量级，解释型或即时编译型的编程语言。</p>
+        <p>JavaScript 是一种基于原型编程、多范式的动态脚本语言，并且支持面向对象、命令式和声明式（如函数式编程）风格。</p>
+        <p>JavaScript 既是一个 面向过程的语言 又是一个 面向对象的语言。</p>
+        <p>JavaScript 是一种嵌入式（embedded）语言。JavaScript 本身不提供任何与 I/O（输入/输出）相关的 API，都要靠宿主环境（host）提供。</p>
+    </div>
+    <div class="section" id="summary">
+        <h2>学习 JavaScript 主要分为三部分：</h2>
+        <p>ECMAScript 标准(ES5)</p>
+        <p>DOM 文档对象模型</p>
+        <p>BOM 浏览器对象模型，浏览器 API</p>
+    </div>
+    <div id="ecma">
+        <h2>ECMAScript5</h2>
+        <div id="grammar">
+            <h3>语法</h3>
+            <ul>
+                <li>语句</li>
+                <li>变量</li>
+                <li>变量提升</li>
+                <li>标识符</li>
+                <li>注释</li>
+                <li>区块</li>
+                <li>条件语句: if、if...else、switch、?:</li>
+                <li>循环语句：while、for、do...while、break 和 continue</li>
+                <li>标签(label)</li>
+            </ul>
+        </div>
+        <div id="type">
+            <h3>数据类型</h3>
+            <ul>
+                <li>
+                    数值（number）：整数和小数
+                    <ul>
+                        <li>NaN</li>
+                        <li>Infinity</li>
+                        <li>parseInt(值, 进制数)</li>
+                        <li>parseFloat()</li>
+                        <li>isNaN(), NaN !== NaN</li>
+                        <li>isFinite()</li>
+                    </ul>
+                </li>
+                <li>
+                    字符串（string）：文本
+                    <ul>
+                        <li>Base64 转码： btoa() 与 atob()</li>
+                        <li>URL 编码： encodeURIComponent() 与 decodeURIComponent()</li>
+                    </ul>
+                </li>
+                <li>
+                    布尔值（boolean）：true（真）和false（假）
+                    <ul>
+                        <li>转为false的六个值: undefined、null、false、0、NaN、""或''</li>
+                    </ul>
+                </li>
+                <li>undefined：表示“未定义”或不存在</li>
+                <li>null：表示空值，即此处的值为空</li>
+                <li>
+                    对象（object）：各种值组成的集合
+                    <ul>
+                        <li>对象是最复杂的数据类型，又可以分成三个子类型:</li>
+                        <li>狭义的对象（object）</li>
+                        <li>
+                            数组（array）
+                            <ul>
+                                <li>Object.keys()</li>
+                                <li>in 运算符</li>
+                                <li>类似数组的对象</li>
+                            </ul>
+                        </li>
+                        <li>
+                            函数（function）
+                            <ul>
+                                <li>第一等公民</li>
+                                <li>函数名的提升</li>
+                                <li>闭包（closure）</li>
+                                <li>立即调用的函数表达式（IIFE）</li>
+                                <li>eval 命令</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>ES6 新增第七种 Symbol 类型的值</li>
+                <li>typeof 运算符、instanceof运算符、Object.prototype.toString方法</li>
+            </ul>
+        </div>
+        <div id="operator">
+            <h3>运算符</h3>
+            <ul>
+                <li>
+                    算术运算符
+                    <ul>
+                        <li>+、-、*、/、**、%</li>
+                        <li>++、--</li>
+                        <li>+x、-x</li>
+                        <li>=、+=、-=、*=、/=</li>
+                        <li>>>=、<<=、>>>=、&=、|=、^=</li>
+                    </ul>
+                </li>
+                <li>
+                    比较运算符
+                    <ul>
+                        <li>>、<、<=、>=、==、===、!=、!==</li>
+                        <li>undefined == null</li>
+                    </ul>
+                </li>
+                <li>
+                    布尔运算符
+                    <ul>
+                        <li>!、&&、||、?:</li>
+                    </ul>
+                </li>
+                <li>
+                    二进制运算符
+                    <ul>
+                        <li>|、&、~、^、<<、>>、>>></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="lib">
+            <h3>标准库</h3>
+            <ul>
+                <li>
+                    Object 对象
+                    <ul>
+                        <li>Object()如果参数是原始类型的值，Object方法将其转为对应的包装对象的实例</li>
+                        <li>如果Object方法的参数是一个对象，它总是返回该对象，即不用转换。</li>
+                        <li>Object 构造函数</li>
+                        <li>
+                            Object 的静态方法
+                            <ul>
+                                <li>Object.keys() 与 Object.getOwnPropertyNames()</li>
+                                <li>Object.getOwnPropertyDescriptor()、Object.defineProperty()、Object.defineProperties()
+                                </li>
+                                <li>Object.freeze()、Object.isFrozen()</li>
+                                <li>Object.create()、Object.getPrototypeOf()</li>
+                            </ul>
+                        </li>
+                        <li>
+                            Object 主要的六个实例方法
+                            <ul>
+                                <li>Object.prototype.valueOf()</li>
+                                <li>Object.prototype.toString()</li>
+                                <li>Object.prototype.toLocaleString()</li>
+                                <li>Object.prototype.hasOwnProperty()</li>
+                                <li>Object.prototype.isPrototypeOf()</li>
+                                <li>Object.prototype.propertyIsEnumerable()</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    属性描述对象
+                    <ul>
+                        <li>Object.getOwnPropertyDescriptor(obj, 属性值)</li>
+                        <li>Object.getOwnPropertyNames()</li>
+                        <li>Object.defineProperty(object, propertyName, attributesObject属性描述对象)</li>
+                        <li>Object.prototype.propertyIsEnumerable()</li>
+                        <li>元属性 value writable enumerable configurable</li>
+                        <li>存取器 get set</li>
+                        <li>对象的拷贝 使用Object.defineProperty()</li>
+                        <li>控制对象状态</li>
+                    </ul>
+                </li>
+                <li>
+                    Array 对象
+                    <ul>
+                        <li>构造函数</li>
+                        <li>静态方法 Array.isArray()</li>
+                        <li>
+                            实例方法
+                            <ul>
+                                <li>valueOf()，toString()</li>
+                                <li>push()，pop()</li>
+                                <li>shift()，unshift()</li>
+                                <li>join()</li>
+                                <li>concat()</li>
+                                <li>reverse()</li>
+                                <li>arr.slice(start, end)，将类似数组的对象转为真正的数组</li>
+                                <li>arr.splice(start, count, addElement1, addElement2, ...)</li>
+                                <li>sort()</li>
+                                <li>map()</li>
+                                <li>forEach()</li>
+                                <li>filter()</li>
+                                <li>some()，every()</li>
+                                <li>reduce()，reduceRight()</li>
+                                <li>indexOf()，lastIndexOf()</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    包装对象，数值、字符串、布尔值——在一定条件下，也会自动转为对象，也就是原始类型的“包装对象”
+                    <ul>
+                        <li>new Number()、new String()、new Boolean()</li>
+                        <li>
+                            实例方法
+                            <ul>
+                                <li>valueOf()</li>
+                                <li>toString()</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Boolean 对象
+                </li>
+                <li>
+                    Number 对象
+                    <ul>
+                        <li>静态属性</li>
+                        <li>
+                            实例方法
+                            <ul>
+                                <li>Number.prototype.toString()</li>
+                                <li>Number.prototype.toFixed()</li>
+                                <li>Number.prototype.toExponential()</li>
+                                <li>Number.prototype.toPrecision()</li>
+                                <li>Number.prototype.toLocaleString()</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    String 对象
+                    <ul>
+                        <li>
+                            静态方法
+                            <ul>
+                                <li>String.fromCharCode()</li>
+                            </ul>
+                        </li>
+                        <li>
+                            实例方法
+                            <ul>
+                                <li>String.prototype.charAt()</li>
+                                <li>String.prototype.charCodeAt()</li>
+                                <li>String.prototype.concat()</li>
+                                <li>String.prototype.slice()</li>
+                                <li>String.prototype.substring()</li>
+                                <li>String.prototype.substr()</li>
+                                <li>String.prototype.indexOf() String.prototype.lastIndexOf()</li>
+                                <li>String.prototype.trim()</li>
+                                <li>String.prototype.toLowerCase() String.prototype.toUpperCase()</li>
+                                <li>String.prototype.match()</li>
+                                <li>String.prototype.search() String.prototype.replace()</li>
+                                <li>String.prototype.split()</li>
+                                <li>String.prototype.localeCompare()</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Math 对象
+                    <ul>
+                        <li>
+                            静态方法
+                            <ul>
+                                <li>Math.abs()</li>
+                                <li>Math.ceil()</li>
+                                <li>Math.floor()</li>
+                                <li>Math.max() Math.min()</li>
+                                <li>Math.pow()</li>
+                                <li>Math.sqrt()</li>
+                                <li>Math.log() Math.exp()</li>
+                                <li>Math.round()</li>
+                                <li>Math.random()</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Date 对象
+                    <ul>
+                        <li>
+                            静态方法
+                            <ul>
+                                <li>Date.now()</li>
+                                <li>Date.parse()</li>
+                                <li>Date.UTC()</li>
+                            </ul>
+                        </li>
+                        <li>
+                            实例方法
+                            <ul>
+                                <li>Date.prototype.valueOf(),等同于getTime方法</li>
+                                <li>Date.prototype.toString() Date.prototype.toUTCString()</li>
+                                <li>Date.prototype.toJSON() Date.prototype.toDateString() Date.prototype.toTimeString()
+                                </li>
+                                <li>Date.prototype.toLocaleString() Date.prototype.toLocaleDateString()</li>
+                                <li>getTime()</li>
+                                <li>getDay()</li>
+                                <li>getFullYear() getMonth() getDate()</li>
+                                <li>getHours() getMinutes() getSeconds()</li>
+                                <li>setDate(date)</li>
+                                <li>setFullYear(year [, month, date])</li>
+                                <li>setHours(hour [, min, sec, ms])</li>
+                                <li>setMinutes(min [, sec, ms])</li>
+                                <li>setMonth(month [, date])</li>
+                                <li>setSeconds(sec [, ms])</li>
+                                <li>setTime(milliseconds)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    RegExp 对象
+                    <ul>
+                        <li>
+                            实例属性
+                            <ul>
+                                <li>RegExp.prototype.ignoreCase</li>
+                                <li>RegExp.prototype.global</li>
+                                <li>RegExp.prototype.multiline</li>
+                                <li>RegExp.prototype.flags</li>
+                                <li>RegExp.prototype.lastIndex</li>
+                                <li>RegExp.prototype.source</li>
+                            </ul>
+                        </li>
+                        <li>
+                            实例方法
+                            <ul>
+                                <li>RegExp.prototype.test()</li>
+                                <li>RegExp.prototype.exec()</li>
+                                <li>
+                                    字符串使用正则：
+                                    <ul>
+                                        <li>String.prototype.match(),设置正则表达式的lastIndex属性，对match方法无效</li>
+                                        <li>String.prototype.search()</li>
+                                        <li>String.prototype.replace()</li>
+                                        <li>String.prototype.split()</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            匹配规则
+                            <ul>
+                                <li>字面量字符和元字符( . ^ $ |)</li>
+                                <li>转义符</li>
+                                <li>特殊字符(\cX [\b] \n \r \t \v \f \o \xhh \uhhhh)</li>
+                                <li>脱字符（^）、连字符（-）</li>
+                                <li>预定义模式(\d \D \w \W \s \S \b \B)</li>
+                                <li>大括号（{}）</li>
+                                <li>? 问号、* 星号、+ 加号</li>
+                                <li>
+                                    贪婪模式
+                                    <ul>
+                                        <li>+?：表示某个模式出现1次或多次，匹配时采用非贪婪模式</li>
+                                        <li>*?：表示某个模式出现0次或多次，匹配时采用非贪婪模式</li>
+                                        <li>??：表格某个模式出现0次或1次，匹配时采用非贪婪模式</li>
+                                    </ul>
+                                </li>
+                                <li>修饰符(g i m)</li>
+                                <li>
+                                    组匹配
+                                    <ul>
+                                        <li>(?:x)称为非捕获组（Non-capturing group）</li>
+                                        <li>x(?=y)称为先行断言（Positive look-ahead）</li>
+                                        <li>x(?!y)称为先行否定断言（Negative look-ahead）</li>
+                                        <li></li>
+                                        <li></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    JSON 对象
+                    <ul>
+                        <li>JSON.stringify()</li>
+                        <li>JSON.parse()</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="oop">
+            <h3>面向对象编程</h3>
+            <ul>
+                <li>
+                    new 命令
+                    <ul>
+                        <li>创建一个空对象，作为将要返回的对象实例</li>
+                        <li>将这个空对象的原型，指向构造函数的prototype属性</li>
+                        <li>将这个空对象赋值给函数内部的this关键字</li>
+                        <li>开始执行构造函数内部的代码</li>
+                    </ul>
+                </li>
+                <li>
+                    this
+                    <ul>
+                        <li>this 总是返回一个对象</li>
+                        <li>
+                            使用场合
+                            <ul>
+                                <li>全局环境使用this，它指的就是顶层对象window</li>
+                                <li>构造函数中的this，指的是实例对象</li>
+                                <li>如果对象的方法里面包含this，this的指向就是方法运行时所在的对象</li>
+                            </ul>
+                        </li>
+                        <li>
+                            绑定 this 的方法
+                            <ul>
+                                <li>Function.prototype.call(obj, arg1, arg2, ...)</li>
+                                <li>Function.prototype.apply(obj, [arg1, arg2, ...])</li>
+                                <li>Function.prototype.bind(obj, arg1, arg2, ...)</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    对象的继承
+                    <ul>
+                        <li>prototype 属性的作用</li>
+                        <li>原型链</li>
+                        <li>Object.getPrototypeOf(Object.prototype) === null</li>
+                        <li>constructor 属性</li>
+                        <li>instanceof 运算符</li>
+                        <li>
+                            构造函数的继承
+                            <ul>
+                                <li>第一步是在子类的构造函数中，调用父类的构造函数 Super.call(this)</li>
+                                <li>
+                                    第二步，是让子类的原型指向父类的原型，这样子类就可以继承父类原型
+                                    <p>
+                                        <pre><code>Sub.prototype = Object.create(Super.prototype);
+Sub.prototype.constructor = Sub;
+Sub.prototype.method = '...';</code></pre>
+                                    </p>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>多重继承</li>
+                        <li>模块</li>
+                    </ul>
+                </li>
+                <li>
+                    Object 对象的相关方法
+                    <ul>
+                        <li>Object.getPrototypeOf()</li>
+                        <li>Object.setPrototypeOf(a, b)</li>
+                        <li>Object.create()</li>
+                        <li>Object.prototype.isPrototypeOf()</li>
+                        <li>Object.prototype.__proto__</li>
+                        <li>
+                            获取原型对象方法
+                            <ul>
+                                <li>obj.__proto__</li>
+                                <li>obj.constructor.prototype</li>
+                                <li>Object.getPrototypeOf(obj)</li>
+                            </ul>
+                        </li>
+                        <li>Object.getOwnPropertyNames()</li>
+                        <li>Object.prototype.hasOwnProperty()</li>
+                        <li>in 运算符和 for...in 循环</li>
+                        <li>对象的拷贝</li>
+                    </ul>
+                </li>
+                <li>严格模式</li>
+            </ul>
+        </div>
+        <div id="async">
+            <h3>异步操作</h3>
+            <ul>
+                <li>单线程模型</li>
+                <li>同步任务和异步任务</li>
+                <li>任务队列和事件循环</li>
+                <li>
+                    异步操作的模式
+                    <ul>
+                        <li>回调函数</li>
+                        <li>事件监听</li>
+                        <li>发布/订阅</li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </li>
+                <li>
+                    异步操作的流程控制
+                    <ul>
+                        <li>串行执行</li>
+                        <li>并行执行</li>
+                        <li>并行与串行的结合</li>
+                    </ul>
+                </li>
+                <li>定时器 setTimeout(func|code, delay)、setInterval()</li>
+                <li>debounce 函数</li>
+                <li>Promise 对象</li>
+            </ul>
+        </div>
+    </div>
+    <div id="dom">
+        <h2>DOM</h2>
+        <p>节点的七种类型：Document、DocumentType、Element、Attribute、Text、Comment、DocumentFragment</p>
+        <div id="node">
+            <h3>Node 接口</h3>
+            <ul>
+                <li>
+                    属性
+                    <ul>
+                        <li>Node.prototype.nodeType</li>
+                        <li>Node.prototype.nodeName</li>
+                        <li>Node.prototype.nodeValue</li>
+                        <li>Node.prototype.textContent</li>
+                        <li>Node.prototype.baseURI</li>
+                        <li>Node.prototype.ownerDocument</li>
+                        <li>Node.prototype.nextSibling</li>
+                        <li>Node.prototype.previousSibling</li>
+                        <li>Node.prototype.parentNode</li>
+                        <li>Node.prototype.parentElement</li>
+                        <li>Node.prototype.firstChild Node.prototype.lastChild</li>
+                        <li>Node.prototype.childNodes</li>
+                        <li>Node.prototype.isConnected</li>
+                    </ul>
+                </li>
+                <li>
+                    方法
+                    <ul>
+                        <li>Node.prototype.appendChild()</li>
+                        <li>Node.prototype.hasChildNodes()</li>
+                        <li>Node.prototype.cloneNode()</li>
+                        <li>Node.prototype.insertBefore()</li>
+                        <li>Node.prototype.removeChild()</li>
+                        <li>Node.prototype.replaceChild()</li>
+                        <li>Node.prototype.contains()</li>
+                        <li>Node.prototype.compareDocumentPosition()</li>
+                        <li>Node.prototype.isEqualNode()，Node.prototype.isSameNode() </li>
+                        <li>Node.prototype.normalize()</li>
+                        <li>Node.prototype.getRootNode()</li>
+                    </ul>
+                </li>
+                <li></li>
+            </ul>
+        </div>
+        <div id="nodelist">
+            <h3>NodeList 接口 和 HTMLCollection 接口</h3>
+            <ul>
+                <li>
+                    得到NodeList实例的方法
+                    <ul>
+                        <li>Node.childNodes</li>
+                        <li>document.querySelectorAll()等节点搜索方法</li>
+                    </ul>
+                </li>
+                <li></li>
+                <li>NodeList.prototype.length</li>
+                <li>NodeList.prototype.forEach()</li>
+                <li>NodeList.prototype.item()</li>
+                <li>NodeList.prototype.keys()，NodeList.prototype.values()，NodeList.prototype.entries()</li>
+                <li>HTMLCollection是一个节点对象的集合，只能包含元素节点（element），不能包含其他类型的节点</li>
+                <li>返回HTMLCollection实例的，主要是一些Document对象的集合属性，比如document.links、document.forms、document.images等</li>
+                <li>HTMLCollection.prototype.length</li>
+                <li>HTMLCollection.prototype.item()</li>
+                <li>HTMLCollection.prototype.namedItem()</li>
+            </ul>
+        </div>
+        <div id="parentnode">
+            <h3>ParentNode 接口，ChildNode 接口</h3>
+            <ul>
+                <li>ParentNode.children,返回一个HTMLCollection实例，成员是当前节点的所有元素子节点</li>
+                <li>ParentNode.firstElementChild</li>
+                <li>ParentNode.lastElementChild</li>
+                <li>ParentNode.childElementCount</li>
+                <li>ParentNode.append()，ParentNode.prepend()</li>
+                <li>ChildNode.remove()</li>
+                <li>ChildNode.before()，ChildNode.after()</li>
+                <li>ChildNode.replaceWith()</li>
+            </ul>
+        </div>
+        <div id="doc">
+            <h3>Document 节点</h3>
+            <ul>
+                <li>document对象继承了EventTarget接口、Node接口、ParentNode接口</li>
+                <li>document.defaultView === window</li>
+                <li>document.doctype</li>
+                <li>document.documentElement</li>
+                <li>document.body，document.head</li>
+                <li>document.scrollingElement</li>
+                <li>document.activeElement</li>
+                <li>document.fullscreenElement</li>
+                <li>document.documentURI，document.URL</li>
+                <li>document.domain</li>
+                <li>document.location</li>
+                <li>document.lastModified</li>
+                <li>document.title</li>
+                <li>document.characterSet</li>
+                <li>document.referrer</li>
+                <li>document.dir document.compatMode</li>
+                <li>document.hidden</li>
+                <li>document.visibilityState</li>
+                <li>document.readyState，loading、interactive、complete</li>
+                <li>document.cookie</li>
+                <li>document.designMode</li>
+                <li>document.implementation</li>
+                <li>document.open()，document.close()</li>
+                <li>document.write()，document.writeln()</li>
+                <li>document.querySelector()，document.querySelectorAll()</li>
+                <li>document.getElementsByTagName()</li>
+                <li>document.getElementsByClassName()</li>
+                <li>document.getElementsByName()</li>
+                <li>document.getElementById()</li>
+                <li>document.elementFromPoint()，document.elementsFromPoint()</li>
+                <li>document.createElement()</li>
+                <li>document.createTextNode()</li>
+                <li>document.createAttribute() node.setAttributeNode()</li>
+                <li>document.createComment()</li>
+                <li>document.createDocumentFragment()</li>
+                <li>document.createEvent()</li>
+                <li>document.addEventListener()，document.removeEventListener()，document.dispatchEvent()</li>
+                <li>document.hasFocus()</li>
+                <li>document.adoptNode()，document.importNode()</li>
+                <li>document.createNodeIterator()</li>
+                <li>document.createTreeWalker()</li>
+                <li>document.execCommand()，document.queryCommandSupported()，document.queryCommandEnabled()</li>
+            </ul>
+        </div>
+        <div id="ele">
+            <h3>Element 节点</h3>
+            <ul>
+                <li>
+                    实例属性:
+                    <ul>
+                        <li>id tagName dir accessKey draggable lang tabIndex title hidden </li>
+                        <li>Element.attributes</li>
+                        <li>Element.className，Element.classList</li>
+                        <li>Element.dataset</li>
+                        <li>Element.innerHTML</li>
+                        <li>Element.outerHTML</li>
+                        <li>Element.clientHeight，Element.clientWidth</li>
+                        <li>Element.clientLeft，Element.clientTop</li>
+                        <li>Element.scrollHeight，Element.scrollWidth</li>
+                        <li>Element.scrollLeft，Element.scrollTop</li>
+                        <li>Element.offsetParent</li>
+                        <li>Element.offsetHeight，Element.offsetWidth</li>
+                        <li>Element.offsetLeft，Element.offsetTop</li>
+                        <li>Element.style</li>
+                        <li>Element.children，Element.childElementCount</li>
+                        <li>Element.firstElementChild，Element.lastElementChild</li>
+                        <li>Element.nextElementSibling，Element.previousElementSibling</li>
+                    </ul>
+                </li>
+                <li>
+                    实例方法
+                    <ul>
+                        <li>getAttribute() getAttributeNames()</li>
+                        <li>setAttribute() hasAttribute() hasAttributes()</li>
+                        <li>removeAttribute()</li>
+                        <li>Element.querySelector()</li>
+                        <li>Element.querySelectorAll()</li>
+                        <li>Element.getElementsByClassName()</li>
+                        <li>Element.getElementsByTagName()</li>
+                        <li>Element.closest()</li>
+                        <li>Element.matches()</li>
+                        <li>Element.scrollIntoView()</li>
+                        <li>Element.getBoundingClientRect()</li>
+                        <li>Element.getClientRects()</li>
+                        <li>Element.insertAdjacentElement()</li>
+                        <li>Element.insertAdjacentHTML()，Element.insertAdjacentText()</li>
+                        <li>Element.remove()</li>
+                        <li>Element.focus()，Element.blur()</li>
+                        <li>Element.click()</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="attr">
+            <h3>属性的操作</h3>
+            <ul>
+                <li>Element.attributes 属性</li>
+                <li>元素的标准属性</li>
+                <li>
+                    属性操作的标准方法
+                    <ul>
+                        <li>getAttribute() getAttributeNames() setAttribute()</li>
+                        <li>hasAttribute() hasAttributes() removeAttribute()</li>
+                    </ul>
+                </li>
+                <li>dataset 属性</li>
+            </ul>
+        </div>
+        <div id="text">
+            <h3>Text 节点和 DocumentFragment 节点</h3>
+            <ul>
+                <li>appendData()，deleteData()，insertData()，replaceData()，subStringData()</li>
+                <li>DocumentFragment 节点一般用于构建一个 DOM 结构，然后插入当前文档</li>
+            </ul>
+        </div>
+        <div id="cssstyle">
+            <h3>CSS 操作</h3>
+            <ul>
+                <li>
+                    CSSStyleDeclaration 接口
+                    <ul>
+                        <li>元素节点的style属性（Element.style）</li>
+                        <li>CSSStyle实例的style属性</li>
+                        <li>window.getComputedStyle()的返回值</li>
+                    </ul>
+                </li>
+                <li>
+                    CSSStyleDeclaration 实例属性
+                    <ul>
+                        <li>CSSStyleDeclaration.cssText</li>
+                        <li>CSSStyleDeclaration.length CSSStyleDeclaration.parentRule</li>
+                    </ul>
+                </li>
+                <li>
+                    CSSStyleDeclaration 实例方法
+                    <ul>
+                        <li>CSSStyleDeclaration.getPropertyPriority()</li>
+                        <li>CSSStyleDeclaration.getPropertyValue()</li>
+                        <li>CSSStyleDeclaration.item()</li>
+                        <li>CSSStyleDeclaration.removeProperty()</li>
+                        <li>CSSStyleDeclaration.setProperty()</li>
+                    </ul>
+                </li>
+                <li>CSS 模块的侦测</li>
+                <li>
+                    CSS 对象
+                    <ul>
+                        <li>CSS.escape()</li>
+                        <li>CSS.supports()</li>
+                    </ul>
+                </li>
+                <li>window.getComputedStyle()</li>
+                <li>CSS 伪元素</li>
+                <li>StyleSheet 接口</li>
+                <li>CSSRuleList 接口</li>
+                <li>CSSRule 接口</li>
+                <li>CSSMediaRule 接口</li>
+                <li>window.matchMedia()</li>
+            </ul>
+        </div>
+        <div id="mutation">
+            <h3>Mutation Observer API</h3>
+            <ul>
+                <li>Mutation Observer API 用来监视 DOM 变动</li>
+                <li>MutationObserver 构造函数,var observer = new MutationObserver(callback);</li>
+                <li>
+                    实例方法
+                    <ul>
+                        <li>observe(dom, options) 方法用来启动监听</li>
+                        <li>disconnect()，takeRecords（）</li>
+                    </ul>
+                </li>
+                <li>MutationRecord 对象</li>
+            </ul>
+        </div>
+        <div id="event">
+            <h3>事件</h3>
+            <ul>
+                <li>
+                    EventTarget 接口
+                    <ul>
+                        <li>EventTarget.addEventListener(type, listener[, useCapture])</li>
+                        <li>EventTarget.removeEventListener()</li>
+                        <li>EventTarget.dispatchEvent()</li>
+                    </ul>
+                </li>
+                <li>
+                    事件模型
+                    <ul>
+                        <li>浏览器的事件模型，就是通过监听函数（listener）对事件做出反应</li>
+                        <li>
+                            为事件绑定监听函数的三种方法：
+                            <ul>
+                                <li>HTML 的 on- 属性</li>
+                                <li>元素节点的事件属性</li>
+                                <li>EventTarget.addEventListener()</li>
+                            </ul>
+                        </li>
+                        <li>监听函数内部的this指向触发事件的那个元素节点</li>
+                        <li>事件的传播</li>
+                        <li>事件的代理</li>
+                    </ul>
+                </li>
+                <li>
+                    Event 对象
+                    <ul>
+                        <li>event = new Event(type, options);</li>
+                        <li>
+                            实例属性: 
+                            <ul>
+                                <li>Event.bubbles，Event.eventPhase </li>
+                                <li>Event.cancelable，Event.cancelBubble，event.defaultPrevented</li>
+                                <li>Event.currentTarget，Event.target</li>
+                                <li>Event.type</li>
+                                <li>Event.timeStamp</li>
+                                <li>Event.isTrusted </li>
+                                <li>Event.detail</li>
+                            </ul>
+                        </li>
+                        <li>
+                            实例方法：
+                            <ul>
+                                <li>Event.preventDefault()</li>
+                                <li>Event.stopPropagation() </li>
+                                <li>Event.stopImmediatePropagation()</li>
+                                <li>Event.composedPath()</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
 </body>
 
 </html>
