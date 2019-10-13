@@ -1,0 +1,75 @@
+body {
+    background: #fff;
+    color: #333;
+}
+
+h1 {
+    padding-left: 15px;
+    margin-bottom: 8px;
+    font-size: 50px;
+    text-shadow: 5px 8px 5px #3273dc2a;
+}
+
+.container {
+    width: 96%;
+    margin: 0 auto;
+}
+
+.container>div {
+    padding: 10px 0;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 2px inset #3273dc2a, 0 -1px 3px #3273dc2a;
+}
+
+.container .item {
+    padding: 0 15px;
+    height: 0;
+    overflow: hidden;
+    transition: all ease 0.5s;
+}
+.container .main {
+    height: 0;
+    overflow: hidden;
+}
+
+h2,
+h3 {
+    padding-left: 15px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    user-select: none;
+}
+
+h2::before,
+h3::before {
+    content: "▶";
+    display: inline-block;
+    margin-right: 8px;
+}
+
+h2.active::before {
+    content: "▼";
+}
+
+h3::before {
+    content: "▷";
+    transform: rotate(0);
+    transition: all ease 0.5s;
+}
+
+h3.active::before {
+    content: "▷";
+    transform: rotate(90deg);
+}
+
+h2:hover,
+h3:hover {
+    background-color: #f5f5f5;
+    color: #363636;
+}
+
+ul {
+    padding-left: 50px;
+}
