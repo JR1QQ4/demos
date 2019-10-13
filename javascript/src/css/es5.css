@@ -47,16 +47,17 @@ h3::before {
     content: "▶";
     display: inline-block;
     margin-right: 8px;
+    transform: rotate(0);
+    transition: all ease 0.5s;
 }
 
 h2.active::before {
-    content: "▼";
+    content: "▶";
+    transform: rotate(90deg);
 }
 
 h3::before {
     content: "▷";
-    transform: rotate(0);
-    transition: all ease 0.5s;
 }
 
 h3.active::before {
