@@ -35,6 +35,8 @@
         <div>
             <h2>注册组件</h2>
             <p>registerregisterregisterregisterregisterregister</p>
+            <router-link to="/register/news">news</router-link>
+            <router-view></router-view>
         </div>
     </template>
     <template id="news">
@@ -49,7 +51,7 @@
             <nav>
                 <router-link :to="'/login/'+userId" tag="button">Login</router-link>
                 <router-link to="/register" tag="button">Register</router-link>
-                <router-link to="/register/news" >news</router-link>
+                <!-- <router-link to="/register/news">news</router-link> -->
             </nav>
             <router-view></router-view>
         </div>
@@ -94,13 +96,16 @@
                 {
                     path: "/register",
                     component: register,
-                    children: [{
-                        path: '/',
-                        redirect: 'news'
-                    }, {
-                        path: 'news',
-                        component: news
-                    }]
+                    children: [
+                        //     {
+                        //     path: '/',
+                        //     redirect: 'news'
+                        // }, 
+                        {
+                            path: 'news',
+                            component: news
+                        }
+                    ]
                 }
             ],
             linkActiveClass: "myactive"

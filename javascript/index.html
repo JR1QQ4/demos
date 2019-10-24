@@ -17,11 +17,14 @@
         <span class="typetext"></span>
     </div>
     <div class="wrapper">
-        <a href="./es5/" class="es5">
-            <canvas id="myCanvas1" width="300" height="160"></canvas>
+        <a href="./es5/" class="es5 item">
+            <canvas class="myCanvas myCanvas1" width="300" height="160"></canvas>
         </a>
-        <a href="./es6/" class="es6">
-            <canvas id="myCanvas2" width="300" height="160"></canvas>
+        <a href="./es6/" class="es6 item">
+            <canvas class="myCanvas myCanvas2" width="300" height="160"></canvas>
+        </a>
+        <a href="http://dongqunren.gitee.io/ife/projects/ife04/" class="demo item">
+            <canvas class="myCanvas myCanvas3" width="300" height="160"></canvas>
         </a>
     </div>
 </body>
@@ -49,27 +52,48 @@
     let timer1 = setInterval(function () {
         type()
     }, 100);
+    var colors = ["#6dc9f1", "#ffe24d", "#ff5d23"]
+    var cvs = document.querySelectorAll(".myCanvas");
+    for (var i = 0; i < cvs.length; i++) {
+        var cv = cvs[i]
+        var ctx = cv.getContext("2d");
+        ctx.fillStyle = colors[i];
+        ctx.fillRect(0, 0, 300, 160);
+        ctx.fillStyle = "#f8f8f8";
+        ctx.font = "65px Arial";
+        if (i == 0) {
+            ctx.fillText('ES5', 80, 95);
+        } else if (i == 1) {
+            ctx.fillText('ES6', 80, 95);
+        } else if (i == 2) {
+            ctx.fillText('DEMO', 50, 95);
+        }
+        ctx.stroke();
+    }
 
-    const c1 = document.querySelector("#myCanvas1");
-    const c2 = document.querySelector("#myCanvas2");
-    const ctx1 = c1.getContext("2d");
-    const ctx2 = c2.getContext("2d");
-    ctx1.fillStyle = "#6dc9f1";
-    ctx1.fillRect(0, 0, 300, 160);
-    ctx1.fillStyle = "#333";
-    ctx1.font = "65px Arial";
-    ctx1.fillText('ES5', 80, 95);
-    ctx1.stroke();
 
-    ctx2.fillStyle = "#ffe24d";
-    ctx2.fillRect(0, 0, 300, 160);
-    ctx2.fillStyle = "#333";
-    ctx2.font = "65px Arial";
-    ctx2.fillText('ES6', 80, 95);
-    ctx2.stroke();
+    // const c1 = document.querySelector("#myCanvas1");
+    // const c2 = document.querySelector("#myCanvas2");
+    // const c3 = document.querySelector("#myCanvas3");
+    // const ctx1 = c1.getContext("2d");
+    // const ctx2 = c2.getContext("2d");
+    // const ctx3 = c2.getContext("2d");
+    // ctx1.fillStyle = "#6dc9f1";
+    // ctx1.fillRect(0, 0, 300, 160);
+    // ctx1.fillStyle = "#333";
+    // ctx1.font = "65px Arial";
+    // ctx1.fillText('ES5', 80, 95);
+    // ctx1.stroke();
+
+    // ctx2.fillStyle = "#ffe24d";
+    // ctx2.fillRect(0, 0, 300, 160);
+    // ctx2.fillStyle = "#333";
+    // ctx2.font = "65px Arial";
+    // ctx2.fillText('ES6', 80, 95);
+    // ctx2.stroke();
 
     console.log("%c图片来自互联网，如有侵权立即删除",
-    "color:#e80a89;font-weight:900;font-size:30px;");
+        "color:#e80a89;font-weight:900;font-size:30px;");
 </script>
 
 </html>

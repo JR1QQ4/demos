@@ -75,8 +75,8 @@ h1 {
     margin: 0 30px;
     position: relative;
 }
-.es5::after,
-.es6::after {
+
+.item::after {
     content: "";
     display: none;
     position: absolute;
@@ -87,15 +87,16 @@ h1 {
     z-index: 9;
     background: rgba(0, 0, 0, .2);
 }
-.es5:hover::after,
-.es6:hover::after {
+
+.item:hover::after {
     display: block;
 }
-.es6 {
+
+.item {
     margin-right: 30px;
     position: relative;
 }
-#myCanvas1,
-#myCanvas2 {
+
+.myCanvas {
     border-radius: 3px;
 }

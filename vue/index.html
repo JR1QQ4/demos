@@ -8,22 +8,318 @@
     <title>Document</title>
     <style>
         body {
+            background: #ffffff;
+            color: #273849;
+            min-width: 1000px;
+            padding-bottom: 100px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        a {
+            color: #273849;
+            text-decoration: none;
+        }
+
+        .nav {
+            padding: 10px 50px;
+            overflow: hidden;
+        }
+
+        .left {
+            float: left;
+        }
+
+        .right {
+            float: right;
+        }
+
+        .nav h1 {
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            font-size: 28px;
+            font-weight: 500;
+        }
+
+        .nav input {
+            padding: 5px 20px;
+            margin-right: 10px;
+            border: 1px solid #e3e3e3;
+            border-radius: 20px;
+            outline: 0;
+            transition: all 0.5s ease;
+        }
+
+        .nav input:focus {
+            border-color: #42b983;
+        }
+
+        .nav a {
+            display: inline-block;
+            margin: 10px 12px;
+            border-bottom: 2px solid #fff;
+            transition: all 0.5s ease;
+        }
+
+        .nav a:hover {
+            border-bottom-color: #4fc08d;
+        }
+
+        .hero {
+            padding: 40px 40px 30px;
+        }
+
+        .inner {
+            width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .inner-left {
+            width: 39%;
+            overflow: hidden;
+        }
+
+        .inner-left img {
+            height: 215px;
+            width: 215px;
+            margin-right: 60px;
+        }
+
+        .inner-right {
+            width: 61%;
+        }
+
+        .inner-right h2 {
+            font-size: 50px;
+            font-weight: 300;
+            margin-bottom: 50px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 14px 42px;
+            margin-right: 5px;
+            border-radius: 42px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            border: 1px solid #4fc08d;
+            color: #4fc08d;
+            text-align: center;
+        }
+
+        .button svg {
+            position: absolute;
+            left: 8px;
+            top: 10px;
+            width: 2em;
+        }
+
+        .has-icon {
+            position: relative;
+            padding-left: 50px;
+            letter-spacing: 2px;
+            font-size: 15px;
             background: #4fc08d;
             color: #fff;
         }
+
+        .gay {
+            border: 0;
+            background-color: #f6f6f6;
+            color: #4f5959;
+        }
+
+        .example {
+            padding: 40px 40px;
+        }
+
+        .wapper {
+            width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .wapper h3 {
+            width: 100%;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .wapper h3::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 3px;
+            height: 22px;
+            width: 3px;
+            background: #273849;
+        }
+
+        .item {
+            width: 33.33%;
+            margin-bottom: 30px;
+        }
+
+        .item a {
+            position: relative;
+        }
+
+        .item a::after {
+            content: "";
+            position: absolute;
+            bottom: -7px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #42b983;
+            transition: all 0.2s ease;
+        }
+
+        .item a:hover {
+            color: #42b983;
+        }
+
+        .item a:hover::after {
+            bottom: -10px;
+        }
     </style>
-    <script src="./model/main.js"></script>
+
 </head>
 
 <body>
-    <div id='app'></div>
-    <script>
-        const vue = new Vue({
-            el: '#app',
-            data: {},
-            methods: {}
-        });
-    </script>
+    <div class="nav">
+        <div class="left">
+            <h1>Vue.js</h1>
+        </div>
+        <div class="right">
+            <input type="text">
+            <a href="javascript:void(0);">学习</a>
+            <a href="javascript:void(0);">生态系统</a>
+            <a href="javascript:void(0);">团队</a>
+            <a href="javascript:void(0);">资源列表</a>
+            <a href="javascript:void(0);">支持 Vue</a>
+            <a href="javascript:void(0);">多语言</a>
+            <a href="javascript:void(0);">参与翻译</a>
+        </div>
+    </div>
+    <div class="hero">
+        <div class="inner">
+            <div class="inner-left left">
+                <img class="right" src="./src/images/logo.png" alt="logo">
+            </div>
+            <div class="inner-right left">
+                <h2>渐进式 <br> JavaScript 框架</h2>
+                <a class="button has-icon" href="https://cn.vuejs.org/">
+                    <svg aria-labelledby="simpleicons-play-icon" role="img" viewBox="0 0 100 125" fill="#FFFFFF">
+                        <title id="simpleicons-play-icon" lang="en">Play icon</title>
+                        <path
+                            d="M50,3.8C24.5,3.8,3.8,24.5,3.8,50S24.5,96.2,50,96.2S96.2,75.5,96.2,50S75.5,3.8,50,3.8z M71.2,53.3l-30.8,18  c-0.6,0.4-1.3,0.5-1.9,0.5c-0.6,0-1.3-0.1-1.9-0.5c-1.2-0.6-1.9-1.9-1.9-3.3V32c0-1.4,0.8-2.7,1.9-3.3c1.2-0.6,2.7-0.6,3.8,0  l30.8,18c1.2,0.6,1.9,1.9,1.9,3.3S72.3,52.7,71.2,53.3z">
+                        </path>
+                    </svg>
+                    WHY VUE.JS?
+                </a>
+                <a class="button" href="https://github.com/vuejs/vue">起步</a>
+                <a class="button has-icon gay" href="https://github.com/vuejs/vue">
+                    <svg aria-labelledby="simpleicons-github-dark-icon" lang="" role="img" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <title id="simpleicons-github-dark-icon" lang="en">GitHub Dark icon</title>
+                        <path fill="#7F8C8D"
+                            d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12">
+                        </path>
+                    </svg>
+                    GITHUB
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="example">
+        <div class="wapper">
+            <h3>示例</h3>
+            <div class="item">
+                <a href="./src/assets/26filter.html">示例26： filter</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/25directive.html">示例25： directive</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/24mixins.html">示例24： mixins</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/23keeplive.html">示例23： keep-alive</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/22model.html">示例22： v-model</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/21vuex.html">示例21： vuex</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/20router.html">示例20： $route</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/19render.html">示例19： render</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/18template.html">示例18： el&template</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/17model.html">示例17： 模块化</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/16slot.html">示例16： slot</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/15parent.html">示例15： $parent</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/14children.html">示例14： $children</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/13watch.html">示例13： watch</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/12component.html">示例12： component</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/11component.html">示例11： component</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/10modifier.html">示例10： modifier</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/09form.html">示例9： form</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/08v-model.html">示例8： v-model</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/07library.html">示例7： library</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/06if-for.html">示例6： if&for</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/05computed.html">示例5： computed</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/04bind.html">示例4： bind&style</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/03mustuche.html">示例3： mustuche</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/02calculate.html">示例2： counter</a>
+            </div>
+            <div class="item">
+                <a href="./src/assets/01helloword.html">示例1： Hello World</a>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
