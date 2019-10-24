@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Build a Drum Machine</title>
+    <style>
+        body {
+            user-select: none;
+        }
+        #app {
+            width: 500px;
+            margin: 80px auto;
+        }
+        #tips {
+            margin: 3px 0;
+            width: 150px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            background: orange;
+            color: #fff;
+        }
+
+        .select {
+            margin: 3px 0;
+            width: 40px;
+            height: 15px;
+            border: 1px solid orange;
+            position: relative;
+        }
+
+        .inner {
+            display: block;
+            width: 20px;
+            height: 15px;
+            background: orange;
+        }
+
+        #onoroff {
+            width: 50px;
+            height: 15px;
+            position: absolute;
+            right: -60px;
+            top: -2px;
+            font-size: 14px;
+        }
+
+        #pad-bank {
+            width: 230px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #drum-pad {
+            margin-right: 10px;
+            margin-bottom: 10px;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            background: orange;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        #drum-pad:active {
+            opacity: .6;
+        }
+    </style>
+    <script src="../src/js/react.js"></script>
+    <script src="../src/js/react-dom.js"></script>
+    <script src="../src/js/babel.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+        const bankOne = [{
+        keyCode: 81,
+        keyTrigger: 'Q',
+        id: 'Heater-1',
+        url: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3'
+      }, {
+        keyCode: 87,
+        keyTrigger: 'W',
+        id: 'Heater-2',
+        url: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-2.mp3'
+      }, {
+        keyCode: 69,
+        keyTrigger: 'E',
+        id: 'Heater-3',
+        url: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-3.mp3'
+      }, {
+        keyCode: 65,
+        keyTrigger: 'A',
+        id: 'Heater-4',
+        url: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-4_1.mp3'
+      }, {
+        keyCode: 83,
+        keyTrigger: 'S',
+        id: 'Clap',
+        url: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3'
+      }, {
+        keyCode: 68,
+        keyTrigger: 'D',
+        id: 'Open-HH',
+        url: 'https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3'
+      }, {
+        keyCode: 90,
+        keyTrigger: 'Z',
+        id: "Kick-n'-Hat",
+        url: 'https://s3.amazonaws.com/freecodecamp/drums/Kick_n_Hat.mp3'
+      }, {
+        keyCode: 88,
+        keyTrigger: 'X',
+        id: 'Kick',
+        url: 'https://s3.amazonaws.com/freecodecamp/drums/RP4_KICK_1.mp3'
+      }, {
+        keyCode: 67,
+        keyTrigger: 'C',
+        id: 'Closed-HH',
+        url: 'https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3'
+      },
+    ];
+    
+    const bankTwo = [{
+      keyCode: 81,
+      keyTrigger: 'Q',
+      id: 'Chord-1',
+      url: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_1.mp3'
+    }, {
+      keyCode: 87,
+      keyTrigger: 'W',
+      id: 'Chord-2',
+      url: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_2.mp3'
+    }, {
+      keyCode: 69,
+      keyTrigger: 'E',
+      id: 'Chord-3',
+      url: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_3.mp3'
+    }, {
+      keyCode: 65,
+      keyTrigger: 'A',
+      id: 'Shaker',
+      url: 'https://s3.amazonaws.com/freecodecamp/drums/Give_us_a_light.mp3'
+    }, {
+      keyCode: 83,
+      keyTrigger: 'S',
+      id: 'Open-HH',
+      url: 'https://s3.amazonaws.com/freecodecamp/drums/Dry_Ohh.mp3'
+    }, {
+      keyCode: 68,
+      keyTrigger: 'D',
+      id: 'Closed-HH',
+      url: 'https://s3.amazonaws.com/freecodecamp/drums/Bld_H1.mp3'
+    }, {
+      keyCode: 90,
+      keyTrigger: 'Z',
+      id: 'Punchy-Kick',
+      url: 'https://s3.amazonaws.com/freecodecamp/drums/punchy_kick_1.mp3'
+    }, {
+      keyCode: 88,
+      keyTrigger: 'X',
+      id: 'Side-Stick',
+      url: 'https://s3.amazonaws.com/freecodecamp/drums/side_stick_1.mp3'
+    }, {
+      keyCode: 67,
+      keyTrigger: 'C',
+      id: 'Snare',
+      url: 'https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3'
+    }];
+    
+    class DrumPad extends React.Component {
+        constructor(props){
+            super(props);
+            this.play=this.play.bind(this);
+            this.handleKeyPress = this.handleKeyPress.bind(this);
+        }
+        play(){
+            if(this.props.power){
+                const audio = document.getElementById(this.props.durmId);
+                audio.play();
+                const text = this.props.durmId.replace(/-/g, ' ');
+                this.props.textChange(text)
+            }
+        }
+        handleKeyPress(e){
+            if (e.keyCode == this.props.keyCode) {
+                this.play()
+            }
+        }
+        componentDidMount(){
+            document.addEventListener('keydown', this.handleKeyPress);
+        }
+        componentWillUnmount(){
+            document.removeEventListener('keydown', this.handleKeyPress);
+        }
+        render(){
+            return (
+                <div 
+                    id="drum-pad"
+                    onClick={this.play}
+                    className="drum-pad"
+                >
+                    <audio className="drum-audio" id={this.props.durmId} src={this.props.durmUrl}></audio>
+                    {this.props.keyTrigger}
+                </div>
+            )
+        }
+    };
+    class PadBank extends React.Component {
+        constructor(props){
+            super(props);
+        }
+        render(){
+            let currentPadBank=this.props.mode==0?bankOne:bankTwo;
+            let panbank = currentPadBank.map((v,i,arr) => {
+                return (
+                    <DrumPad 
+                        key={v.id+1}
+                        keyCode={v.keyCode}
+                        keyTrigger={v.keyTrigger}
+                        durmId={v.id}
+                        durmUrl={v.url}
+                        power={this.props.power}
+                        textChange={this.props.textChange}
+                    />
+                )
+            })
+            return (
+                <div id="pad-bank">
+                    {panbank}
+                </div>
+            );
+        }
+    };
+    class App extends React.Component {
+        constructor(props){
+            super(props);
+            this.state = {
+                power: true,
+                mode: 0,
+                volume: 1,
+                text: ''
+            }
+            this.powerChange = this.powerChange.bind(this);
+            this.modeChange = this.modeChange.bind(this);
+            this.volumeChange = this.volumeChange.bind(this);
+            this.clearText = this.clearText.bind(this);
+            this.tipstextChange = this.tipstextChange.bind(this);
+        }
+        powerChange(event){
+            this.setState({
+                power: !this.state.power
+            })
+        }
+        modeChange(event){
+            if (this.state.power==false) {
+                return;
+            }
+            this.setState({
+                mode: this.state.mode==0?1:0,
+                text: this.state.mode==0?"Heater Kit":"Smooth Piano Kit"
+            })
+        }
+        volumeChange(event){
+            if (this.state.power) {
+                this.setState({
+                    volume: event.target.value,
+                    text: "Volume: " + Math.round(event.target.value * 100) + "%"
+                });
+                // setTimeout(() => this.clearText(), 1000);
+            }
+        }
+        tipstextChange(text){
+            this.setState({
+                text: text
+            });
+        }
+        clearText(){
+            this.setState({
+                text: ''
+            });
+        }
+        render(){
+            const powerfloat = {
+                float: this.state.power==true? "right":"left"
+            };
+            const modefloat = {
+                float: this.state.mode==1?"left":"right"
+            };
+            let OnOrOff = this.state.power==true?"On":"Off";
+            const audios = [].slice.call(document.getElementsByClassName('drum-audio'));
+            audios.forEach(sound => {
+                sound.volume = this.state.volume
+            });
+            return (
+                <div id="drum-machine">
+                    <PadBank
+                        power={this.state.power}
+                        mode={this.state.mode}
+                        volume={this.state.volume}
+                        textChange={this.tipstextChange}
+                    />
+                    <div id="controls">
+                        <p>power :</p>
+                        <div id="power" className="select" onClick={this.powerChange}>
+                            <span id="power-btn" className="inner" style={powerfloat}></span>
+                            <span id="onoroff">{OnOrOff}</span>
+                        </div>
+                        <p>tips :</p>
+                        <div id="tips">
+                            <span id="tipstext">{this.state.text}</span>
+                        </div>
+                        <p>volume :</p>
+                        <div id="volume">
+                            <input value={this.state.volume} onChange={this.volumeChange} type="range" min="0" max="1" step="0.1" name="volume" id="volumebtn" />
+                        </div>
+                        <p>mode :</p>
+                        <div id="mode" className="select" onClick={this.modeChange}>
+                            <span id="mode-btn" className="inner" style={modefloat}></span>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+    };
+    ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+</body>
+
+</html>

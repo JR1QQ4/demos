@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Build a JavaScript Calculator</title>
+    <style>
+        body {
+            user-select: none;
+        }
+
+        #app {
+            width: 350px;
+            margin: 50px auto;
+        }
+
+        #tbn-outer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        #tbn-outer .btns {
+            height: 80px;
+            width: 80px;
+            margin: 3px;
+            line-height: 80px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 800;
+            border-radius: 3px;
+            background: orange;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        #app .btns:active {
+            background: orangered;
+        }
+
+        #app #display {
+            width: 290px;
+            height: 80px;
+            margin-bottom: 3px;
+            padding: 0 30px;
+            line-height: 80px;
+            border-radius: 3px;
+            font-size: 30px;
+            text-align: right;
+            background: seagreen;
+            color: #fff;
+            cursor: default;
+        }
+    </style>
+    <script src="../src/js/react.js"></script>
+    <script src="../src/js/react-dom.js"></script>
+    <script src="../src/js/babel.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+
+        class App extends React.Component{
+                constructor(props){
+                    super(props);
+                    this.state = {
+                        currentVal: 0,
+                        prevVal: 0,
+                        exp: '',
+                        lastClicked: '',
+                        evaluated: false,
+                        isOperator:  false,
+                        endsWithOperator: new RegExp(/[\*+‑/]$/),
+                        endsWithNegativeSign: new RegExp(/[\*/+]-$/)
+                    };
+                    this.handleOperators = this.handleOperators.bind(this);
+                    this.handleEvaluate = this.handleEvaluate.bind(this);
+                    this.handleNumbers = this.handleNumbers.bind(this);
+                    this.handleDecimal = this.handleDecimal.bind(this);
+                    this.initialize = this.initialize.bind(this);
+                }
+                handleOperators(e){
+                    const { currentVal, exp, evaluated, prevVal, endsWithOperator, endsWithNegativeSign } = this.state;
+                    const value = e.target.innerHTML;
+                    if (String(currentVal).length >= 16) {
+                        return ;
+                    }else if(exp != '') {
+                        this.setState({ evaluated: false });
+                        if(evaluated){
+                            this.setState({ exp: prevVal + value });
+                        }else if(!endsWithOperator.test(exp)){
+                            this.setState({
+                                prevVal: currentVal,
+                                exp: exp + value
+                            })
+                        }else if(!endsWithNegativeSign.test(exp)){
+                            this.setState({
+                                exp: (endsWithNegativeSign.test(exp + value)
+                                    ? exp : prevVal) + value
+                            });
+                        }else if(value != '-'){
+                            thi.setState({
+                                exp: prevVal + value
+                            })
+                        }else if(value == '-'){
+                            thi.setState({
+                                currentVal: exp + currentVal,
+                                exp: value + prevVal
+                            })
+                        }   
+                        this.setState({ isOperator: true });                 
+                    }
+                }
+                handleEvaluate(){
+                    let { exp, endsWithOperator } = this.state;
+                    while (endsWithOperator.test(exp)) {
+                        exp=exp.slice(0, -1);
+                    }
+                    let answer = Math.round(1000000000000 * eval(exp)) / 1000000000000;
+                    this.setState({
+                        evaluated: true,
+                        currentVal: answer,
+                        prevVal: answer,
+                        exp: answer,
+                        isOperator: false
+                    })
+                }
+                handleNumbers(e){
+                    const { currentVal, exp, evaluated, isOperator } = this.state;
+                    const value = e.target.innerHTML;
+                    this.setState({ evaluated: false });
+                    if (String(currentVal).length >= 16) {
+                        return ;
+                    }else if(evaluated){
+                        this.setState({
+                            currentVal: value!=0?value:0
+                        });
+                    }else{
+                        this.setState({
+                            currentVal: currentVal == 0||isOperator
+                                ? value
+                                : currentVal+value,
+                            exp: currentVal == '0' && value == '0'
+                                ? exp
+                                : (/([^.0-9]0)$/).test(exp)
+                                    ? exp.slice(0, -1) + value
+                                    : exp + value
+                        })
+                    }
+                }
+                handleDecimal(e){
+                    const { currentVal, exp, evaluated, endsWithOperator } = this.state;
+                    const value = e.target.innerHTML;
+                    if (evaluated) {
+                        this.setState({
+                            currentVal: '0.',
+                            exp: '0.',
+                            evaluated: false
+                        })
+                    }else if(String(currentVal).indexOf('.')==-1){
+                        this.setState({ evaluated: false });
+                        if(String(currentVal).length >= 16){
+                            return;
+                        }else if (endsWithOperator.test(exp) ||
+                        (currentVal === 0 && exp === '')
+                        ){
+                            this.setState({
+                                currentVal: '0.',
+                                exp: exp + '0.'
+                            });
+                        }else {
+                            // console.log(exp.match(/(-?\d+\.?\d*)$/)[0]);
+                            // this.setState({
+                            //     currentVal: exp.match(/(-?\d+\.?\d*)$/)[0],
+                            //     exp: exp + '.'
+                            // });
+                        }
+                    }
+                }
+                initialize(){
+                    this.setState({
+                        currentVal: 0,
+                        prevVal: 0,
+                        exp: '',
+                        lastClicked: '',
+                        evaluated: false,
+                        isOperator:  false,
+                    })
+                }
+                render(){
+                    return (
+                        <div>
+                            <Screen
+                                currentVal={this.state.currentVal}
+                            />
+                            <Buttons
+                                handleOperators={this.handleOperators}
+                                handleEvaluate={this.handleEvaluate}
+                                handleNumbers={this.handleNumbers}
+                                handleDecimal={this.handleDecimal}
+                                initialize={this.initialize}
+                            />
+                        </div>
+                    );
+                }
+            };
+            class Buttons extends React.Component{
+                render(){
+                    return (
+                        <div id="tbn-outer">
+                            <div 
+                                className="btns" id="zero" value="0"
+                                onClick={this.props.handleNumbers}
+                            >0</div>
+                            <div 
+                                className="btns" id="one" value="1"
+                                onClick={this.props.handleNumbers}
+                            >1</div>
+                            <div 
+                                className="btns" id="two" value="2"
+                                onClick={this.props.handleNumbers}
+                            >2</div>
+                            <div 
+                                className="btns" id="three" value="3"
+                                onClick={this.props.handleNumbers}
+                            >3</div>
+                            <div 
+                                className="btns" id="four" value="4"
+                                onClick={this.props.handleNumbers}
+                            >4</div>
+                            <div 
+                                className="btns" id="five" value="5"
+                                onClick={this.props.handleNumbers}
+                            >5</div>
+                            <div 
+                                className="btns" id="six" value="6"
+                                onClick={this.props.handleNumbers}
+                            >6</div>
+                            <div 
+                                className="btns" id="seven" value="7"
+                                onClick={this.props.handleNumbers}
+                            >7</div>
+                            <div 
+                                className="btns" id="eight" value="8"
+                                onClick={this.props.handleNumbers}
+                            >8</div>
+                            <div 
+                                className="btns" id="nine" value="9"
+                                onClick={this.props.handleNumbers}
+                            >9</div>
+                            <div 
+                                className="btns" id="add" value="+"
+                                onClick={this.props.handleOperators}
+                            >+</div>
+                            <div 
+                                className="btns" id="subtract" value="-"
+                                onClick={this.props.handleOperators}
+                            >-</div>
+                            <div 
+                                className="btns" id="multiply" value="*"
+                                onClick={this.props.handleOperators}
+                            >*</div>
+                            <div 
+                                className="btns" id="divide" value="/"
+                                onClick={this.props.handleOperators}
+                            >/</div>
+                            <div 
+                                className="btns" id="decimal" value="."
+                                onClick={this.props.handleDecimal}
+                            >.</div>
+                            <div 
+                                className="btns" id="clear" value="AC"
+                                onClick={this.props.initialize}
+                            >AC</div>
+                            <div 
+                                className="btns" id="equals" value="="
+                                onClick={this.props.handleEvaluate}
+                            >=</div>
+                        </div>
+                    );
+                }
+            };
+            class Screen extends React.Component{
+                render(){
+                    return (
+                        <div id="display">{this.props.currentVal}</div>
+                    );
+                }
+            };
+            ReactDOM.render(<App />, document.getElementById('app'));
+        </script>
+</body>
+
+</html>

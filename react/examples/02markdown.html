@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Build a Markdown Previewer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            font-family: "Helvetica Neue", Arial, "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "WenQuanYi Micro Hei", SimSun, Song, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #2c3f51;
+        }
+
+        #app {
+            height: 100%;
+        }
+
+        .wrapper {
+            height: 100%;
+        }
+
+        #editor,
+        #preview {
+            width: 50%;
+            height: 100%;
+            padding: 20px 25px;
+            line-height: inherit;
+            font-size: inherit;
+            overflow-y: scroll;
+        }
+
+        #editor {
+            float: left;
+            resize: none;
+            border: 0;
+            outline: 0;
+            background: #36312C;
+            color: #EBD1B7;
+        }
+
+        #preview {
+            float: right;
+        }
+    </style>
+    <script src="../src/js/react.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.7.0/marked.min.js"></script>    
+    <script src="../src/js/react-dom.js"></script>
+    <script src="../src/js/babel.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+    marked.setOptions({
+        highlight: function(code) {
+            return hljs.highlightAuto(code).value;
+        },
+        pedantic: false,
+        gfm: true,
+        breaks: true,
+        sanitize: false,
+        smartLists: true,
+        smartypants: false,
+        xhtml: false
+    });
+
+    const renderer = new marked.Renderer();
+
+    const placeholder = `
+    # Markdown
+
+    其他地址： https://codepen.io/dongqunren/pen/wvvzadp
+
+    ## Markdown简介
+    > Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。    —— [维基百科](https://zh.wikipedia.org/wiki/Markdown)
+
+    正如您在阅读的这份文档，它使用简单的符号标识不同的标题，将某些文字标记为**粗体**或者*斜体*，创建一个[链接](http://www.example.com)或一个脚注[^demo]。下面列举了几个高级功能，更多语法请按\`Ctrl + /\`查看帮助。 
+
+    ### 代码块
+    \`\`\` python
+    @requires_authorization
+    def somefunc(param1='', param2=0):
+        '''A docstring'''
+        if param1 > param2: # interesting
+            print 'Greater'
+        return (param2 - param1 + 1) or None
+    class SomeClass:
+        pass
+    >>> message = '''interpreter
+    ... prompt'''
+    \`\`\`
+    ### LaTeX 公式
+
+    可以创建行内公式，例如 $\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$。或者块级公式：
+
+    $$	x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
+
+    ### 表格
+    | Item      |    Value | Qty  |
+    | :-------- | --------:| :--: |
+    | Computer  | 1600 USD |  5   |
+    | Phone     |   12 USD |  12  |
+    | Pipe      |    1 USD | 234  |
+
+    ### 流程图
+    \`\`\` flow
+    st=>start: Start
+    e=>end
+    op=>operation: My Operation
+    cond=>condition: Yes or No?
+
+    st->op->cond
+    cond(yes)->e
+    cond(no)->op
+    \`\`\`
+
+    以及时序图:
+
+    \`\`\`sequence
+    Alice->Bob: Hello Bob, how are you?
+    Note right of Bob: Bob thinks
+    Bob-->Alice: I am good thanks!
+    \`\`\`
+
+    > **提示：**想了解更多，请查看**流程图**[语法][3]以及**时序图**[语法][4]。
+
+    ### 复选框
+
+    使用 \`- [ ]\` 和 \`- [x]\` 语法可以创建复选框，实现 todo-list 等功能。例如：
+
+    - [ x ] 已完成事项
+    - [ ] 待办事项1
+    - [ ] 待办事项2
+
+    # Welcome to my React Markdown Previewer!
+
+    ## This is a sub-heading...
+    ### And here's some other cool stuff:
+    
+    Heres some code, \`<div></div>\`, between 2 backticks.
+
+    \`\`\`
+    // this is multi-line code:
+
+    function anotherExample(firstLine, lastLine) {
+    if (firstLine == '\`\`\`' && lastLine == '\`\`\`') {
+        return multiLineCode;
+    }
+    }
+    \`\`\`
+    
+    You can also make text **bold**... whoa!
+    Or _italic_.
+    Or... wait for it... **_both!_**
+    And feel free to go crazy ~~crossing stuff out~~.
+
+    There's also [links](https://www.freecodecamp.com), and
+    > Block Quotes!
+
+    And if you want to get really crazy, even tables:
+
+    Wild Header | Crazy Header | Another Header?
+    ------------ | ------------- | ------------- 
+    Your content can | be here, and it | can be here....
+    And here. | Okay. | I think we get it.
+
+    - And of course there are lists.
+    - Some are bulleted.
+        - With different indentation levels.
+            - That look like this.
+
+
+    1. And there are numbererd lists too.
+    1. Use just 1s if you want! 
+    1. But the list goes on...
+    - Even if you use dashes or asterisks.
+    * And last but not least, let's not forget embedded images:
+
+    ![React Logo w/ Text](https://goo.gl/Umyytc)`;
+
+    class App extends React.Component{
+        constructor(props){
+            super(props);
+            this.state={
+                markdown: placeholder
+            };
+            this.handleChange = this.handleChange.bind(this);
+            this.componentDidMount = this.componentDidMount.bind(this);
+        }
+        handleChange(event){
+            this.setState({
+                markdown: event.target.value
+            })
+        }
+        componentDidMount(){
+            // this.handleChange();
+        }
+        render(){
+            return (
+                <div className="wrapper">
+                    <Editor 
+                        markdown={this.state.markdown} 
+                        onChange={this.handleChange} 
+                    />
+                    <Preview
+                        markdown={this.state.markdown}
+                    />
+                </div>
+            );
+        }
+    }
+    const Editor = (props) => {
+        return (
+            <textarea 
+                id="editor" 
+                value={props.markdown}
+                onChange={props.onChange}
+                type="text"
+            />
+        );
+    };
+    const Preview = (props) => {
+        return (
+            <div id="preview" dangerouslySetInnerHTML={{ __html: marked(props.markdown, {renderer: renderer}) }} />
+        );
+    };
+    ReactDOM.render(<App />, document.getElementById('app'));             
+    </script>
+</body>
+
+</html>

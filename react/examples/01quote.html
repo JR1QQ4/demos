@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Build a Random Quote Machine</title>
+    <style>
+        body {
+            font-family: Arial, Verdana, Sans-serif;
+            font-size: 16px;
+
+        }
+
+        * {
+            transition: all 1.5s ease;
+        }
+
+        .wapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #73a857;
+        }
+
+        #quote-box {
+            width: 450px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 30px 45px;
+            border-radius: 5px;
+            background: #fff;
+            z-index: 999;
+        }
+
+        #quote-box #text {
+            text-align: center;
+            font-family: 'Microsoft YaHei';
+            font-size: 25px;
+            font-weight: 600;
+            color: #73a857;
+        }
+
+        #author {
+            text-align: right;
+            color: #73a857;
+        }
+
+        #tweet-quote {
+            padding: 8px 12px;
+            border-radius: 3px;
+            background: #73a857;
+            color: #fff;
+            cursor: pointer;
+            text-decoration: none;
+            float: left;
+        }
+
+        #tweet-quote:hover {
+            opacity: .8;
+        }
+
+        #new-quote {
+            padding: 8px 12px;
+            border-radius: 3px;
+            background: #73a857;
+            color: #fff;
+            cursor: pointer;
+            text-decoration: none;
+            float: right;
+        }
+
+        #new-quote:hover {
+            opacity: .8;
+        }
+    </style>
+    <script src="../src/js/react.js"></script>
+    <script src="../src/js/react-dom.js"></script>
+    <script src="../src/js/babel.js"></script>
+    <!-- <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> -->
+</head>
+
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+        const colors = ['#16a085', '#27ae60', '#2c3e50', '#f39c12', '#e74c3c', '#9b59b6', '#FB6964', '#342224', "#472E32", "#BDBB99", "#77B1A9", "#73A857"];
+    class QuoteMsg extends React.Component {
+    constructor(props){
+        super(props);
+        this.url = 'https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json';
+        this.state = {
+            msg: '',
+            author: '',
+            color: '#73a857'
+        };
+        this.getRandom = this.getRandom.bind(this);
+        this.getData = this.getData.bind(this);
+    }
+    getRandom(max){
+        return Math.round(Math.random() * max + 1);
+    }
+    getData(){
+        this.setState({
+            msg: '',
+            author: ''
+        });
+        fetch(this.url, {
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded'
+                },
+                method: 'GET'
+            })
+            .then(res =>
+                res.json()
+            )
+            .then(json => {
+                const index = this.getRandom(json.quotes.length);
+                const colorIndex = this.getRandom(colors.length);
+                const quoteObj = json.quotes[index];
+                this.setState({
+                    msg: quoteObj.quote,
+                    author: quoteObj.author,
+                    color: colors[colorIndex]
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
+    componentDidMount(){
+        this.getData();
+    }
+    render(){
+        return (
+            <div style={{ background: this.state.color }} className="wapper">
+                <div id="quote-box">
+                    <p style={{ color: this.state.color }} id="text">{this.state.msg}</p>
+                    <p style={{ color: this.state.color }}  id="author">- {this.state.author}</p>
+                    <a style={{ background: this.state.color }} id="tweet-quote" href="https://twitter.com/intent/tweet">twitter</a>
+                    <a style={{ background: this.state.color }} onClick={this.getData} id="new-quote" href="#">newQuote</a>
+                </div>
+            </div>
+        );
+    }
+    };
+    ReactDOM.render(<QuoteMsg />, document.getElementById("app"));
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            background: powderblue;
+        }
+
+        * {
+            font-size: 16px;
+        }
+
+        #title {
+            font-size: 26px;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        .graph {
+            display: block;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 3px;
+            box-shadow: 1px 0 5px rgba(0, 0, 0, .3);
+        }
+
+        #tooltip {
+            position: absolute;
+            padding: 10px;
+            text-align: center;
+            background: #fff;
+            border-radius: 3px;
+            box-shadow: 1px 0 8px rgba(0, 0, 0, .6);
+        }
+    </style>
+    <script src="../src/js/d3.v5.min.js"></script>
+</head>
+
+<body>
+    <h1 class="title" id="title">Monthly Global Land-Surface Temperature</h1>
+    <h3 class="title">1753 - 2015: base temperature <span id="baseT">8.66</span>℃</h3>
+    <div id="tooltip"></div>
+    <script>
+        var url = "https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/global-temperature.json";
+        var colors = ["#a50026", "#d73027", "#f46d43", "#fdae61", "#fee090", "#ffffbf", "#e0f3f8", "#abd9e9",
+            "#74add1", "#4575b4", "#313695"
+        ];
+        d3.json(url)
+            .then(function (res) {
+                console.log(res);
+                document.getElementById("baseT").innerHTML = res.baseTemperature;
+                var barHeight = 33,
+                    barWidth = 5;
+                var w = barWidth * Math.ceil(res.monthlyVariance.length / 12),
+                    h = barHeight * 12;
+                var fontSize = 16;
+                var padding = {
+                    left: 10 * fontSize,
+                    right: 9 * fontSize,
+                    top: 1 * fontSize,
+                    bottom: 8 * fontSize
+                };
+                var svg = d3.select("body")
+                    .append("svg")
+                    .attr("width", w + padding.left + padding.right)
+                    .attr("height", h + padding.top + padding.bottom)
+                    .attr("class", "graph")
+                    .append("g")
+                    .attr("height", h)
+                    .attr("transform", "translate(" + padding.left + "," + padding.top + ")");
+
+                var month = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+                var yScale = d3.scaleBand()
+                    .domain(month)
+                    .range([0, h]);
+
+                var yAxis = d3.axisLeft(yScale)
+                    .tickFormat(function (month) {
+                        var date = new Date(0);
+                        date.setUTCMonth(month);
+                        return d3.timeFormat("%B")(date);
+                    });
+
+                svg.append("g")
+                    .attr("class", "y-axis")
+                    .attr("id", "y-axis")
+                    .call(yAxis)
+                    .append("text")
+                    .text("Months")
+                    .style("text-anchor", "middle")
+                    .attr("transform", "translate(" + (-7 * fontSize) + "," + (h / 2) + ")" + "rotate(-90)")
+                    .attr("fill", "#000");
+
+                var xYear = res.monthlyVariance.map(function (item) {
+                    return item.year;
+                })
+                var xScale = d3.scaleLinear()
+                    .domain([d3.min(xYear), d3.max(xYear)])
+                    .range([0, w]);
+                var xAxis = d3.axisBottom(xScale);
+
+                svg.append("g")
+                    .attr("class", "x-axis")
+                    .attr("id", "x-axis")
+                    .attr("transform", "translate(0," + h + ")")
+                    .call(xAxis)
+                    .append("text")
+                    .text("Years")
+                    .style("text-anchor", "middle")
+                    .attr("transform", "translate(" + (w / 2) + "," + (3.5 * fontSize) + ")")
+                    .attr("fill", "#000");
+
+                var legendColors = colors.reverse();
+                var legendWidth = 400;
+                var legendHeight = 300 / legendColors.length;
+
+                var variance = res.monthlyVariance.map(function (val) {
+                    return val.variance;
+                });
+
+                var minTemp = res.baseTemperature + Math.min.apply(null, variance);
+                var maxTemp = res.baseTemperature + Math.max.apply(null, variance);
+
+                var rangeArr = (function (min, max, count) {
+                    var array = [];
+                    var step = (max - min) / count;
+                    var base = min;
+                    for (var i = 1; i < count; i++) {
+                        array.push((base + i * step).toFixed(1));
+                    }
+                    return array;
+                })(minTemp, maxTemp, legendColors.length);
+
+                var legendScale = d3.scaleLinear()
+                    .domain([0, rangeArr.length + 1])
+                    .range([0, legendWidth]);
+
+                var legendXAxis = d3.axisBottom(legendScale)
+                    .tickFormat(function (i) {
+                        return rangeArr[i - 1]
+                    });
+
+                var legend = svg.append("g")
+                    .attr("class", "legend")
+                    .attr("id", "legend")
+                    .attr("transform", "translate(0," + (h + legendHeight + 3 * fontSize) + ")")
+                    .call(legendXAxis);
+
+                var rectArr = rangeArr.map(function (item, i) {
+                    return i;
+                });
+                rectArr.push(rangeArr.length);
+
+                svg.selectAll("rect")
+                    .data(rectArr)
+                    .enter()
+                    .append("rect")
+                    .attr("x", function (d, i) {
+                        return legendScale(i)
+                    })
+                    .attr("y", h + 3 * fontSize)
+                    .attr("width", legendScale(1) - legendScale(0))
+                    .attr("height", legendHeight)
+                    .attr("fill", function (d, i) {
+                        return legendColors[i];
+                    });
+
+                var tip = document.getElementById("tooltip");
+
+                svg.append("g")
+                    .attr("class", "map")
+                    .selectAll("rect")
+                    .data(res.monthlyVariance)
+                    .enter().append("rect")
+                    .attr('class', 'cell')
+                    .attr('data-month', function (d) {
+                        return d.month;
+                    })
+                    .attr('data-year', function (d) {
+                        return d.year;
+                    })
+                    .attr('data-temp', function (d) {
+                        return res.baseTemperature + d.variance;
+                    })
+                    .attr("x", function (d, i) {
+                        return xScale(d.year);
+                    })
+                    .attr("y", function (d, i) {
+                        if (yScale(d.month)) {
+                            return yScale(d.month);
+                        }
+                    })
+                    .attr("width", barWidth)
+                    .attr("height", barHeight)
+                    .attr("fill", function (d, i) {
+                        var t = res.baseTemperature + d.variance;
+                        var index = 0;
+                        var flag = true;
+                        for (var i = 0; i < rangeArr.length; i++) {
+                            if (rangeArr[i] >= t) {
+                                flag = false;
+                                index = i;
+                                break;
+                            }
+                        }
+                        if (flag) {
+                            index = rangeArr.length;
+                        }
+                        return legendColors[index];
+                    })
+                    .on("mouseover", function (d) {
+                        var date = new Date(d.year, d.month);
+                        var str = "<span class='date'>" + d3.timeFormat("%Y - %B")(date) + "</span>" +
+                            "<br />" +
+                            "<span class='temperature'>" + d3.format(".1f")(res.baseTemperature + d
+                                .variance) +
+                            "&#8451;" + "</span>" + "<br />" +
+                            "<span class='variance'>" + d3.format("+.1f")(d.variance) + "&#8451;" +
+                            "</span>";
+                        tip.style.opacity = 1;
+                        console.log(d3.event.pageX);
+                        tip.style.transform = "translate(" + (d3.event.pageX + 30) + "px," + (d3.event.pageY -
+                                150) +
+                            "px)";
+                        tip.setAttribute("data-year", d.year);
+                        tip.innerHTML = str;
+                    })
+                    .on("mouseout", function () {
+                        tip.style.opacity = 0;
+                    });
+            })
+            .catch(function (err) {
+                console.log(err);
+            })
+    </script>
+</body>
+
+</html>

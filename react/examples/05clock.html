@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            background: orange;
+            color: #fff;
+            user-select: none;
+        }
+
+        #timer {
+            width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .label {
+            width: 45%;
+            border: 5px solid #fff;
+            border-radius: 3px;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 26px;
+            font-weight: 900;
+        }
+
+        .increment,
+        .decrement,
+        .length {
+            display: inline-block;
+            margin-right: 20px;
+            font-size: 30px;
+        }
+
+        .increment,
+        .decrement {
+            cursor: pointer;
+        }
+
+        .increment:hover,
+        .decrement:hover,
+        .increment:active,
+        .decrement:active {
+            color: royalblue;
+        }
+
+        #timer-label {
+            margin-top: 120px;
+            padding: 15px;
+            border: 5px solid #fff;
+            text-align: center;
+        }
+
+        #timer-label p {
+            margin-top: 20px;
+            margin-bottom: 0;
+            font-size: 30px;
+            font-weight: 900;
+        }
+
+        #time-left {
+            height: 80px;
+            line-height: 80px;
+            font-size: 35px;
+            font-weight: 900;
+        }
+
+        #start_stop,
+        #reset {
+            padding: 5px 12px;
+            margin: 5px 6px;
+            display: inline-block;
+            border-radius: 3px;
+            background: #fff;
+            color: orange;
+            cursor: pointer;
+        }
+
+        #start_stop:active,
+        #reset:active {
+            background: royalblue;
+        }
+    </style>
+    <script src="../src/js/react.js"></script>
+    <script src="../src/js/react-dom.js"></script>
+    <script src="../src/js/babel.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <div id="break-label">
+            <p>Break Length</p>
+            <div id="break-decrement"></div>
+            <div id="session-decrement"></div>
+            <div id="break-length">5</div>
+        </div>
+        <div id="session-label">
+            <p>Session Length</p>
+            <div id="break-increment"></div>
+            <div id="session-increment"></div>
+            <div id="session-length">25</div>
+        </div> -->
+        <!-- <div id="timer-label">
+            <p>Session</p>
+            <div id="time-left">mm:ss</div>
+            <div id="start_stop"></div>
+            <div id="reset">25:00</div>
+        </div>
+        <audio id="beep" src="https://s3.amazonaws.com/freecodecamp/drums/Chord_1.mp3"></audio> -->
+    </div>
+
+    <script type="text/babel">
+        class TimerLengthControl extends React.Component{
+            render(){
+                return (
+                    <div className="label" id={this.props.labelId}>
+                        <p className="title">{this.props.title}</p>
+                        <div className="decrement" id={this.props.decrementId}
+                            onClick={this.props.handleDecrement}
+                        >▼</div>                          
+                        <div className="length" id={this.props.lengthId}>{this.props.lengthText}</div>
+                        <div className="increment" id={this.props.incrementId}
+                            onClick={this.props.handleIncrement}
+                        >▲</div>
+                    </div>
+                );
+            }
+        }
+        class App extends React.Component{
+            constructor(props){
+                super(props);
+                this.state = {
+                    breakLength: 5,
+                    sessionLength: 25,
+                    display: '',
+                    breakTime: '',
+                    sessionTime: '',
+                    isStart: false,
+                    isBreak: false,
+                    timerId: null
+                };
+                this.handleIncrement = this.handleIncrement.bind(this);
+                this.handleDecrement = this.handleDecrement.bind(this);
+                this.increaseLength = this.increaseLength.bind(this);
+                this.decreaseLength = this.decreaseLength.bind(this);
+                this.handleStart = this.handleStart.bind(this);
+                this.handleReset = this.handleReset.bind(this);
+                this.parseTime = this.parseTime.bind(this);
+            }
+            handleIncrement(e){
+                const id =e.target.id;
+                if (this.state.isStart) {
+                    return ;
+                }
+                if (id.includes('break')) {
+                    this.setState({
+                        breakLength: this.increaseLength(this.state.breakLength)
+                    })
+                }else if(id.includes('session')){
+                    this.setState({
+                        sessionLength: this.increaseLength(this.state.sessionLength)
+                    })
+                    this.parseTime(this.increaseLength(this.state.sessionLength) * 60);
+                }
+            }
+            handleDecrement(e){
+                const id =e.target.id;
+                if (this.state.isStart) {
+                    return ;
+                }
+                if (id.includes('break')) {
+                    this.setState({
+                        breakLength: this.decreaseLength(this.state.breakLength)
+                    })
+                }else if(id.includes('session')){
+                    this.setState({
+                        sessionLength: this.decreaseLength(this.state.sessionLength)
+                    })
+                    this.parseTime(this.decreaseLength(this.state.sessionLength) * 60);
+                }
+            }
+            increaseLength(num){
+                if(num>=60){
+                    return parseInt(num);
+                }
+                return parseInt(num)+1;
+            }
+            decreaseLength(num){
+                if (num<=1) {
+                    return parseInt(num);                    
+                }else {
+                    return parseInt(num)-1;
+                }
+            }
+            handleStart(){
+                const flag = this.state.isStart;
+                this.setState({
+                    isStart: !this.state.isStart
+                });
+                let timeArr = this.state.display.split(':');
+                let timer1 = parseInt(timeArr[0]*60)+parseInt(timeArr[1]);
+                let timer2 = parseInt(this.state.breakLength*60);
+                if(!flag){
+                    clearInterval(this.timerId);
+                    this.timerId = setInterval(() => {
+                        if (!this.state.isBreak){
+                            timer1--;
+                            this.parseTime(timer1);
+                            if (timer1==0) {
+                                this.setState({
+                                    isBreak: true
+                                })
+                                timer1 = parseInt(timeArr[0]*60)+parseInt(timeArr[1]);
+                                this.audioBeep.play();
+                            }
+                        }else {
+                            timer2--;
+                            this.parseTime(timer2);
+                            if (timer2==0) {
+                                this.setState({
+                                    isBreak: false
+                                })
+                                timer2 = parseInt(this.state.breakLength*60);
+                                this.audioBeep.play();
+                            }                            
+                        }
+                    }, 1000);
+                }else {
+                    clearInterval(this.timerId);
+                }
+            }
+            handleReset(){
+                this.setState({
+                    breakLength: 5,
+                    sessionLength: 25,
+                    breakTime: '',
+                    sessionTime: '',
+                    isStart: false,
+                    isBreak: false
+                });
+                clearInterval(this.timerId);
+                this.parseTime();
+                this.audioBeep.pause();
+                this.audioBeep.currentTime = 0;
+            }
+            parseTime(num=1500){
+                let m = parseInt(num / 60);
+                let s = parseInt(num % 60);
+                m = m < 10 ? '0' + m : m;
+                s = s < 10 ? '0' + s : s;
+                this.setState({
+                    display: m + ' : ' + s
+                })
+            }
+            componentDidMount(){
+                this.parseTime();
+            }
+            render(){
+                const display = {
+                    title: this.state.isBreak? 'Break':'Session',
+                    start: this.state.isStart? 'Stop':'Start'
+                }
+                return (
+                    <div id="timer">
+                        <TimerLengthControl
+                            title="Break Length"
+                            labelId="break-label"
+                            incrementId="break-increment"
+                            decrementId="break-decrement"
+                            lengthId="break-length"
+                            lengthText={this.state.breakLength}
+                            handleIncrement={this.handleIncrement}
+                            handleDecrement={this.handleDecrement}
+                        />
+                        <TimerLengthControl
+                            title="Session Length"
+                            labelId="session-label"
+                            incrementId="session-increment"
+                            decrementId="session-decrement"
+                            lengthId="session-length"
+                            lengthText={this.state.sessionLength}
+                            handleIncrement={this.handleIncrement}
+                            handleDecrement={this.handleDecrement}
+                        />
+                        <div id="timer-label">
+                            <p>{display.title}</p>
+                            <div id="time-left">{this.state.display}</div>
+                            <div id="start_stop" onClick={this.handleStart}>{display.start}</div>
+                            <div id="reset" onClick={this.handleReset}>Reset</div>
+                        </div>
+                        <audio id="beep" ref={(audio) => { this.audioBeep = audio; }} src="https://s3.amazonaws.com/freecodecamp/drums/Chord_1.mp3"></audio>
+                    </div>
+                );
+            }
+        };
+        ReactDOM.render(<App />, document.getElementById('app'));
+    </script>
+</body>
+
+</html>

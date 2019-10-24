@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Visualize Data with a Bar Chart</title>
+    <style>
+        body {
+            margin: 0;
+            background: #708090;
+        }
+
+        div,
+        svg {
+            margin: 0;
+            padding: 0;
+        }
+
+        #title {
+            width: 100%;
+            position: absolute;
+            left: 50%;
+            top: 10px;
+            margin: 0;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        #mysvg {
+            position: relative;
+            width: 800px;
+            margin: 100px auto;
+            background: #fff;
+            border-radius: 3px;
+            box-shadow: 1px 1px 8px rgba(0, 0, 0, .6),
+                0 -1px 3px rgba(0, 0, 0, .6);
+        }
+
+        /* .bar:hover {
+            fill: #fff !important;
+        } */
+
+        #tooltip {
+            padding: 10px;
+            position: absolute;
+            z-index: 999;
+            background: #f1f2f3;
+            border-radius: 3px;
+            box-shadow: 1px 0 5px rgba(0, 0, 0, .6),
+                0 0 8px rgba(0, 0, 0, .6);
+        }
+
+        .overlay {
+            position: absolute;
+            background: #fff;
+        }
+    </style>
+    <script src="../src/js/d3.v5.min.js"></script>
+</head>
+
+<body>
+
+    <div id="mysvg">
+        <h1 id="title">Visualize Data with a Bar Chart</h1>
+    </div>
+    <script>
+        // 设置绘制的宽高
+        var padding = 60,
+            w = 800,
+            h = 400,
+            barWidth = w / 275;
+
+        // 绘制工具提示
+        var tooltip = d3.select("#mysvg").append("div")
+            .attr("id", "tooltip")
+            .style("opacity", 0);
+
+        // 绘制工具线
+        var overlay = d3.select('#mysvg').append('div')
+            .attr('class', 'overlay')
+            .style('opacity', 0);
+
+        // 绘制 svg
+        var svg = d3.select("#mysvg")
+            .append("svg")
+            .attr("width", w)
+            .attr("height", h);
+
+        var d = d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json')
+            .then(function (res) {
+                // 获取时间数组，每个时间用 Date 对象包裹
+                var yearsData = res.data.map(function (item) {
+                    return new Date(item[0]);
+                })
+                // 获取最大的时间
+                var xMax = new Date(d3.max(yearsData));
+                // 最大时间加三个月
+                xMax.setMonth(xMax.getMonth() + 3);
+                // 设置 x 轴的范围比例
+                var xScale = d3.scaleTime()
+                    .domain([d3.min(yearsData), xMax])
+                    .range([0, w - padding * 2]);
+                // 画出 x 轴
+                var xAxis = d3.axisBottom(xScale);
+                // 画出轴线中的点
+                svg.append("g")
+                    .attr("class", "tick")
+                    .attr("transform", "translate(" + padding + "," + (h - padding) + ")")
+                    .attr("id", "x-axis")
+                    .call(xAxis);
+                // 获取 GDP 数组
+                var GDP = res.data.map(function (item) {
+                    return item[1]
+                });
+                // 求出最大和最小量
+                var gdpMin = d3.min(GDP);
+                var gdpMax = d3.max(GDP);
+                // 设置 y 轴的范围比例
+                const yScale = d3.scaleLinear()
+                    .domain([0, gdpMax])
+                    .range([h - padding, padding]);
+                // 画出 y 轴
+                const yAxis = d3.axisLeft(yScale);
+                // 画出 y 轴中的点
+                svg.append("g")
+                    .attr("class", "tick")
+                    .attr("transform", "translate(" + padding + ", 0)")
+                    .attr("id", "y-axis")
+                    .call(yAxis);
+                // 设置数据的比例
+                var linearScale = d3.scaleLinear()
+                    .domain([0, gdpMax])
+                    .range([0, h - padding * 2]);
+                // 获取比例数据
+                var scaleGDP = GDP.map(function (item) {
+                    return linearScale(item);
+                })
+                // 渲染数据
+                d3.select('svg').selectAll('rect')
+                    .data(scaleGDP)
+                    .enter()
+                    // 画 rect bar
+                    .append("rect")
+                    // 添加类
+                    .attr("class", "bar")
+                    // 设置 x
+                    .attr("x", function (d, i) {
+                        return xScale(yearsData[i]) + padding;
+                    })
+                    // 设置 y
+                    .attr("y", function (d, i) {
+                        return h - d - padding;
+                    })
+                    // 这hi宽度
+                    .attr("width", barWidth)
+                    // 设置高度
+                    .attr("height", function (d, i) {
+                        return d;
+                    })
+                    // 设置颜色
+                    .style('fill', '#33adff')
+                    // 添加 data-date 属性
+                    .attr("data-date", function (d, i) {
+                        return res.data[i][0];
+                    })
+                    // 添加 data-gdp 属性
+                    .attr("data-gdp", function (d, i) {
+                        return res.data[i][1];
+                    })
+                    // 添加工具提示
+                    .append("title")
+                    .attr("id", "tooltip")
+                    .text(function (d, i) {
+                        return res.data[i][0] + " " + res.data[i][1];
+                    })
+                // .on('mouseover', function (d, i) {
+                //     overlay.transition()
+                //         .duration(0)
+                //         .style('height', d + 'px')
+                //         .style('width', barWidth + 'px')
+                //         .style('opacity', .9)
+                //         .style('left', xScale(yearsData[i]) + padding + 'px')
+                //         .style('top', h - d - padding + 'px')
+                //     tooltip.transition()
+                //         .duration(200)
+                //         .style('opacity', .9);
+                //     tooltip.html(res.data[i][0] + '<br>' + '$' + GDP[i].toFixed(1).replace(
+                //             /(\d)(?=(\d{3})+\.)/g,
+                //             '$1,') + ' Billion')
+                //         .attr('data-date', res.data[i][0])
+                //         .style('left', function () {
+                //             if (xScale(yearsData[i]) + padding + 180 >= w) {
+                //                 return xScale(yearsData[i]) + padding - 170 + "px"
+                //             } else {
+                //                 return xScale(yearsData[i]) + padding + 30 + "px"
+                //             }
+                //         })
+                //         .style('top', h - 150 + 'px')
+                // })
+                // .on('mouseout', function (d) {
+                //     tooltip.transition()
+                //         .duration(200)
+                //         .style('opacity', 0);
+                //     overlay.transition()
+                //         .duration(200)
+                //         .style('opacity', 0);
+                // });
+            });
+    </script>
+</body>
+
+</html>

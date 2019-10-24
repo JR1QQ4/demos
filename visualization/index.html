@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数据可视化</title>
+    <style>
+        .charts a {
+            position: absolute;
+            width: 150px;
+            height: 25px;
+            left: 0;
+            top: 0;
+            background: transparent;
+            z-index: 999;
+        }
+
+        .links a {
+            padding: 5px 15px;
+            background: #a9334c;
+            border-radius: 3px;
+            color: #fff;
+            text-decoration: none;
+            margin-right: 15px;
+            transition: all 0.5s ease;
+        }
+
+        .links a:hover {
+            background: #8b2e42;
+        }
+    </style>
+    <script src="./src/js/echarts.min.js"></script>
+</head>
+
+<body>
+    <h1 style="margin: 10px 0 20px;text-align: center;">数据可视化</h1>
+    <div class="charts" style="width:800px;height: 600px;margin: 0 auto;position: relative;">
+        <a
+            href="http://dongqunren.gitee.io/ife/projects/ife04/src/6/store.html?%E5%8D%8E%E4%B8%9C%E5%8D%8E%E5%8C%97%E5%8D%8E%E5%8D%97&%E6%89%8B%E6%9C%BA%E7%AC%94%E8%AE%B0%E6%9C%AC%E6%99%BA%E8%83%BD%E9%9F%B3%E7%AE%B1"></a>
+        <a style="top: 25px;" href="./examples/02d3bar.html"></a>
+        <a style="top: 50px;" href="./examples/03scatterplot.html"></a>
+        <a style="top: 75px;" href="./examples/04heatmap.html"></a>
+        <div id="main" style="width:800px;height: 600px;"></div>
+    </div>
+    <div class="links" style="text-align: center;">
+        <a href="http://dongqunren.gitee.io/ife/projects/ife04/src/6/store.html">示例1：Echarts</a>
+        <a href="./examples/02d3bar.html">示例2：D3柱状图</a>
+        <a href="./examples/03scatterplot.html">示例3：D3散点图</a>
+        <a href="./examples/04heatmap.html">示例4：D3热力图</a>
+    </div>
+    <script>
+        var app = echarts.init(document.getElementById('main'));
+        app.title = '环形图';
+
+        var option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                x: 'left',
+                data: ['示例1：Echarts', '示例2：D3柱状图', '示例3：D3散点图', '示例4：D3热力图', '示例5：略']
+            },
+            series: [{
+                name: '访问来源',
+                type: 'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '30',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data: [{
+                        value: 25,
+                        name: '示例1：Echarts'
+                    },
+                    {
+                        value: 25,
+                        name: '示例2：D3柱状图'
+                    },
+                    {
+                        value: 25,
+                        name: '示例3：D3散点图'
+                    },
+                    {
+                        value: 25,
+                        name: '示例4：D3热力图'
+                    },
+                    {
+                        value: 25,
+                        name: '示例5：略'
+                    }
+                ]
+            }]
+        };
+        app.setOption(option);
+    </script>
+</body>
+
+</html>
