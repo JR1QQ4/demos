@@ -1,0 +1,942 @@
+body {
+    font-family: novecento_normal, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #333;
+    /* background-color: #f0f0f0; */
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: rgba(0, 0, 0, .3);
+    display: none;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+ul {
+    list-style-type: none;
+}
+
+img {
+    vertical-align: middle;
+}
+
+#index-hd {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    z-index: 999;
+    transition: all 0.5s ease;
+}
+
+#index-hd.fixed {
+    background: #fff;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, .3);
+}
+
+#index-hd.fixed #index-logo h1 {
+    background-position: 0 -21px;
+}
+
+#index-hd.fixed a {
+    color: #c6ba9a;
+}
+
+#index-hd>a {
+    display: block;
+    height: 100%;
+    overflow: hidden;
+}
+
+#index-logo {
+    float: left;
+    padding: 30px;
+    width: auto;
+    transition: all 0.5s ease;
+}
+
+#index-logo:hover {
+    background: #c6ba9a;
+}
+
+#index-logo h1 {
+    width: 150px;
+    height: 100%;
+    text-indent: -9999px;
+    overflow: hidden;
+    background-image: url(../images/modesign/logo.png);
+    background-size: 150px auto;
+    background-repeat: no-repeat;
+}
+
+#lang-btn {
+    float: right;
+    width: 70px;
+    margin-right: 10px;
+    transition: all .4s ease;
+}
+
+#lang-btn:hover {
+    background: #c6ba9a;
+}
+
+#index-hd nav {
+    float: right;
+    height: 100%;
+}
+
+#index-hd nav li {
+    float: left;
+    /* position: relative; */
+}
+
+#index-colse {
+    display: block;
+    padding: 0 30px;
+    height: 100%;
+    display: none;
+}
+
+@media (max-width:979px) {
+    #index-colse {
+        display: block;
+    }
+}
+
+#index-colse span {
+    display: inline-block;
+    width: 20px;
+    height: 2px;
+    background: #fff;
+    border-radius: 3px;
+    position: relative;
+    top: -5px;
+    transition: all 0.4s ease;
+}
+
+#index-colse span.active {
+    background: #00000000;
+}
+
+#index-colse span::after,
+#index-colse span::before {
+    content: "";
+    opacity: 1;
+    display: block;
+    position: relative;
+    height: 3px;
+    width: 20px;
+    background: #fff;
+    border-radius: 3px;
+    z-index: 2px;
+    transition: all 0.4s ease;
+}
+
+#index-colse span.active::after {
+    top: -5px;
+    transform: rotateZ(45deg);
+}
+
+#index-colse span.active::before {
+    top: -2px;
+    transform: rotateZ(-45deg);
+}
+
+#index-colse span::after {
+    top: 3px;
+}
+
+#index-colse span::before {
+    top: -7px;
+}
+
+#index-hd nav li>a {
+    padding: 0 20px;
+    position: relative;
+    display: block;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+}
+
+#index-hd nav li a span {
+    position: relative;
+    z-index: 1;
+}
+
+#index-hd nav li a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 100%;
+    background: #c6ba9a;
+    height: 0;
+    transition: all 0.4s ease;
+}
+
+#index-hd nav li a:hover::before {
+    height: 100%;
+}
+
+@media screen and (max-width:979px) {
+
+    #index-nav {
+        position: absolute;
+        width: 100%;
+        top: 80px;
+        left: 0;
+        display: none;
+        z-index: 2;
+    }
+
+    #index-nav li {
+        background: #fff;
+        color: #c6ba9a;
+        float: none !important;
+        display: block;
+        height: 59px;
+        line-height: 59px;
+        text-align: left;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    #index-nav li a {
+        color: #c6ba9a;
+    }
+
+    #index-nav li a:hover {
+        color: #fff;
+    }
+}
+
+@media (max-width: 767px) {
+    #index-logo h1 {
+        background-position: 0 -15px;
+    }
+
+    #index-hd {
+        height: 50px;
+        line-height: 50px;
+        background: #fff;
+        z-index: 2;
+    }
+
+    #index-logo {
+        padding: 10px;
+    }
+
+    #index-colse {
+        padding: 0 6px;
+    }
+
+    #index-colse span,
+    #index-colse span::after,
+    #index-colse span::before {
+        background: #c6ba9a;
+    }
+
+    #lang-btn {
+        width: 50px;
+        color: #c6ba9a;
+    }
+
+    #index-nav {
+        top: 50px;
+    }
+}
+
+#index-main {
+    height: 100%;
+    position: relative;
+}
+
+.swiper-fixed {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 0;
+    background-color: #000;
+}
+
+.swiper-slide {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.swiper-img {
+    width: 100%;
+    height: 100%;
+    transform: scale(1.2) translate3d(-50px, 0, 0);
+    transition: all 1.6s cubic-bezier(.77, 0, .175, 1);
+}
+
+
+.swiper-slide-active .swiper-img {
+    transform: scale(1) translate3d(0, 0px, 0px);
+    transition-duration: 0;
+}
+
+/* .swiper-slide-active {
+    margin-right: 0 !important;
+} */
+
+.swiper-slide {
+    transition-timing-function: cubic-bezier(.77, 0, .175, 1);
+}
+
+.home-img {
+    background-image: url(../images/modesign/head-experience.jpg);
+    background-position: top center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.sofa-img {
+    background-image: url(../images/modesign/ockham.jpg);
+    background-position: top center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.design-img {
+    background-image: url(../images/modesign/head-about.jpg);
+    background-position: top center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.swiper-button-next {
+    fill: #fff;
+}
+
+.swiper-container-horizontal>.swiper-pagination {
+    bottom: 60px;
+}
+
+.swiper-container-horizontal>.swiper-pagination .swiper-pagination-bullet {
+    background: #fff;
+    opacity: 1;
+    margin: 0 8px;
+}
+
+.swiper-container-horizontal>.swiper-pagination .swiper-pagination-bullet-active {
+    width: 9px;
+    height: 9px;
+    border: 1px solid #fff;
+    background: transparent;
+}
+
+.swiper-button-prev {
+    height: 300px;
+    width: 100px;
+    left: 20px;
+    transform: translateY(-50%);
+    margin-top: 0;
+    background: #00000000;
+}
+
+.swiper-button-next {
+    height: 300px;
+    width: 100px;
+    right: 20px;
+    transform: translateY(-50%);
+    margin-top: 0;
+    background: #00000000;
+}
+
+.swiper-button-prev::after,
+.swiper-button-prev::before,
+.swiper-button-next::after,
+.swiper-button-next::before {
+    content: "";
+    background: #fff;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    width: 36px;
+    height: 2px;
+    transform: rotateZ(45deg) translate(18px, 0);
+}
+
+.swiper-button-prev::before {
+    transform: rotateZ(-45deg) translate(17px, 0);
+}
+
+.swiper-button-next::after {
+    left: 45px;
+    transform: rotateZ(135deg) translate(17px, 0);
+}
+
+.swiper-button-next::before {
+    left: 45px;
+    transform: rotateZ(-135deg) translate(17px, 0);
+}
+
+.swiper-text {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.swiper-text h2 {
+    text-transform: uppercase;
+    font-size: 64px;
+}
+
+.swiper-text h4 {
+    font-size: 24px;
+    font-weight: 400;
+    margin: 0 0 20px;
+}
+
+
+@media (max-width: 979px) {
+    .swiper-text h2 {
+        font-size: 48px;
+    }
+
+    .swiper-text h4 {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+    .swiper-text h2 {
+        font-size: 36px;
+    }
+
+    .swiper-text h4 {
+        font-size: 18px;
+    }
+}
+
+.swiper-text span {
+    position: relative;
+    transition: all 0.5s ease;
+}
+
+.swiper-text span::before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 80px;
+    height: 2px;
+    background: #fff;
+    transform: scale(0);
+    transition: all 0.8s ease;
+}
+
+.swiper-text a:hover span::before {
+    transform: scale(1);
+}
+
+.swiper-home .swiper-text {
+    perspective: 800px;
+}
+
+.swiper-home .swiper-text a {
+    display: inline-block;
+    padding: 0 20px;
+    transform: rotateX(30deg) rotateY(0deg);
+    transform-style: preserve-3d;
+    transform-origin: center center;
+    transition: all 0.8s ease;
+}
+
+.swiper-home .swiper-text h2 {
+    transform: scale(1.2);
+    transition: all 0.8s ease;
+}
+
+.swiper-home .swiper-text h4 {
+    transform: translate(20px);
+    transition: all 0.8s ease;
+}
+
+.swiper-home .swiper-text a:hover {
+    transform: rotateX(0);
+}
+
+.swiper-sofa .swiper-text {
+    perspective: 800px;
+}
+
+.swiper-sofa .swiper-text a {
+    transform: rotateX(-15deg) rotateY(20deg);
+    transform-style: preserve-3d;
+    transform-origin: center center;
+    display: inline-block;
+    padding: 0 20px;
+    transition: all 0.8s ease;
+}
+
+.swiper-sofa .swiper-text a:hover {
+    transform: rotateX(0) rotateY(0);
+}
+
+.swiper-sofa .swiper-text h2 {
+    transform: translateX(-20px);
+    transition: all 1.5s ease;
+}
+
+.swiper-sofa .swiper-text h4 {
+    transform: translateX(20px);
+    transition: all 1.5s ease;
+}
+
+.swiper-design .swiper-text h2 {
+    transform: translateX(20px);
+    transition: all 1.5s ease;
+}
+
+.swiper-design .swiper-text h4 {
+    transform: translateX(-20px);
+    transition: all 1.5s ease;
+}
+
+.swiper-slide-active .swiper-text h2 {
+    transform: translateX(0) scale(1);
+}
+
+.swiper-slide-active .swiper-text h4 {
+    transform: translateX(0);
+}
+
+.swiper-design .swiper-text {
+    perspective: 800px;
+}
+
+.swiper-design .swiper-text a {
+    transform: rotateX(-30deg) rotateY(-15deg);
+    transform-style: preserve-3d;
+    transform-origin: center center;
+    display: inline-block;
+    padding: 0 20px;
+    transition: all 0.8s ease;
+}
+
+.swiper-design .swiper-text a:hover {
+    transform: rotateX(0) rotateY(0);
+}
+
+@media (max-width:765px) {
+
+    .swiper-pagination,
+    .swiper-button-next,
+    .swiper-button-prev {
+        display: none;
+    }
+}
+
+#main-head {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+#index-body {
+    position: relative;
+    z-index: 9;
+    background: #f0f0f0;
+}
+
+#index-product {
+    padding-top: 60px;
+    padding-bottom: 80px;
+}
+
+#index-product h2 {
+    font-size: 36px;
+    font-weight: 500;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    transform: scale(1.2);
+    transition: all 0.8s ease;
+    opacity: 0;
+}
+
+#index-product.scrolled h2 {
+    transform: scale(1);
+    opacity: 1;
+}
+
+#product-main {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#product-main div {
+    transform: translate(0, 30px);
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+
+#product-main div.scrolled {
+    transform: translate(0, 0);
+    opacity: 1;
+}
+
+@media (max-width: 1199px) {
+    #product-main {
+        width: 86%;
+    }
+}
+
+@media (max-width:765px) {
+    #product-main {
+        width: 100%;
+        padding: 0 25px;
+    }
+
+    #index-product {
+        padding-top: 20px;
+    }
+
+    #index-product h2 {
+        font-size: 24px;
+    }
+}
+
+#product-main>div {
+    width: calc(33.33% - 10px);
+    margin: 5px;
+    background: #fff;
+}
+
+#product-main>div>a {
+    display: block;
+    background: url(../images/modesign/icon-dining-table.png) no-repeat center center;
+    background-size: 30%;
+}
+
+#product-main>div>a>img {
+    width: 100%;
+    opacity: 0;
+    transform: scale(0.1);
+    transition: all 0.8s ease;
+}
+
+#product-main>div>a:hover img {
+    opacity: 1;
+    transform: scale(1);
+}
+
+#product-main>div>a>div {
+    padding: 0 0 15px;
+    color: #333;
+    transition: all 0.8s ease;
+}
+
+#product-main>div>a:hover div {
+    color: #c6ba9a;
+}
+
+#product-main>div>.chair {
+    background-image: url(../images/modesign/icon-chair.png);
+}
+
+#product-main>div>.side-cabinet {
+    background-image: url(../images/modesign/icon-side-cabinet.png);
+}
+
+#product-main>div>.sofa {
+    background-image: url(../images/modesign/icon-sofa.png);
+}
+
+#product-main>div>.tea-table {
+    background-image: url(../images/modesign/icon-tea-table.png);
+}
+
+#product-main>div>.living-room-cabinet {
+    background-image: url(../images/modesign/icon-living-room-cabinet.png);
+}
+
+#product-main>div>.bed {
+    background-image: url(../images/modesign/icon-bed.png);
+}
+
+#product-main>div>.bedroom-cabinet {
+    background-image: url(../images/modesign/icon-bedroom-cabinet.png);
+}
+
+#product-main>div>.desk-and-bookcase {
+    background-image: url(../images/modesign/icon-desk-and-bookcase.png);
+}
+
+#index-body .links li {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    margin: 50px 8px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #c6ba9a;
+}
+
+#index-body .links a {
+    display: block;
+    position: relative;
+}
+
+#index-body .links a::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #fff;
+    transform: scale(0);
+    transition: all 0.8s ease;
+}
+
+#index-body .links a::before {
+    content: "链接";
+    position: relative;
+    z-index: 2;
+    transition: all 0.8s ease;
+}
+
+#index-body .links a:hover::before {
+    color: #c6ba9a;
+}
+
+#index-body .links a:hover::after {
+    z-index: 1;
+    transform: scale(1);
+}
+
+#index-body h5 {
+    font-size: 18px;
+    font-weight: 300;
+}
+
+#index-body h3 {
+    font-size: 36px;
+    font-weight: 300;
+}
+
+@media (max-width: 767px) {
+    #index-body .slogan img {
+        width: 80%;
+    }
+
+    #index-body h5 {
+        font-size: 14px;
+    }
+
+    #index-body h3 {
+        font-size: 18px;
+    }
+
+    #product-main>div {
+        width: 33%;
+        margin: 0.16%;
+    }
+
+    #product-main>div>a>div {
+        display: none;
+    }
+
+    #product-main>div>a {
+        background-size: 50%;
+    }
+
+    #index-body .bottom {
+        font-size: 10px;
+    }
+}
+
+#index-body .bottom {
+    margin-top: 50px;
+    padding: 25px;
+    background: #333;
+    color: #fff;
+}
+
+#index-body .bottom a {
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: 1px solid #fff;
+}
+
+#index-body .bottom a:hover {
+    color: #c6ba9a;
+}
+
+#nav-product {
+    position: absolute;
+    left: 0;
+    top: 80px;
+    width: 100%;
+    display: none;
+}
+
+#index-back {
+    width: 100%;
+    height: 60px;
+    padding: 0 20px;
+    display: none;
+    background: #c6ba9a;
+    color: #fff;
+    text-align: left;
+}
+
+#product-links {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    perspective: 800px;
+    transform: rotateX(-90deg);
+    transform-origin: center top;
+    transition: all 0.5s cubic-bezier(.77, 0, .175, 1);
+    opacity: 0;
+}
+
+#product-links.open {
+    transform: rotateX(0);
+    opacity: 1;
+    transition: all 0.5s ease;
+}
+
+#product-links li {
+    width: 20%;
+}
+
+#index-nav #product-links li a {
+    width: 100%;
+    padding: 20px;
+    display: block;
+    background: #c6ba9a;
+}
+
+#index-nav #product-links li a::before {
+    content: "";
+    position: static;
+    display: block;
+    height: 50px;
+    background-image: url(../images/modesign/icon-dining-table.png);
+    background-position: center center;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
+#product-links li a div {
+    line-height: 1.15;
+}
+
+#product-links li a::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0;
+    background: #fff;
+    z-index: -1;
+    transition: all 0.5s ease;
+}
+
+#product-links li a:hover::after {
+    height: 100%;
+}
+
+#product-links li a:hover div {
+    color: #c6ba9a;
+}
+
+@media (max-width: 979px) {
+    #nav-product {
+        position: fixed;
+        top: 0;
+        left: 100%;
+        height: 100%;
+        width: 100%;
+        z-index: 3;
+        transform: rotateX(0);
+        background: #fff;
+    }
+
+    #product-links {
+        width: 100%;
+    }
+
+    #product-links li {
+        width: 50%;
+        height: auto !important;
+        border: 1px solid #f3f3f3;
+        text-align: center;
+    }
+
+    #product-links li a {
+        background: #fff !important;
+        color: #333;
+    }
+
+    #product-links li a div {
+        line-height: 1.5;
+    }
+
+    #product-links li a:hover div {
+        color: #c6ba9a;
+    }
+
+    #index-back.open {
+        display: block;
+        color: #fff;
+    }
+
+    #index-back.open::before {
+        display: none;
+    }
+}
+
+#head-product.open {
+    background: #c6ba9a;
+}
