@@ -73,6 +73,29 @@
             <td><a href="./visualization/">数据可视化</a></td>
         </tr>
     </table>
+    <div id="app"></div>
+    <script src="./all.js"></script>
+    <script>
+        var app = document.querySelector("#app");
+        var arr = all.map(function (item, i) {
+            var person = item.info.split("↵")[0];
+            var type = item.info.split("↵")[1]
+            var index = type.indexOf("/")
+            var time = type.substr(0, index).trim()
+            var area = type.substr(index).split("/")[1].trim()
+            var types = type.substr(index).split("/")[2].trim()
+            // console.log(person, i);
+            var index2 = person.indexOf("主演")
+            var director = person.substr(0, index2).trim();
+            // console.log(director, i);
+            item["area"] = area;
+            item["time"] = time
+            item["types"] = types;
+            item["director"] = director;
+            return item
+        });
+        app.innerText = JSON.stringify(arr);
+    </script>
 </body>
 
 </html>
