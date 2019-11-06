@@ -36,7 +36,8 @@
 <body>
     <script>
         // 设置常量
-        var url = "https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/cyclist-data.json";
+        var url1 = "https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/cyclist-data.json";
+        var url2 = "../api/cyclist-data.json";
         var padding = {
             left: 60,
             top: 100,
@@ -74,7 +75,7 @@
             .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
 
         // 遍历数据
-        d3.json(url)
+        d3.json(url2)
             .then(function (res) {
                 // 修改 json 数据
                 res.forEach(function (d) {

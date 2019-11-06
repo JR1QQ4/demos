@@ -1,0 +1,13 @@
+<!--pages/news/news.wxml-->
+<view class="page">
+  <view class="top" bindtap="toptap">
+    <text>底部可刷新</text>
+  </view>
+  <view class="body">
+    <view class="list" wx:key="{{item.index}}" wx:for="{{array}}">
+      <view class="item" id="{{item.id}}" bindtap="short">
+        ★ {{item.title}}
+      </view>
+    </view>
+  </view>
+</view>

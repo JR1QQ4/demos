@@ -1,0 +1,6 @@
+/* pages/hello/hello.wxss */
+view {
+  text-align: center;
+  font-size: 60px;
+  color: #00b000;
+}

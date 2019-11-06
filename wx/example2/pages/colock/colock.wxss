@@ -1,0 +1,6 @@
+/* pages/colock/colock.wxss */
+.canvas {
+  white-space: 600rpx;
+  height: 600rpx;
+  background-color: orange;
+}

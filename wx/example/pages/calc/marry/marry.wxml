@@ -1,0 +1,26 @@
+<!--pages/calc/marry/marry.wxml-->
+
+<view>
+  <form class="myform" bindsubmit="formSubmit" bindreset="formReset">
+    <switch bindchange="switchChange">是否涉及财产分割</switch>
+    <view wx:if="{{ condition }}">
+      <text>财产的金额（单位元）：</text>
+      <input name="input1" placeholder="标的金额" type="number"></input>
+      <button form-type="submit" type="primary">计算</button>
+      <button form-type="reset" type="default">重置</button>
+      <text>诉讼费用为 {{ cost }} 元，减半收取为 {{ costs }} 元</text>
+    </view>
+    <view wx:else>
+      <text>不涉及财产分割的诉讼费用 300 元，减半收取为 150 元</text>
+    </view>
+  </form>
+
+  <view class="footer">
+    <navigator url="/pages/calc/calc">
+      <text class="icon-bubbles"></text>
+    </navigator>
+    <navigator class="active" url="/pages/calc/marry/marry">
+      <text class="icon-users"></text>
+    </navigator>
+  </view>
+</view>

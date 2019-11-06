@@ -1,0 +1,49 @@
+<!--pages/weather/weather.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="input">
+      <input placeholder="输入城市名查询天气" bindinput="getInput" bindconfirm="confirm"></input>
+    </view>
+    <view class="search">
+      <icon type="search" size="40" color="red" catchtap="search"></icon>
+    </view>
+  </view>
+  <view class="main">
+    <view class="main-head">
+      <view class="city">
+        <text>{{defaultcity}}</text>
+      </view>
+      <view class="today">
+        <text>{{ date }}</text>
+      </view>
+      <view class="image">
+        <image src="{{ pic }}" mode="aspectFit"></image>
+      </view>
+    </view>
+    <view class="main-body">
+      <view class="weather">
+        <text>{{ weather }}</text>
+      </view>
+      <view class="info">
+        <view class="wind">
+          <text>{{ wind }}</text>
+        </view>
+        <view class="temp">
+          <text>{{ temp }}</text>
+        </view>
+      </view>
+    </view>
+    <view class="tips" wx:if="{{array}}">
+      <block wx:for="{{ array }}" wx:key="{{index}}">
+        <view class="item">
+          <view class="title">
+            <view> {{item.tipt}} </view>
+            <view> {{item.title}} </view>
+            <view> {{item.zs}} </view>
+          </view>
+          <view class="des"> {{item.des}} </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

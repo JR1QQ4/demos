@@ -1,0 +1,31 @@
+<view class="container">
+  <view class="nav">
+    <view class="{{nav1}}" bindtap="first">
+      <text>代办</text>
+    </view>
+    <view class="{{nav2}}" bindtap="second">
+      <text>已办</text>
+    </view>
+  </view>
+
+  <view class="main">
+    <view wx:if="{{show}}">
+      <view>
+        <text>单击完成任务 :</text>
+      </view>
+      <view wx:for="{{array1}}" wx:key="{{index}}" id="{{index}}" class="fix" bindtap="do">
+        <text>{{item}}</text>
+      </view>
+      <button bindtap="add" type="primary">增加</button>
+    </view>
+    <view wx:if="{{showtext}}">
+      <textarea bindconfirm="confirm" placeholder="输入待办事项"></textarea>
+    </view>
+
+    <view wx:if="{{showfixed}}">
+      <view wx:for="{{array2}}" wx:key="{{index}}">
+        <text>{{item}}</text>
+      </view>
+    </view>
+  </view>
+</view>

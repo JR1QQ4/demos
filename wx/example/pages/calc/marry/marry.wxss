@@ -1,0 +1,44 @@
+/* pages/calc/marry/marry.wxss */
+.footer {
+  position: fixed;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+  font-size: 30px;
+  display: flex;
+  border-left: 2px solid #fff;
+  box-sizing: border-box;
+}
+
+.footer navigator {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 2px solid #fff;
+  color: #BEBEBE;
+}
+
+.footer navigator.active {
+  color: #00BB00;
+}
+.myform {
+  display: block;
+  font-size: 45rpx;
+  padding: 20rpx;
+}
+.myform switch {
+  margin-bottom: 30rpx;
+}
+.myform text {
+  display: block;
+  padding-bottom: 15rpx;
+}
+.myform input {
+  padding: 20rpx 0;
+  margin: 20rpx 0;
+}
+.myform button {
+  margin: 40rpx 0;
+}
+

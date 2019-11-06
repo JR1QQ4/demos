@@ -1,0 +1,22 @@
+/* pages/masaike/masaike.wxss */
+
+.page {
+  margin: 30rpx 50rpx;
+}
+
+.title {
+  font-size: 45rpx;
+  color: yellowgreen;
+}
+
+.body {
+  margin: 50rpx 10rpx;
+  display: flex;
+  align-items: center;
+}
+
+.canvas {
+  margin: 20rpx 10rpx;
+  width: 620rpx;
+  height: 620rpx;
+}

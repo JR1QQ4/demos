@@ -87,8 +87,9 @@
             .append("svg")
             .attr("width", w)
             .attr("height", h);
-
-        var d = d3.json('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json')
+        var url1 = 'https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json';
+        var url2 = '../api/GDP-data.json';
+        var d = d3.json(url2)
             .then(function (res) {
                 // 获取时间数组，每个时间用 Date 对象包裹
                 var yearsData = res.data.map(function (item) {

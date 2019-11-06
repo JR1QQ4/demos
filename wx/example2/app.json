@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/todoList/todoList",
+    "pages/message/message",
+    "pages/hotel/hotel",
+    "pages/news/news",
+    "pages/news/article/article",
+    "pages/masaike/masaike",
+    "pages/colock/colock"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json"
+}

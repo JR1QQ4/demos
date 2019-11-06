@@ -1,0 +1,49 @@
+/* pages/message/message.wxss */
+.main {
+  margin: 20rpx 40rpx 30rpx;
+}
+.main .item {
+  display: flex;
+  min-height: 80rpx;
+}
+.main .item .left {
+  flex: 1;
+  background-color: orange;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.main .item .left image {
+  width: 80rpx;
+  height: 100%;
+}
+.main .item .right {
+  flex: 4;
+  background-color: pink;
+  display: flex;
+  flex-direction: column;
+}
+.main .item .right .name {
+  flex: 1;
+  display: block;
+  font-size: 24rpx;
+  padding-top: 5rpx;
+}
+.main .item .right .name {
+  flex: 1;
+  display: block;
+}
+.footer {
+  display: flex;
+  height: 80rpx;
+}
+.footer .input {
+  height: 100%;
+  box-sizing: border-box;
+  flex: 1;
+  border: 1px solid #ccc;
+  padding: 10rpx 8rpx;
+}
+.footer .btn {
+  min-height: 100%;
+}

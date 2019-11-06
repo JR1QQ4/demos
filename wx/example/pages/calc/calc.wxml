@@ -1,0 +1,18 @@
+<!--pages/calc/calc.wxml-->
+<view>
+  <view class="body">
+    <form bindreset="formReset" bindsubmit="formSubmit">
+      <label>财产金额（单位元）：</label>
+      <input name="input" placeholder="请输入金额" type="number"></input>
+      <button form-type="submit" type="primary">计算</button>
+      <button form-type="reset">重置</button>
+    </form>
+  </view>
+  <view class="content">
+    <text>诉讼费为 {{ courtCosts }} 元，减半收取为 {{ costs }} 元</text>
+  </view>
+  <view class="footer">
+    <navigator url="/pages/calc/calc" class="active"><text class="icon-bubbles"></text></navigator>
+    <navigator url="/pages/calc/marry/marry" class=""><text class="icon-users"></text></navigator>
+  </view>
+</view>

@@ -1,0 +1,27 @@
+<!--pages/hotel/hotel.wxml-->
+<view class="container">
+  <form bindsubmit="formSubmit" bindreset="formReset" report-submit="true">
+    <view class="item">
+      <text>您好，欢迎预定如家酒店</text>
+    </view>
+    <view class="item">
+      <input name="orderno" placeholder="房间数"></input>
+    </view>
+    <view class="item">
+      <view class="section__title">住宿</view>
+      <picker class="picker" bindchange="bindPickerChange" mode="date" name="orderdate" start="2019-07-31" end="2100-8-30">
+        <view>
+          日期 ：{{date}}
+        </view>
+      </picker>
+    </view>
+    <view class="item">
+      <input name="ordername" placeholder="姓名"></input>
+    </view>
+    <view class="item">
+      <input name="ordertel" placeholder="电话"></input>
+    </view>
+    <button form-type="submit" type="primary">提交</button>
+    <button form-type="reset" type="default">重置</button>
+  </form>
+</view>

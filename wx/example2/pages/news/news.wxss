@@ -1,0 +1,14 @@
+/* pages/news/news.wxss */
+.top {
+  padding: 10rpx 0;
+  font-size: 45rpx;
+  background-color: purple;
+  color: #fff;
+}
+
+.item {
+  margin: 20rpx 40rpx;
+  padding: 5rpx;
+  font-size: 45rpx;
+  background-color: orange;
+}

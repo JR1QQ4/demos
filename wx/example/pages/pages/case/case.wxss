@@ -1,0 +1,22 @@
+/* pages/pages/case/case.wxss */
+.continaer {
+  width: 100%;
+}
+.header {
+  width: 100%;
+}
+.header image {
+  width: 100%;
+}
+.header text {
+  display: block;
+  padding: 20rpx 40rpx;
+}
+.main {
+  width: 100%;
+}
+.main video {
+  width: 90%;
+  display: block;
+  margin: 20rpx auto;
+}

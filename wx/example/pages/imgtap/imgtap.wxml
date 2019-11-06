@@ -1,0 +1,20 @@
+<!--pages/imgtap/imgtap.wxml-->
+<view class="container">
+  <view class="flex-row">
+    <button type="{{ type1 }}" bindtap="tap1" >路飞</button>
+    <button type="{{ type2 }}" bindtap="tap2" >索隆</button>
+    <button type="{{ type3 }}" bindtap="tap3" >香吉士</button>
+    <button type="{{ type4 }}" bindtap="tap4" >娜美</button>
+    <button type="{{ type5 }}" bindtap="tap5" >罗宾</button>
+    <button type="{{ type6 }}" bindtap="tap6" >乔巴</button>
+    <button type="{{ type7 }}" bindtap="tap7" >乌索普</button>
+    <button type="{{ type8 }}" bindtap="tap8" >布鲁克</button>
+    <button type="{{ type9 }}" bindtap="tap9" >弗兰克</button>
+  </view>
+  <view class="show">
+    <image src="{{ src }}"></image>
+  </view>
+  <view class="footer">
+  <text>One Piece</text>
+  </view>
+</view>

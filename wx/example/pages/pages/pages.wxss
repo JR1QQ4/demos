@@ -1,0 +1,52 @@
+/* pages/pages/pages.wxss */
+.slide-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.main {
+  display: flex;
+  flex-wrap: wrap;
+}
+.main .item {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  margin-top: 50rpx; 
+}
+.main .item .icon {
+  font-size: 120rpx;
+  color: #4c4c4c;
+}
+.main .item .nav {
+  margin: 50rpx 0;
+}
+.active {
+  color: orange;
+}
+.contact {
+  margin-top: 50rpx;
+  padding: 20rpx;
+  background-color: rgba(0, 0, 0, .1);
+  color: #333;
+  font-size: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.contact .icon {
+  display: inline-block;
+  width: 58rpx;
+  height: 58rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+.contact .icon image {
+  width: 60rpx;
+  height: 60rpx;
+}

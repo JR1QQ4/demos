@@ -1,0 +1,2 @@
+<!--pages/colock/colock.wxml-->
+<canvas class="canvas" canvas-id="myCanvas"></canvas>
