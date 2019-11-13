@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Grid</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+
+        .container {
+            min-height: 720px;
+            display: grid;
+            grid-template-columns: repeat(9, 11.11%);
+            grid-template-rows: 88px calc(100% - 176px) 88px;
+            /* gap: 20px 0; */
+        }
+
+        header {
+            grid-column: 1 / 10;
+            grid-row: 1 / 2;
+            background: darkorange;
+            display: grid;
+            grid-template-columns: repeat(9, 11.11%);
+            grid-template-rows: 100%;
+            line-height: 88px;
+        }
+
+        .item {
+            font-size: 2em;
+            text-align: center;
+            border: 1px solid #e5e4e9;
+            color: #fff;
+            /* align-self: center; */
+        }
+
+        .item-1 {
+            background-color: #ef342a;
+        }
+
+        .item-2 {
+            background-color: #f68f26;
+        }
+
+        .item-3 {
+            background-color: #4ba946;
+        }
+
+        .item-4 {
+            background-color: #0376c2;
+        }
+
+        .item-5 {
+            background-color: #c077af;
+        }
+
+        .item-6 {
+            background-color: #f8d29d;
+        }
+
+        .item-7 {
+            background-color: #b5a87f;
+        }
+
+        .item-8 {
+            background-color: #d0e4a9;
+        }
+
+        .item-9 {
+            background-color: #4dc7ec;
+        }
+
+        .inner {
+            grid-column: 1 / 10;
+            grid-row: 2 / 3;
+            background: purple;
+            display: grid;
+            grid-template-columns: repeat(9, 11.11%);
+            grid-template-rows: repeat(9, 11.11%);
+        }
+
+        nav {
+            background: aqua;
+            grid-column: 1 / 3;
+            grid-row: 1 / 10;
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+            row-gap: 20px;
+        }
+
+        main {
+            grid-column: 3 / 8;
+            grid-row: 1 / 10;
+            background: slateblue;
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            grid-template-rows: repeat(9, 1fr);
+        }
+
+        main .item-1 {
+            grid-column: 1 / 4;
+            grid-row: 1 / 4;
+        }
+
+        main .item-2 {
+            grid-column: 4 / 8;
+            grid-row: 1 / 4;
+        }
+
+        main .item-3 {
+            grid-column: 8 / 10;
+            grid-row: 1 / 4;
+        }
+
+        main .item-4 {
+            grid-column: 8 / 10;
+            grid-row: 4 / 8;
+        }
+
+        main .item-5 {
+            grid-column: 1 / 5;
+            grid-row: 4 / 6;
+        }
+
+        main .item-6 {
+            grid-column: 1 / 8;
+            grid-row: 6 / 8;
+        }
+
+        main .item-7 {
+            grid-column: 5 / 6;
+            grid-row: 4 / 6;
+        }
+
+        main .item-8 {
+            grid-column: 6 / 8;
+            grid-row: 4 / 6;
+        }
+
+        main .item-9 {
+            grid-column: 1 / 10;
+            grid-row: 8 / 10;
+        }
+
+        aside {
+            grid-column: 8 / 10;
+            grid-row: 1 / 10;
+            background: orangered;
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+        }
+
+        footer {
+            grid-column: 1 / 10;
+            grid-row: 3 / 4;
+            background: darkorange;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            justify-items: end;
+        }
+
+        footer .item-1 {
+            /* justify-self: end; */
+            justify-self: stretch;
+        }
+
+        footer .item-2 {
+            /* justify-self: center; */
+            justify-self: stretch;
+        }
+
+        footer .item-3 {
+            justify-self: stretch;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="item item-1">1</div>
+            <div class="item item-2">2</div>
+            <div class="item item-3">3</div>
+            <div class="item item-4">4</div>
+            <div class="item item-5">5</div>
+            <div class="item item-6">6</div>
+            <div class="item item-7">7</div>
+            <div class="item item-8">8</div>
+            <div class="item item-9">9</div>
+        </header>
+        <div class="inner">
+            <main>
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+                <div class="item item-4">4</div>
+                <div class="item item-5">5</div>
+                <div class="item item-6">6</div>
+                <div class="item item-7">7</div>
+                <div class="item item-8">8</div>
+                <div class="item item-9">9</div>
+            </main>
+            <nav>
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+            </nav>
+            <aside>
+                <div class="item item-1">1</div>
+                <div class="item item-2">2</div>
+                <div class="item item-3">3</div>
+            </aside>
+        </div>
+        <footer>
+            <div class="item item-1">1</div>
+            <div class="item item-2">2</div>
+            <div class="item item-3">3</div>
+        </footer>
+    </div>
+</body>
+
+</html>
