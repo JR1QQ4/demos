@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>三栏布局</title>
+    <style>
+        body,
+        html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            font-size: 18px;
+            color: #eee;
+        }
+
+        .container {
+            height: 33.33%;
+        }
+
+        .container1 {
+            display: flex;
+        }
+
+        .left1 {
+            flex-basis: 200px;
+            background: #405de6;
+        }
+
+        .main1 {
+            flex: 1;
+            background: #5851db;
+        }
+
+        .right1 {
+            flex-basis: 200px;
+            background: #833ab4;
+        }
+
+        .container2 {
+            position: relative;
+        }
+
+        .container2 div {
+            height: 100%;
+        }
+
+        .left2,
+        .right2 {
+            position: absolute;
+            top: 0;
+        }
+
+        .left2 {
+            left: 0;
+            width: 200px;
+            background: #c13584;
+        }
+
+        .right2 {
+            right: 0;
+            width: 200px;
+            background: #fd1d1d;
+        }
+
+        .main2 {
+            margin: 0 200px;
+            background: #e1306c;
+        }
+
+        .container3 div {
+            height: 100%;
+        }
+
+        .left3 {
+            float: left;
+            width: 200px;
+            background: #f56040;
+        }
+
+        .right3 {
+            float: right;
+            width: 200px;
+            background: #fcaf45;
+        }
+
+        .main3 {
+            margin: 0 200px;
+            background: #f77737;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container container1">
+        <div class="left1">left</div>
+        <div class="main1">main: flex布局</div>
+        <div class="right1">right</div>
+    </div>
+    <div class="container container2">
+        <div class="left2">left</div>
+        <div class="right2">right</div>
+        <div class="main2">main：position + margin布局</div>
+    </div>
+    <div class="container container3">
+        <div class="left3">left</div>
+        <div class="right3">right</div>
+        <div class="main3">main：float + margin布局</div>
+    </div>
+</body>
+
+</html>

@@ -58,29 +58,71 @@
 
         .inner {
             display: flex;
+            flex-direction: column;
             margin: 0 auto;
-            max-width: 400px;
+            max-width: 500px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, .6);
+        }
+
+        .inner h2 {
+            color: #3ecf8e;
         }
 
         .item {
             width: 100%;
             padding: 10px;
+            box-sizing: border-box;
             font-family: 'Roboto', sans-serif;
             background: #3ecf8e;
             border-radius: 4px;
             box-shadow: 0 3px 12px 0 #060d2936;
-            text-align: center;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             color: #fff;
         }
 
-        .item:hover {
-            transform: scale(1.2);
+        a {
+            color: #fff;
+            font-size: 16px;
+            text-decoration: none;
         }
 
-        a {
-            color: #673ab7;
-            font-size: 16px;
+        .item a {
+            display: inline-block;
+            padding: 2px 8px;
+            margin-right: 3px;
+            border-radius: 3px;
+            box-shadow: 0 3px 12px 0 #060d2936;
+            transition: all ease .5s;
+        }
+
+        .item a:hover {
+            transform: scale(1.12);
+        }
+
+        .item a:nth-child(6n) {
+            background: #0863b5;
+        }
+
+        .item a:nth-child(6n + 1) {
+            background: #fec600;
+        }
+
+        .item a:nth-child(6n + 2) {
+            background: #f39100;
+        }
+
+        .item a:nth-child(6n + 3) {
+            background: #e3001f;
+        }
+
+        .item a:nth-child(6n + 4) {
+            background: #e50064;
+        }
+
+        .item a:nth-child(6n + 5) {
+            background: #954a97;
         }
     </style>
 </head>
@@ -225,7 +267,21 @@
             </svg>
         </div>
         <div class="inner">
-            <div class="item"><a href="./blog/flex.html">Flex</a> 还是 <a href="./blog/grid.html">Grid</a></div>
+            <h2>CSS</h2>
+            <div class="item">
+                <a href="./css/center.html">垂直居中</a>
+                <a href="./css/layout.html">三栏布局</a>
+            </div>
+            <h2>JavaScript</h2>
+            <div class="item">
+                <a href="./blog/flex.html">Flex</a>
+                <a href="./blog/grid.html">Grid</a>
+            </div>
+            <h2>博客相关</h2>
+            <div class="item">
+                <a href="./blog/flex.html">Flex</a>
+                <a href="./blog/grid.html">Grid</a>
+            </div>
         </div>
     </div>
 </body>

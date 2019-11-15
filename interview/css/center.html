@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>盒子居中</title>
+    <style>
+        body {
+            height: 2000px;
+        }
+
+        .outer {
+            height: 120px;
+            border: 1px solid rebeccapurple;
+        }
+
+        .outer1 {
+            display: flex;
+            justify-content: center;
+            align-items: center
+        }
+
+        .inner {
+            width: 180px;
+            height: 30px;
+            background: cornflowerblue;
+        }
+
+        .outer2 {
+            position: relative;
+        }
+
+        .inner2 {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .outer3 {
+            position: relative;
+        }
+
+        .inner3 {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -90px;
+            margin-top: -15px;
+        }
+
+        .outer4 {
+            position: relative;
+        }
+
+        .inner4 {
+            /* width: 100px;
+            height: 100px; */
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+        }
+
+        .mask {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            height: 100vh;
+            z-index: 3;
+            background: rgba(0, 0, 0, .2);
+        }
+
+        .center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            padding: 20px;
+            transform: translate(-50%, -50%);
+            background: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="outer outer1">
+        <div class="inner inner1">flex</div>
+    </div>
+    <div class="outer outer2">
+        <div class="inner inner2">宽高未知用transform</div>
+    </div>
+    <div class="outer outer3">
+        <div class="inner inner3">宽高已知用margin</div>
+    </div>
+    <div class="outer outer4">
+        <div class="inner inner4">宽高已知auto</div>
+    </div>
+    <!-- <div class="mask">
+        <div class="center">蒙板中居中</div>
+    </div> -->
+</body>
+
+</html>
