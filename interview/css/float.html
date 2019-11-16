@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>清除浮动</title>
+    <style>
+        body,
+        html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .container {
+            height: 33.33%;
+            background: #fd9426;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .left {
+            float: left;
+            margin-right: 20px;
+            width: 150px;
+            height: 50%;
+            background: #5fc9f8;
+        }
+
+        .right {
+            background: #fecb2e;
+        }
+
+        .right2 {
+            overflow: hidden;
+        }
+
+        .right3 {
+            display: inline-block;
+        }
+
+        .right4 {
+            position: absolute;
+        }
+
+        .right5 {
+            display: table-cell;
+        }
+
+        .right6 {
+            display: table-row;
+        }
+
+        .right7 {
+            display: table-caption;
+        }
+
+        .right8 {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">左盒子</div>
+        <div class="right">
+            <p>没有设置BFC</p>
+            <p>没有设置BFC没有设置BFC没有设置BFC没有设置BFC没有设置BFC</p>
+            <p>没有设置BFC没有设置BFC没有设置BFC没有设置BFC没有设置BFC</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="left">左盒子</div>
+        <div class="right right2">
+            <p>overflow: hidden;</p>
+            <p>overflow: hidden;overflow: hidden;overflow: hidden;</p>
+            <p>overflow: hidden;overflow: hidden;overflow: hidden;</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="left">左盒子</div>
+        <div class="right right3">
+            <p>display: inline-block;</p>
+            <p>display: inline-block;display: inline-block;display: inline-block;</p>
+            <p>display: inline-block;display: inline-block;display: inline-block;</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="left">左盒子</div>
+        <div class="right right4">
+            <p>position: absolute;</p>
+            <p>position: absolute;position: absolute;position: absolute;</p>
+            <p>position: absolute;position: absolute;position: absolute;</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="left">左盒子</div>
+        <div class="right right5">
+            <p>display: table-cell;</p>
+            <p>display: table-cell;display: table-cell;display: table-cell;</p>
+            <p>display: table-cell;display: table-cell;display: table-cell;</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="left">左盒子</div>
+        <div class="right right6">
+            <p>display: table-row;</p>
+            <p>display: table-row;display: table-row;display: table-row;</p>
+            <p>display: table-row;display: table-row;display: table-row;</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="left">左盒子</div>
+        <div class="right right7">
+            <p>display: table-caption;</p>
+            <p>display: table-caption;display: table-caption;display: table-caption;</p>
+            <p>display: table-caption;display: table-caption;display: table-caption;</p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="left">左盒子</div>
+        <div class="right right8">
+            <p>display: flex;</p>
+            <p>display: flex;display: flex;display: flex;</p>
+            <p>display: flex;display: flex;display: flex;</p>
+        </div>
+    </div>
+</body>
+
+</html>

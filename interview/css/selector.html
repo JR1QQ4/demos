@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS3选择器</title>
+    <style>
+        body,
+        html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+        }
+
+        .container {
+            border: 1px solid darkcyan;
+        }
+
+        .container li~li {
+            border-top: 1px solid salmon;
+        }
+
+        :root {
+            font-size: 16px;
+            color: orange;
+            text-indent: 2em;
+        }
+
+        ::selection {
+            color: crimson;
+            background: darkorange;
+        }
+
+        .container1 {
+            margin: 20px 0;
+        }
+
+        .container1 li:nth-child(even) {
+            border: 1px solid purple;
+        }
+
+        .container2 li:nth-child(odd) {
+            border: 1px solid purple;
+        }
+
+        .container3 p:nth-of-type(even) {
+            border: 1px solid red;
+        }
+
+        .container4 {
+            border: 1px solid darkblue;
+        }
+
+        .container4 p:nth-child(even) {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="container">
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Lorem ipsum dolor sit amet.</li>
+    </ul>
+    <ul class="container1">
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Lorem ipsum dolor sit amet.</li>
+    </ul>
+    <ul class="container2">
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Lorem ipsum dolor sit amet.</li>
+        <li>Lorem ipsum dolor sit amet.</li>
+    </ul>
+    <div class="container3">
+        <p>p:nth-of-type(even)</p>
+        <p>p:nth-of-type(even)</p>
+        <div>div div div div div</div>
+        <p>p:nth-of-type(even)</p>
+        <p>p:nth-of-type(even)</p>
+        <p>p:nth-of-type(even)</p>
+    </div>
+    <div class="container4">
+        <p>p:nth-child(even)</p>
+        <p>p:nth-child(even)</p>
+        <div>div div div div div</div>
+        <p>p:nth-child(even)</p>
+        <p>p:nth-child(even)</p>
+        <p>p:nth-child(even)</p>
+    </div>
+</body>
+
+</html>
