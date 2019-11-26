@@ -11,7 +11,19 @@ Vuex 是一个专为 Vue.js 应用程序开发的`状态管理模式`。它采�
 ```vue
 const store = new Vuex.Store({
     state: {
-        counter: 1000
+        counter: 1000,
+		students: [
+		  {id: 110, name: 'zs', age: 18},
+		  {id: 111, name: 'li', age: 24},
+		  {id: 112, name: 'ww', age: 28},
+		  {id: 113, name: 'zl', age: 33},
+		  {id: 114, name: 'xq', age: 20}
+		],
+		info: {
+		  name: 'kobe',
+		  age: 40,
+		  height: 1.98
+		}
     },
     mutations: {
         increment(state, payload) {
@@ -20,15 +32,27 @@ const store = new Vuex.Store({
         decrement(state) {
             this.state.counter--
         },
-        updateInfo(state){}
+        updateStu(state, payload){
+		  state.students.push(payload)
+		},
+		updateInfo(state) {
+		  // 修改已添加到响应式系统中的数据
+		  state.info.name = 'alen'
+		  // 删除响应式属性
+		  Vue.delete(state.info, 'age')
+		  // 添加响应式属性
+		  Vue.set(state.info, 'address', '洛杉矶');
+		}
     },
     actions: {
-        // context 上下文
-        aUpdateInfo(context){
+        // context 上下文，相当于 store
+        aUpdateInfo(context, payload){
             return new Promise((resolve,reject) => {
                 setTimeout(function(){
                     context.commit('updateInfo')
-                    resolve('完成');
+                    // resolve('完成');
+					console.log(payload);
+					resolve('success')
                 },1000)
             })
         }
@@ -36,7 +60,18 @@ const store = new Vuex.Store({
     getters: {
         powCounter(state,getters){
             return state.counter * state.counter
-        }
+        },
+		moreTostu(state) {
+		  return state.students.filter(s => s.age > 20)
+		},
+		moreTostulength(state, getters){
+		  return getters.moreTostu.length
+		},
+		moreAgestu(state){
+		  return age => {
+		    return state.students.filter(s => s.age > age)
+		  }
+		}
     },
     modules: {
         a: {
@@ -60,7 +95,14 @@ const vm = new Vue({
     methods: {
         addtion(){
             this.$store.commit('increment',payload)
-        }
+        }，
+		getActions(){
+		  this.store.dispatch('aUpdateInfo', '我是携带的信息')
+		    .then(res => {
+			  console.log('完成了提交')
+			  console.log(res)
+			})
+		}
     },
     store
 });
