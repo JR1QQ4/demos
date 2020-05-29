@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>示例</title>
+    <link rel="stylesheet" href="../src/css/base.css">
+    <style>
+        body {
+            background: #8bc34a;
+            text-align: center;
+        }
+
+        ul {
+            width: 1120px;
+            margin: 0 auto;
+        }
+
+        li {
+            width: 160px;
+            height: 120px;
+            line-height: 60px;
+            float: left;
+            margin-left: 64px;
+            list-style: none;
+            background-color: #fffc;
+            position: relative;
+        }
+
+        h1 {
+            color: #fff;
+        }
+
+        p {
+            background-color: #fff;
+            color: #333;
+            margin: 10px;
+        }
+
+        a {
+            display: inline-block;
+            line-height: normal;
+            margin-top: 85px;
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 25px;
+            background-color: #8bc34a;
+        }
+
+        .panel {
+            position: absolute;
+            left: -10px;
+            top: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: #fff;
+            opacity: 0;
+        }
+
+        .hover .panel {
+            opacity: 0.95;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>示例</h1>
+    <ul>
+        <li>
+            <p>时间轴</p>
+            <div class="panel">
+                <a href="./timeline.html">点击查看</a>
+            </div>
+        </li>
+        <li>
+            <p>侧边栏</p>
+            <div class="panel">
+                <a href="./slidebar.html">点击查看</a>
+            </div>
+        </li>
+        <li>
+            <p>标签栏</p>
+            <div class="panel">
+                <a href="./tabbar.html">点击查看</a>
+            </div>
+        </li>
+        <li>
+            <p>impress.js</p>
+            <div class="panel">
+                <a href="./impress.html">点击查看</a>
+            </div>
+        </li>
+    </ul>
+    <script>
+        let lis = document.querySelectorAll("li");
+        for (let i = 0; i < lis.length; i++) {
+            const ele = lis[i];
+            ele.addEventListener("mouseenter", function () {
+                this.classList.add("hover")
+            })
+            ele.addEventListener("mouseleave", function () {
+                this.classList.remove("hover")
+            })
+        }
+    </script>
+</body>
+
+</html>

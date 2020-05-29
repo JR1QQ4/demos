@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JavaScript</title>
     <link rel="stylesheet" href="./src/css/base.css">
@@ -25,6 +25,9 @@
         </a>
         <a href="http://dongqunren.gitee.io/ife/projects/ife04/" class="demo item">
             <canvas class="myCanvas myCanvas3" width="300" height="160"></canvas>
+        </a>
+        <a href="./examples/" class="es6 item">
+            <canvas class="myCanvas" width="300" height="160"></canvas>
         </a>
     </div>
 </body>
@@ -52,7 +55,7 @@
     let timer1 = setInterval(function () {
         type()
     }, 100);
-    var colors = ["#6dc9f1", "#ffe24d", "#ff5d23"]
+    var colors = ["#6dc9f1", "#ffe24d", "#ff5d23", "#8bc34a"]
     var cvs = document.querySelectorAll(".myCanvas");
     for (var i = 0; i < cvs.length; i++) {
         var cv = cvs[i]
@@ -66,7 +69,9 @@
         } else if (i == 1) {
             ctx.fillText('ES6', 80, 95);
         } else if (i == 2) {
-            ctx.fillText('DEMO', 50, 95);
+            ctx.fillText('Demos', 50, 95);
+        } else if (i == 3) {
+            ctx.fillText('Examples', 8, 95);
         }
         ctx.stroke();
     }

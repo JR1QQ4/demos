@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件传值</title>
+</head>
+
+<body>
+    <div id="app">
+        <one />
+    </div>
+    <template id="one">
+        <div>
+            <h1>one 组件</h1>
+            <two :attr1="mag1" :attr2="mag2" :attr3="mag3" :attr4="mag4" @custom-event="customEvent" />
+        </div>
+    </template>
+    <template id="two">
+        <div>
+            <h2>two 组件</h2>
+            <three :attr1="attr1" :attr2="attr2" v-bind="$attrs" v-on="$listeners" />
+        </div>
+    </template>
+    <template id="three">
+        <div>
+            <h3>three 组件</h3>
+            <four :attr1="attr1" v-bind="$attrs" v-on="$listeners" />
+        </div>
+    </template>
+    <template id="four">
+        <div>
+            <h4>four 组件</h4>
+            <p>props: {{attr1}}</p>
+            <button @click="handleClick" @click="setCount(testCount + 1)">$listeners</button>
+            <p>{{ testCount }}</p>
+        </div>
+    </template>
+    <script src="../../../vue/lib/vue.js"></script>
+    <script src="../../../vue/lib/vue-router.js"></script>
+    <script>
+        var store = Vue.observable({
+            count: 0
+        });
+
+        var mutation = {
+            setCount(count) {
+                store.count = count;
+            }
+        }
+
+        Vue.component('one', {
+            template: '#one',
+            data() {
+                return {
+                    mag1: 'one',
+                    mag2: 'two',
+                    mag3: 'three',
+                    mag4: 'four'
+                }
+            },
+            methods: {
+                customEvent(data) {
+                    console.log('data：', data);
+                }
+            },
+            created() {
+                console.log('1', this.$listeners);
+            }
+        })
+        Vue.component('two', {
+            template: '#two',
+            props: ['attr1', 'attr2', 'attr3'],
+            mounted() {
+                console.log(this.$attrs); // {attr4: "four"}
+            },
+            created() {
+                console.log('2', this.$listeners);
+            }
+        })
+        Vue.component('three', {
+            template: '#three',
+            props: ['attr1', 'attr2'],
+            mounted() {
+                console.log(this.$attrs); // {attr4: "four"}
+            },
+            created() {
+                console.log('3', this.$listeners);
+            }
+        })
+        Vue.component('four', {
+            template: '#four',
+            props: ['attr1'],
+            mounted() {
+                console.log(this.$attrs); // {attr4: "four"}
+            },
+            computed: {
+                testCount() {
+                    return store.count
+                }
+            },
+            methods: {
+                handleClick() {
+                    this.$emit("custom-event", "four data")
+                },
+                setCount: mutation.setCount
+            },
+            created() {
+                console.log('4', this.$listeners);
+            }
+        })
+        var vm = new Vue({
+            el: '#app',
+            mounted() {
+                console.log(this);
+            }
+        })
+    </script>
+</body>
+
+</html>

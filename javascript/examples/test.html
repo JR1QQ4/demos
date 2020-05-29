@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            height: 2000px;
+        }
+
+        .container {
+            width: 500px;
+            height: 200px;
+            background: #eac91e;
+            border: 20px solid #bb3030;
+            border-radius: 15px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .arrow {
+            position: absolute;
+            width: 135px;
+            height: 135px;
+            bottom: 20px;
+            left: 40px;
+        }
+
+        .arrow::after {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 51px;
+            height: 51px;
+            top: 45px;
+            left: 45px;
+            background-color: #000;
+        }
+
+        .arrow div {
+            width: 40px;
+            height: 40px;
+            background-color: #000;
+            border: 5px solid #bb3030;
+            position: absolute;
+        }
+
+        .arrow div::after {
+            content: "";
+            display: block;
+            height: 0;
+            width: 0;
+            border-width: 15px;
+            border-style: solid;
+            border-color: #fff;
+            position: relative;
+        }
+
+        .arrow .top {
+            top: 0;
+            left: 45px;
+        }
+
+        .arrow .top::after {
+            border-color: transparent transparent #fff transparent;
+            left: 5px;
+        }
+
+        .arrow .left {
+            top: 45px;
+            left: 0;
+        }
+
+        .arrow .left::after {
+            border-color: transparent #fff transparent transparent;
+            top: 5px;
+        }
+
+        .arrow .right {
+            top: 45px;
+            right: 0;
+        }
+
+        .arrow .right::after {
+            border-color: transparent transparent transparent #fff;
+            top: 5px;
+            left: 12px;
+        }
+
+        .arrow .bottom {
+            top: 90px;
+            left: 45px;
+        }
+
+        .arrow .bottom::after {
+            border-color: #fff transparent transparent transparent;
+            left: 5px;
+            top: 15px;
+        }
+
+        .switch {
+            width: 120px;
+            height: 40px;
+            background-color: #bb3030;
+            border-radius: 40px;
+            position: absolute;
+            left: 200px;
+            bottom: 15px;
+        }
+
+        .switch div {
+            position: absolute;
+            width: 30px;
+            height: 10px;
+            border-radius: 10px;
+            background-color: #000;
+            top: 16px;
+        }
+
+        .switch .on {
+            left: 20px;
+        }
+
+        .switch .off {
+            right: 20px;
+        }
+
+        .op {
+            position: absolute;
+            width: 130px;
+            height: 157px;
+            right: 20px;
+            bottom: 20px;
+        }
+
+        .op .item {
+            width: 45px;
+            height: 45px;
+            background-color: #000;
+            border: 5px solid #bb3030;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .op .item:nth-child(1) {
+            left: 10px;
+            top: 20px;
+        }
+
+        .op .item:nth-child(2) {
+            right: -8px;
+            top: 20px;
+        }
+
+        .op .item:nth-child(3) {
+            left: 10px;
+            bottom: -6px;
+        }
+
+        .op .item:nth-child(4) {
+            right: -8px;
+            bottom: -6px;
+        }
+
+        #backtop {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            width: 45px;
+            height: 45px;
+            background-color: #bb3030;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s ease-in;
+        }
+
+        #backtop::before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: -5px;
+            left: 6px;
+            height: 0;
+            border-width: 17px;
+            border-style: solid;
+            border-color: transparent transparent #fff transparent;
+        }
+
+        #backtop::after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: -1px;
+            left: 6px;
+            height: 0;
+            border-width: 17px;
+            border-style: solid;
+            border-color: transparent transparent #bb3030 transparent;
+        }
+    </style>
+</head>
+
+<body id="bd">
+    <div class="container">
+        <div class="arrow">
+            <div class="left"></div>
+            <div class="top"></div>
+            <div class="right"></div>
+            <div class="bottom"></div>
+        </div>
+        <div class="switch">
+            <div class="on"></div>
+            <div class="off"></div>
+        </div>
+        <div class="op">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+    </div>
+    <div id="backtop"></div>
+    <script>
+        let bt = document.getElementById("backtop");
+        let bd = document.getElementById("bd");
+        document.addEventListener("scroll", function (e) {
+            let t = document.documentElement.scrollTop;
+            if (t > 500) {
+                bt.style.opacity = "1"
+            } else {
+                bt.style.opacity = "0"
+            }
+        })
+        bt.addEventListener("click", function () {
+            let t = document.documentElement.scrollTop;
+            let timerId = setInterval(function () {
+                t = t - 200;
+                if (t < 0) {
+                    document.documentElement.scrollTop = 0
+                    clearInterval(timerId);
+                } else {
+                    document.documentElement.scrollTop = t;
+                }
+            }, 20)
+        })
+    </script>
+</body>
+
+</html>

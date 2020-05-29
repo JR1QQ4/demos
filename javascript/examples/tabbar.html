@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>标签栏</title>
+    <style>
+        body {
+            background-color: #009688;
+        }
+        #tabbar {
+            width: 500px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+        }
+
+        #tab-top {
+            height: 30px;
+            line-height: 30px;
+            overflow: hidden;
+        }
+
+        #tab-top div {
+            float: left;
+            width: 20%;
+            text-align: center;
+            background-color: #ddd;
+        }
+
+        #tab-top div.active {
+            background-color: #fff;
+        }
+
+        #tab-top div.highlight {
+            color: #f72222;
+        }
+
+        #tab-body {
+            height: 100px;
+            padding: 10px 15px;
+        }
+
+        #tab-body div {
+            display: none;
+        }
+
+        #tab-body div.show {
+            display: block;
+        }
+    </style>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .wrap {
+            height: 170px;
+            width: 490px;
+            margin: 60px auto;
+            overflow: hidden;
+            position: relative;
+            margin: 100px auto;
+        }
+
+        .wrap ul {
+            position: absolute;
+        }
+
+        .wrap ul li {
+            height: 170px;
+        }
+
+        .wrap ol {
+            position: absolute;
+            right: 5px;
+            bottom: 10px;
+        }
+
+        .wrap ol li {
+            height: 20px;
+            width: 20px;
+            background: #ccc;
+            border: solid 1px #666;
+            margin-left: 5px;
+            color: #000;
+            float: left;
+            line-height: center;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .wrap ol .on {
+            background: #E97305;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="tabbar">
+        <div id="tab-top">
+            <div class="active">前端开发</div>
+            <div>后端开发</div>
+            <div>计算机基础</div>
+            <div>测试</div>
+            <div>全栈</div>
+        </div>
+        <div id="tab-body">
+            <div class="show">前端开发 -- Tab选项卡切换效果</div>
+            <div>后端开发 -- Tab选项卡切换效果</div>
+            <div>计算机基础 -- Tab选项卡切换效果</div>
+            <div>测试 -- Tab选项卡切换效果</div>
+            <div>全栈 -- Tab选项卡切换效果</div>
+        </div>
+    </div>
+
+    <div class="wrap" id='wrap'>
+        <ul id="pic">
+            <li><img src="http://img.mukewang.com/54111cd9000174cd04900170.jpg" alt=""></li>
+            <li><img src="http://img.mukewang.com/54111dac000118af04900170.jpg" alt=""></li>
+            <li><img src="http://img.mukewang.com/54111d9c0001998204900170.jpg" alt=""></li>
+            <li><img src="http://img.mukewang.com/54111d8a0001f41704900170.jpg" alt=""></li>
+            <li><img src="http://img.mukewang.com/54111d7d00018ba604900170.jpg" alt=""></li>
+        </ul>
+        <ol id="list">
+            <li class="on">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ol>
+    </div>
+
+    <script>
+        let tabs = document.querySelector("#tab-top").getElementsByTagName("div")
+        let contents = document.querySelector("#tab-body").getElementsByTagName("div")
+        for (let i = 0, len = tabs.length; i < len; i++) {
+            let tab = tabs[i]
+            tab.index = i
+            tab.onclick = function () {
+                for (const t of tabs) {
+                    t.classList.remove("active")
+                }
+                for (const c of contents) {
+                    c.classList.remove("show")
+                }
+                contents[tab.index].classList.add("show")
+                this.classList.add("active")
+            }
+            tab.onmouseenter = function () {
+                for (const t of tabs) {
+                    t.classList.remove("highlight")
+                }
+                this.classList.add("highlight")
+            }
+        }
+    </script>
+
+    <script type="text/javascript">
+        window.onload = function () {
+            var wrap = document.getElementById('wrap'),
+                pic = document.getElementById('pic'),
+                list = document.getElementById('list').getElementsByTagName('li'),
+                index = 0,
+                timer = null;
+
+            function autoplay() {
+                index++;
+                if (index == list.length) {
+                    index = 0;
+                }
+                autoImg()
+            }
+            timer = setInterval(function () {
+                autoplay()
+            }, 1000)
+
+            function autoImg() {
+                for (var i = 0; i < list.length; i++) {
+                    list[i].className = "";
+                }
+                list[index].className = "on";
+                // pic.style.marginTop = index * -wrap.offsetHeight + "px";
+                pic.style.transform = "translate(0," + index * - wrap.offsetHeight + "px)";
+            }
+
+            // 鼠标划过整个容器时停止自动播放
+            wrap.onmouseover = function () {
+                clearInterval(timer);
+            };
+
+            // 鼠标离开整个容器时继续播放至下一张
+            wrap.onmouseout = function () {
+                timer = setInterval(function () {
+                    autoplay()
+                }, 3000)
+            };
+
+            // 遍历所有数字导航实现划过切换至对应的图片
+            for (var i = 0; i < list.length; i++) {
+                list[i].index = i;
+                list[i].onmousemove = function () {
+                    index = this.index;
+                    autoImg()
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
